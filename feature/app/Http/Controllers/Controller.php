@@ -14,15 +14,21 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function check(){
-        if (Auth::user()->role == "President") {
-            return view('president.index');
-            // return redirect()->route('president.index');
+
+        if (Auth::check()) {
+
+            if (Auth::user()->role == "President") {
+                return view('president.index');
+            }
+
+            else if (Auth::user()->role == "Personne") {
+                $evaluation = Evaluation::first();
+                return view('dashboard', compact('evaluation'));
+            }
+        }
+        else {
+            return view('accueil');
         }
 
-        else if (Auth::user()->role == "Personne") {
-            $evaluation = Evaluation::first();
-
-            return view('dashboard', compact('evaluation'));
-        }
     }
 }
