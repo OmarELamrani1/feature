@@ -16,7 +16,7 @@ class PresidentController extends Controller
 
     public function getPoster(Request $request, $id){
         $poster = Poster::findOrFail($id);
-        return view('posters.index', compact(['poster','request']));
+        return view('evaluation.index', compact(['poster','request']));
     }
 
     public function create()

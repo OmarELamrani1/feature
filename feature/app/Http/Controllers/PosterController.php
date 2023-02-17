@@ -15,16 +15,6 @@ use Illuminate\Support\Facades\Storage;
 class PosterController extends Controller
 {
 
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        //
-    }
-
     public function store(PosterRequest $request)
     {
         //check if input type file name path exist
@@ -48,17 +38,13 @@ class PosterController extends Controller
         // Send email to user for successfully submit
         Mail::to(Auth::user()->email)->send(new PosterSuccess($poster));
 
-        return view('dashboard');
+        return redirect()->route('posters.show', $poster->id);
     }
 
     public function show(Poster $poster)
     {
-        //
-    }
-
-    public function edit(Poster $poster)
-    {
-        //
+        $poster = Poster::findOrFail($poster->id);
+        return view('posters.index', compact('poster'));
     }
 
     public function update(PosterRequest $request, Poster $poster)

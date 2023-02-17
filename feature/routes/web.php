@@ -25,13 +25,13 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['AuthAccess:President'])->group(function () {
         Route::resource('president', PresidentController::class);
-        Route::resource('evaluation', EvaluationController::class);
+        Route::resource('evaluation', EvaluationController::class)->only(['store','update']);
         Route::get('getPoster/{id}', [PresidentController::class, 'getPoster'])->name('getPoster');
     });
 
     Route::middleware(['AuthAccess:Personne', 'verified'])->group(function () {
         // Route::resource('personne', PersonneController::class);
-        Route::resource('posters', PosterController::class);
+        Route::resource('posters', PosterController::class)->except(['index','create','edit']);
         Route::get('checkStatus', [PersonneController::class, 'checkStatus'])->name('checkStatus');
     });
 

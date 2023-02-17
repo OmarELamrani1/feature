@@ -17,7 +17,7 @@ class PersonneController extends Controller
     {
         // return view('dashboard');
     }
-
+    
     public function checkStatus(){
         $checkStatus = Evaluation::with('poster')->first();
         return view('checkStatus', compact('checkStatus'));

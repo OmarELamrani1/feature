@@ -9,35 +9,15 @@ use Illuminate\Support\Facades\Auth;
 class EvaluationController extends Controller
 {
 
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
-        Evaluation::create([
+        Evaluation::updateOrCreate([
             'status' => $request->status,
             'poster_id' => $request->poster_id,
             'president_id' => Auth::user()->presidents->id
         ]);
 
         return redirect()->back();
-    }
-
-    public function show(Evaluation $evaluation)
-    {
-        //
-    }
-
-    public function edit(Evaluation $evaluation)
-    {
-        //
     }
 
     public function update(Request $request, Evaluation $evaluation)
@@ -51,8 +31,4 @@ class EvaluationController extends Controller
         return redirect()->back();
     }
 
-    public function destroy(Evaluation $evaluation)
-    {
-        //
-    }
 }
