@@ -25,8 +25,9 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['AuthAccess:President'])->group(function () {
         Route::resource('president', PresidentController::class);
-        Route::resource('evaluation', EvaluationController::class)->only(['store','update']);
+        Route::resource('evaluation', EvaluationController::class)->only('store');
         Route::get('getPoster/{id}', [PresidentController::class, 'getPoster'])->name('getPoster');
+        Route::get('deletePoster/{id}', [PresidentController::class, 'deletePoster'])->name('deletePoster');
     });
 
     Route::middleware(['AuthAccess:Personne', 'verified'])->group(function () {

@@ -10,6 +10,8 @@ class Poster extends Model
 {
     use HasFactory;
 
+    protected $table = 'posters';
+
     protected $fillable = [
         'path',
         'summary',

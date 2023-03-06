@@ -1,8 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ Auth::user()->role }}
-        </h2>
+        {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ Auth::user()->role }} <br>
+            <a href="{{ 'test' }}">Test</a>
+        </h2> --}}
     </x-slot>
 
     <div class="py-12">
@@ -23,10 +24,10 @@
                         <p>You have already submitted a poster</p>
 
                     @else
-                        {{ __("Submit your summary POSTER:") }}
-                        @include('form')
+                        @include('submitPoster')
 
                     @endif
+
 
                 </div>
             </div>

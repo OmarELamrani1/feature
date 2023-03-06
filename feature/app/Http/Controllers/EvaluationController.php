@@ -3,32 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evaluation;
+use App\Models\Poster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class EvaluationController extends Controller
 {
-
     public function store(Request $request)
     {
-        Evaluation::updateOrCreate([
-            'status' => $request->status,
-            'poster_id' => $request->poster_id,
-            'president_id' => Auth::user()->presidents->id
-        ]);
+        $evaluation = Evaluation::where('poster_id', $request->poster_id)->first();
+        if($evaluation){
+            $evaluation->status = $request->status;
+            $evaluation->save();
+        }
+        else{
+            Evaluation::create([
+                'status' => $request->status,
+                'poster_id' => $request->poster_id,
+                'president_id' => Auth::user()->presidents->id
+            ]);
+        }
 
-        return redirect()->back();
-    }
+        $posters = Poster::with([
+            'personne',
+        ])->paginate();
 
-    public function update(Request $request, Evaluation $evaluation)
-    {
-        Evaluation::findOrFail($evaluation->id)->update([
-            'status' => $request->status,
-            'poster_id' => $request->poster_id,
-            'president_id' => Auth::user()->presidents->id
-        ]);
-
-        return redirect()->back();
+        return view('president.index', compact('posters'));
     }
 
 }

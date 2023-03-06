@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PosterRequest;
 use App\Mail\PosterStored;
 use App\Mail\PosterSuccess;
+use App\Models\Evaluation;
 use App\Models\Poster;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,11 +21,17 @@ class PosterController extends Controller
         //check if input type file name path exist
         $path = $request->hasFile('path') ? $request->file('path')->store('public/posters') : null;
 
-        $poster = Poster::create($request->validated());
+
+        // Retrieve the Personne connected
+        $personne = auth()->user()->personnes()->first();
+
+        // Create new Poster
+        $poster = new Poster($request->validated());
         $poster->path = $path;
         $poster->tracking_code = random_int(100000, 999999);
-        $poster->personne_id = Auth::id();
 
+        // Set the personne_id to the ID of the current Personne connected
+        $poster->personne_id = $personne->id;
         $poster->save();
 
         // Generate a URL for the image
@@ -65,6 +72,8 @@ class PosterController extends Controller
         Poster::find($poster->id)->update($request->validated());
         $poster->save();
 
+        // Evaluation::where('poster_id', $poster->id)->delete();
+
         // Generate a URL for the image
         $url = Storage::url($path);
         $image_url = config('app.url') . $url;
@@ -81,6 +90,6 @@ class PosterController extends Controller
 
     public function destroy(Poster $poster)
     {
-        //
+        dd($poster->id);
     }
 }

@@ -20,57 +20,11 @@
     <h4 class="openMenu">Menu</h4>
         <div id="menuWrapper">
             <ul id="menu">
-                <li id="congress"><a>Congress Info.</a>
-                <ul>
-                    <li><a href="#">Welcome Message</a></li>
-                    <li><a href="#">About WVAC 2023</a></li>
-                    <li><a href="#">The Venue</a></li>
-                    <li><a href="#">FAQs</a></li>
-                </ul>
-                </li>
-                <li id="speakers"><a>Speakers</a>
-                <ul>
-                    <li><a href="#">Meet The Speaker</a></li>
-                    <li><a href="#">Speaker Guideline</a></li>
-                    <li><a href="#">Moderator Guideline</a></li>
-                </ul>
-                </li>
-                <li id="program"><a>Program</a>
-                <ul>
-                    <li><a href="#">Daily Program</a></li>
-                    <li><a href="#">Scientific  Program</a></li>
-                    <li><a href="#">Speaker Proceedings</a></li>
-                    <li><a href="#">Social Program</a></li>
-                </ul>
-                </li>
-                {{-- <li id="reg"><a href="{{ route('register') }}">Registration</a></li> --}}
                 <li id="abstracts"><a>Authentication</a>
                     <ul>
-                    <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('login') }}">Login</a></li>
                         <li><a href="{{ route('register') }}">Register</a></li>
                     </ul>
-                </li>
-                <li id="abstracts"><a>Abstracts</a>
-                <ul>
-                    <li><a href="#">Call for Abstracts</a></li>
-                    <li><a href="#">Poster Proceedings</a></li>
-                </ul>
-                </li>
-                <li id="sponsor"><a>Sponsor & Exhibitor</a>
-                <ul>
-                    <li><a href="#">Sponsorship Prospectus</a></li>
-                    <li><a href="#">Confirmed Sponsors & Exhibitors</a></li>
-                    <li><a href="#">Exhibition Manual & Floor Plan</a></li>
-                <!-- <li><a href="sponsorIndustry.asp">Industry Supported Sessions</a></li>-->
-                </ul>
-                </li>
-                <li id="travel"><a>Travel Info.</a>
-                <ul class="last">
-                    <li><a href="#">About Taiwan</a></li>
-                    <li><a href="#">Transportation</a></li>
-                    <li><a href="#">Visa</a></li>
-                    <li><a href="#">Accommodation</a></li>
-                </ul>
                 </li>
             </ul>
             <h1><a href="{{ url('/') }}">WVAC2023</a></h1>

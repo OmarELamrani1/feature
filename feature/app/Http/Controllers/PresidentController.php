@@ -19,6 +19,13 @@ class PresidentController extends Controller
         return view('evaluation.index', compact(['poster','request']));
     }
 
+    public function deletePoster($id){
+        $poster = Poster::findOrFail($id);
+        $poster->delete();
+
+        return redirect()->back();
+    }
+
     public function create()
     {
         //

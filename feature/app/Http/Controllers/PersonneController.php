@@ -17,9 +17,21 @@ class PersonneController extends Controller
     {
         // return view('dashboard');
     }
-    
+
     public function checkStatus(){
-        $checkStatus = Evaluation::with('poster')->first();
+        $personnes = auth()->user()->personnes;
+
+        $checkStatus = null;
+        foreach ($personnes as $personne) {
+            $poster = $personne->poster;
+            if ($poster !== null) {
+                $checkStatus = Evaluation::where('poster_id', $poster->id)->first();
+                if ($checkStatus !== null) {
+                    break;
+                }
+            }
+        }
+
         return view('checkStatus', compact('checkStatus'));
     }
 
