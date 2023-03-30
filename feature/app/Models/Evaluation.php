@@ -11,12 +11,12 @@ class Evaluation extends Model
 
     protected $fillable = [
         'status',
-        'poster_id',
+        'abstractsubmission_id',
         'president_id'
     ];
 
-    public function poster(){
-        return $this->belongsTo(Poster::class, 'poster_id');
+    public function abstractsubmission(){
+        return $this->belongsTo(Abstractsubmission::class, 'abstractsubmission_id');
     }
 
     public function president(){

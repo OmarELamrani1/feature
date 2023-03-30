@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Evaluation;
 use App\Models\Personne;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class PersonneController extends Controller
@@ -15,25 +16,39 @@ class PersonneController extends Controller
      */
     public function index()
     {
-        // return view('dashboard');
+        //
     }
 
     public function checkStatus(){
-        $personnes = auth()->user()->personnes;
+        $user = auth()->user();
+        $abstractsubmission = $user->personnes->abstractsubmission;
 
         $checkStatus = null;
-        foreach ($personnes as $personne) {
-            $poster = $personne->poster;
-            if ($poster !== null) {
-                $checkStatus = Evaluation::where('poster_id', $poster->id)->first();
-                if ($checkStatus !== null) {
-                    break;
-                }
-            }
+        if ($abstractsubmission !== null) {
+            $checkStatus = Evaluation::where('abstractsubmission_id', $abstractsubmission->id)->first();
         }
 
-        return view('checkStatus', compact('checkStatus'));
+        $topics = Topic::get();
+        return view('checkStatus', compact(['checkStatus','topics']));
     }
+
+
+    // public function checkStatus(){
+    //     $personnes = auth()->user()->personnes;
+
+    //     $checkStatus = null;
+    //     foreach ($personnes as $personne) {
+    //         $abstractsubmission = $personne->abstractsubmission;
+    //         if ($abstractsubmission !== null) {
+    //             $checkStatus = Evaluation::where('abstractsubmission_id', $abstractsubmission->id)->first();
+    //             if ($checkStatus !== null) {
+    //                 break;
+    //             }
+    //         }
+    //     }
+
+    //     return view('checkStatus', compact('checkStatus'));
+    // }
 
     public function create()
     {

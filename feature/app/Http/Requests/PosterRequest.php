@@ -25,7 +25,7 @@ class PosterRequest extends FormRequest
     public function rules()
     {
         return [
-            'path' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+            'path' => 'required|mimes:jpg,png,jpeg,gif,svg,doc,docx,pdf',
             'summary' => 'bail|string',
         ];
     }

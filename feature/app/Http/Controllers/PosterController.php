@@ -50,8 +50,9 @@ class PosterController extends Controller
 
     public function show(Poster $poster)
     {
+        $extension = pathinfo($poster->path, PATHINFO_EXTENSION);
         $poster = Poster::findOrFail($poster->id);
-        return view('posters.index', compact('poster'));
+        return view('posters.index', compact('poster','extension'));
     }
 
     public function update(PosterRequest $request, Poster $poster)
@@ -72,8 +73,6 @@ class PosterController extends Controller
         Poster::find($poster->id)->update($request->validated());
         $poster->save();
 
-        // Evaluation::where('poster_id', $poster->id)->delete();
-
         // Generate a URL for the image
         $url = Storage::url($path);
         $image_url = config('app.url') . $url;
@@ -91,5 +90,25 @@ class PosterController extends Controller
     public function destroy(Poster $poster)
     {
         dd($poster->id);
+    }
+
+    // Get only deleted posters
+    public function postersOnlyTrashed(){
+        $posters = Poster::onlyTrashed()->paginate();
+        return view('posters.posterstrashed', compact('posters'));
+    }
+
+    // Restore presidents deleted
+    public function posterRestore($id){
+        $poster = Poster::onlyTrashed()->where('id', $id)->first();
+        $poster->restore();
+        return redirect()->back();
+    }
+
+    // Delete presidents definitely
+    public function posterForceDelete($id){
+        $poster = Poster::onlyTrashed()->where('id', $id)->first();
+        $poster->forceDelete();
+        return redirect()->back();
     }
 }

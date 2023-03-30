@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Abstractsubmission;
 use App\Models\Poster;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,17 +15,15 @@ class PosterStored extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $poster;
-    public $url;
+    public $abstractsubmission;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Poster $poster, $url)
+    public function __construct(Abstractsubmission $abstractsubmission)
     {
-        $this->poster = $poster;
-        $this->url = $url;
+        $this->abstractsubmission = $abstractsubmission;
     }
 
     /**
@@ -35,7 +34,7 @@ class PosterStored extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Poster Stored',
+            subject: 'abstractsubmission Stored',
         );
     }
 

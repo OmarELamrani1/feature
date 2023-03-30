@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +50,12 @@ class User extends Authenticatable
     }
 
     public function personnes(){
-        return $this->hasMany(Personne::class);
+        return $this->hasOne(Personne::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == 'Admin';
     }
 
     public function isPresident()
@@ -61,5 +67,26 @@ class User extends Authenticatable
     public function isPersonne()
     {
         return $this->role == 'Personne';
+    }
+
+    public static function boot(){
+        parent::boot();
+
+        static::deleting(function(User $user){
+            $user->presidents()->delete();
+        });
+
+        static::restoring(function(User $chantille){
+            $chantille->presidents()->restore();
+        });
+
+        static::deleting(function(User $user){
+            $user->personnes()->delete();
+        });
+
+        static::restoring(function(User $chantille){
+            $chantille->personnes()->restore();
+        });
+
     }
 }

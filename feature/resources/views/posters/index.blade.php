@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'Poster')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Tracking CODE : {{ $poster->tracking_code }}
@@ -15,12 +16,26 @@
                             <div class="panel panel-info" >
                                 <div class="panel-heading">
                                     <div class="panel-title">Summary : {{ $poster->summary }}</div>
-                                    {{-- <div class="panel-title" style="float:right; position: relative; top:-20px">Summary : {{ $poster->summary }}</div> --}}
                                 </div>
 
                                 <div style="padding-top:30px" class="panel-body" >
-                                    <img class="img-thumbnail w-100 p-3" src="{{ Storage::url($poster->path) }}" alt="POSTER">
+                                    @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'svg']))
+                                            <div class="flex">
+                                                <img class="poster w-50 ml-auto mr-auto" src="{{ Storage::url($poster->path) }}" alt="POSTER">
+                                            </div>
+
+                                        @elseif (in_array($extension, ['doc', 'docx', 'pdf']))
+                                            <div class="flex text-center">
+                                                <a href="{{ Storage::url($poster->path) }}" target="_blank" rel="noopener noreferrer">
+                                                    <button class="btn btn-info">Show {{ strtoupper($extension) }}</button>
+                                                </a>
+                                            </div>
+
+                                        @else
+                                            <p>Invalid file type: {{ $extension }}</p>
+                                        @endif
                                 </div>
+
                             </div>
                         </div>
                     </div>

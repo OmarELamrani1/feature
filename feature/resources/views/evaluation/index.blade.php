@@ -1,4 +1,6 @@
 <x-app-layout>
+    @section('title', 'Evaluation')
+
 <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -13,15 +15,31 @@
                     <p>&nbsp;</p>
                     <div class="AbstractsTopp">
                         <ol >
-                        <li><i class="fas fa-solid fa-paper-plane fa-2xl"></i></i>
-                            <img class="poster" src="{{ Storage::url($poster->path) }}" alt="POSTER">
-                        </li>
+                            <li>
+                                <i class="fas fa-solid fa-paper-plane fa-2xl"></i>
+
+                                @php
+                                    $extension = pathinfo($poster->path, PATHINFO_EXTENSION);
+                                @endphp
+
+                                @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'svg']))
+                                    <img class="poster" src="{{ Storage::url($poster->path) }}" alt="POSTER">
+
+                                @elseif (in_array($extension, ['doc', 'docx', 'pdf']))
+                                    <a href="{{ Storage::url($poster->path) }}" target="_blank" rel="noopener noreferrer">
+                                        <button>Show {{ strtoupper($extension) }}</button>
+                                    </a>
+
+                                @else
+                                    <p>Invalid file type: {{ $extension }}</p>
+                                @endif
+                            </li>
                         </ol>
                     </div>
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
 
-                    <form action="{{ $request->isMethod('put') ? route('evaluation.update', $poster->evaluation->id) : route('evaluation.store')  }}" method="post">
+                    <form action="{{ route('evaluation.store') }}" method="post">
                         @csrf
 
                         <select name="status" class="form-select w-100 p-3" aria-label="Default select example">
@@ -35,7 +53,6 @@
 
                         <div class="text-center">
                             <p class="align_c"><button type="submit" class="btnStyle">Submit Evaluation</button></p>
-                            {{-- <button type="submit" class="btn btn-success bg-success">Submit</button> --}}
                         </div>
 
                     </form>

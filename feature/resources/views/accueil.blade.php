@@ -6,12 +6,10 @@
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
             <meta name="keywords" content="">
             <meta name="description" content="">
-            <title>Feature</title>
-            {{-- <link rel="shortcut icon" href="images/favicon.ico"> --}}
+            <title>Home</title>
             <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
-            <script defer src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
-            <!-- Google tag (gtag.js) -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2BY15QD5N"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         </head>
 <body>
 
@@ -19,15 +17,27 @@
     <div class="bgWrapper"></div>
     <h4 class="openMenu">Menu</h4>
         <div id="menuWrapper">
-            <ul id="menu">
-                <li id="abstracts"><a>Authentication</a>
-                    <ul>
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <h1><a href="{{ url('/') }}">WVAC2023</a></h1>
+
+            @guest
+                <ul id="menu">
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ route('register') }}">Register</a></li>
+                </ul>
+            @endguest
+
+            @auth
+                <ul id="menu">
+                    <li><a href="{{ route('check') }}">Dashboard</a></li>
+                </ul>
+            @endauth
+
+
+            <div class="shrink-0 flex items-center">
+                <a href="{{ url('/') }}">
+                    <x-application-logo class="block h-10 w-auto fill-current text-gray-800" style="display:block; height:60px; margin-left:auto; margin-right:auto; margin-top:5px;"/>
+                </a>
+            </div>
+
         </div>
 <!-- menu end -->
 
@@ -56,18 +66,18 @@
     <div class="AbstractsTop">
       <ol >
         <li><i class="fas fa-regular fa-calendar-days fa-2xl"></i>
-          <h3>15 February, 2023</h3>
+          <h3>1 <sup>st</sup> of June, 2023</h3>
           <p>Abstract Submission Deadline</p>
         </li>
         <li><i class="fas fa-solid fa-paper-plane fa-2xl"></i></i>
-          <h3>Now－31<sup>st</sup> Dec. 2022 </h3>
-          <h3>1<sup>st</sup> Jan.－15<sup>th</sup> Feb. 2023 </h3>
-          <p>Abstract Submission</p>
+          <h3>1<sup>st</sup> August. 2023 </h3>
+          <p>Confirmation of acceptance or rejection of the presentation</p>
         </li>
         <li><i class="fas fa-solid fa-reply fa-2xl"></i></i>
-          <h3>Before 31<sup>st</sup> Jan. 2023</h3>
-          <h3>Before 28<sup>th</sup> Feb. 2023</h3>
-          <p>Abstract Notification Sent Out*</p>
+          {{-- <h3>15 <sup>th</sup> of October, 2023</h3> --}}
+          <h3>15 <sup>th</sup> of October, 2023</h3>
+          <p>Deadline for one author to register <br>for the Congress</p>
+          <p>Deadline to submit the Poster </p>
         </li>
       </ol>
     </div>
@@ -80,14 +90,18 @@
     <h3>Abstract Topics</h3>
     <p class="divider">&nbsp;</p>
     <ol class="number">
-      <li>Small animals</li>
-      <li>Economic animals</li>
-      <li>Exotic animals</li>
-      <li> Laboratory animals</li>
-      <li>Animal Welfare</li>
-      <li>Veterinary nursing</li>
-      <li> One health</li>
-      <li>Others</li>
+        <li>Alternative medicine, homeopathy and acupuncture</li>
+        <li>Anesthesia</li>
+        <li>Animal Welfare</li>
+        <li>Behavior</li>
+        <li>Clinical Pathology</li>
+        <li>Critical care and emergency medicine</li>
+        <li>Dentistry</li>
+        <li>Dermatology </li>
+        <li>Diagnostic imaging</li>
+        <li>Endocrinology</li>
+        <li>EQUINE MEDICINE & SURGERY</li>
+        <li>Others...</li>
     </ol>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
@@ -115,14 +129,16 @@
     <h3>Guidelines for submission</h3>
     <p class="divider">&nbsp;</p>
     <p><strong>Before you begin, please prepare the following information:</strong></p>
+    <p><strong>Abstracts must be submitted via this website. Faxed or emailed abstracts will not be considered.</strong></p>
     <ul class="disc">
-      <li>The rules for elaboration of the abstract must be strictly observed, otherwise it may be rejected by the evaluation committee of WVAC2023.</li>
-     <!-- <li> Do not include Title or Author  data in the body of your abstract </li>-->
-      <li>Abstract title:&nbsp; <strong>UPPER  CASE, Times New Roman, font size 20 , bold, and limited  to&nbsp;25&nbsp;words</strong>, Please submit symbols as  words.&nbsp; </li>
-      <li>Abstracts text: <strong>limited to 300  words (not including title and authors), Times New Roman, font size 14 </strong></li>
-     <!-- <li>Tables may be included and each  will count as 100 words </li>
-      <li>A maximum of 2 images may be  included; each will count as 100 words </li>-->
-      <li>Tables, images and graphs must be  uploaded in JPG or TIFF format at 300 dpi and 100% size. Any higher resolution  is acceptable. </li>
+      <li>All abstracts must be submitted in English​​.</li>
+      <li>Abstracts may be submitted ONLY for poster presentation</li>
+      <li>Abstract title:&nbsp; <strong>UPPER  CASE, and limited to&nbsp;25&nbsp;words</strong>&nbsp; </li>
+      <li>Abstracts text: <strong>limited to 300  words (not including title and authors) </strong></li>
+      <li>Summaries previously published in other journals or conferences will be automatically rejected</li>
+      <li>Each author may submit a maximum of 3 abstracts.</li>
+      <li>A maximum of 2​ images and 2 tables are allowed to be submitted as part of each abstract.</li>
+      <li>Submitted abstracts cannot be modified or corrected after the submission deadline.</li>
       <li>Abstracts must be structured with  the following:
         <ol class="number">
           <li><strong>Introduction</strong></li>
@@ -131,25 +147,36 @@
           <li><strong> Conclusion</strong></li>
         </ol>
       </li>
-      <li>Use only standard abbreviations. Place special or unusual abbreviations in parentheses after the full word the first time it appears.  </li>
-      <li>Use generic names of drugs. The presentation must be balanced and contain no commercial promotional content. </li>
-      <li>Submissions may not contain patient names, hospital ID numbers or other identifying information. </li>
-      <li>Pease submit the<strong> abstract and WVAC Animal Research Self-Assessment </strong>via email before deadline. <strong>After the deadline, abstract will not be accepted</strong>.</li>
-      <li><strong>You can make changes to your submitted abstract by the deadline. After the submission deadline abstracts cannot be modified or corrected.</strong></li>
-      <li>You will receive a confirmation letter after you have submitted your abstract via email.</li>
-      <li>You will receive an abstract ID number or rejection once it is reviewed.
-        <ol class="number bold">
-          <li>If you submit the abstract by 12/31/2022, notification will be sending to you before 1/31/2023</li>
-          <li>If you submit the abstract after 12/31/2022, notification will be sending to you before 2/28/2023 </li>
-        </ol>
-      </li>
-      <li>Please <a href="mailto:abstracts@meavc.com" target="_blank">contact us</a> if you have not received confirmation that your abstract has been submitted or response after one month.</li>
-      <li>Please do not submit multiple copies of the same abstract. </li>
+    </ul>
+    <p>&nbsp;</p>
+    <h3>REGULATIONS</h3>
+    <p class="divider">&nbsp;</p>
+    <p><strong>Before submitting the abstract, the Abstract Submitter will be asked to confirm the following:</strong></p>
+    <ul class="disc">
+      <li>I confirm that I have previewed this abstract and that all information is correct and in accordance to the abstract submission guidelines provided on the Congress website. I accept that the contents of this abstract cannot be modified or corrected after final submission and I am aware that it will be published exactly as submitted.</li><p>&nbsp;</p>
+      <li>Submission of the abstract constitutes my consent to publication (e.g., Congress website, Congress Notes book, etc.)</li><p>&nbsp;</p>
+      <li>I warrant and represent that I am the sole owner or have the rights of all the information and content ('Content') provided to MEAVC 2023 Conferences (Hereafter: 'Organizers'). The publication of the abstract does not infringe any third-party rights including, but not limited to, intellectual property rights</li><p>&nbsp;</p>
+      <li>I grant the Organizers a royalty-free, perpetual, irrevocable nonexclusive license to use, reproduce, publish, translate, distribute, and display the Content.</li><p>&nbsp;</p>
+      <li>The Organizers reserve the right to remove from any publication an abstract which does not comply with the above</li><p>&nbsp;</p>
+      <li>I herewith confirm that the contact details saved in this system are correct, which will be used to notify me about the status of the abstract. I am responsible for informing the other authors about the status of the abstract</li>
+    </ul>
+    <p>&nbsp;</p>
+    <h3>POSTER SESSION OVERVIEW</h3>
+    <p class="divider">&nbsp;</p>
+    <ul class="disc">
+      <li>Poster boards will be displayed over two Congress days: November 11-12, 2023.</li>
+      <li>Presenters are requested to stand by their posters during the lunch and coffee breaks for informal discussions</li>
+      <li>Presenters are able to set up their posters from 8.30 on Saturday, November 11, 2023</li>
+      <li>Posters should be removed after 19.00 on Sunday, November 12, 2023</li><p>&nbsp;</p>
+      <p><strong>IMPORTANT DATES</strong></p>
+      <li>Last day for submission of Communications / Case Reports ---- 1st of June 2023</li>
+      <li>Confirmation of acceptance or rejection of the presentation ---- 1st of August 2023</li>
+      <li>Deadline for one author to register for the Congress ---- 15th of October, 2023</li>
+      <li>Deadline to submit the Poster ---- 15th of October, 2023</li>
     </ul>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p class="align_c"><a href="downloads/WVAC2023_Abstract_Submitters_Declaration.pdf" class="btnStyle" target="_blank">Abstract Submitters’ Declaration</a></p>
+    <p class="align_c"><a href="{{ asset('assets/images/Abstract_Submitters_Declaration.pdf') }}" class="btnStyle" target="_blank">Abstract Submitters’ Declaration</a></p>
     <p class="align_c">&nbsp;</p>
     <p class="align_c">&nbsp;</p>
     <p class="align_c">&nbsp;</p>
@@ -162,35 +189,27 @@
 <!--------------------- footer --------------------->
 <footer>
   <div class="left">
-    <p class="bold">Newsletter Subscription</p>
-    <p>&nbsp;</p>
-    <p>Subscribe to our newsletter and stay updated on the latest developments!
-      The newsletter will keep you informed on program updates, inspiring issues, and the latest news. You’ll be among the first to know about the Congress’s news! </p>
-    <p>&nbsp;</p>
-    <form name="subscribeform" method="post" action="#" onSubmit="return checkemail()">
-      <input name="email" type="email" class="textStyle maxText" placeholder="Please leave your email address and click Subscribe" required>
-		<p class="divider"></p>
-		<input name="submit" type="submit" value="Subscribe" class="btnStyle maxText">
-    </form>
+    <a href="#">
+        <img src="{{ asset('assets/images/logofooter.png') }}" alt="LOGO FOOTER">
+    </a>
   </div>
 
 <div class="right">
-	<p class="bold">Error Reporting</p>
+	<p class="bold">CONTACT</p>
+    <p>+971 4 447 5580</p>
+    <p><a href="mailto:abstracts@meavc.com">abstracts@meavc.com</a></p>
 	<p>&nbsp;</p>
-	<p>Please email to: <a href="mailto:abstracts@meavc.com">abstracts@meavc.com</a></p>
 
-    <p class="bold">Secretariat Info.</p>
-    <p>&nbsp;</p>
-    <p>c/o K&A International Co., Ltd.</p>
-    <p>2F, No. 100, Zhouzi St, Neihu District, Taipei City, Taiwan 114</p>
-    <p>Tel: +886-2-8751-3588 / Fax: +886-2-8751-2799</p>
-    <p>E-Mail: <a href="mailto:abstracts@meavc.com">abstracts@meavc.com</a></p>
-    <p>Copyright &copy; c/o K&A Int'l Co., Ltd. All rights reserved.</p>
+    <p class="bold">LOCATION</p>
+    <p>YES BUSINESS TOUR Office number 505, Barsha 1, Dubai - UAE</p>
+	 <p>&nbsp;</p>
+
   </div>
-
   <p class="clear"></p>
+  <hr>
+<p style="text-align: center;" class="text-center">All rights reserved {{ date('Y') }} Copyright &copy;</p>
 </footer>
-<div id="toTop">TOP</div>
+<div id="toTop"><i class="fas fa-arrow-circle-up"></i></div>
 
 <!--------------------- footer end --------------------->
 <script type="text/javascript" src="{{ asset('assets/js/jquery-2.2.4.min.js') }}"></script>

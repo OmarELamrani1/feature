@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Abstractsubmission;
 use App\Models\Evaluation;
 use App\Models\Poster;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ class EvaluationController extends Controller
 {
     public function store(Request $request)
     {
-        $evaluation = Evaluation::where('poster_id', $request->poster_id)->first();
+        $evaluation = Evaluation::where('abstractsubmission_id', $request->abstractsubmission_id)->first();
         if($evaluation){
             $evaluation->status = $request->status;
             $evaluation->save();
@@ -19,16 +20,20 @@ class EvaluationController extends Controller
         else{
             Evaluation::create([
                 'status' => $request->status,
-                'poster_id' => $request->poster_id,
+                'abstractsubmission_id' => $request->abstractsubmission_id,
                 'president_id' => Auth::user()->presidents->id
             ]);
         }
 
-        $posters = Poster::with([
-            'personne',
+        $abstractsubmissions = Abstractsubmission::with([
+            'topic',
         ])->paginate();
 
-        return view('president.index', compact('posters'));
+        // $posters = Poster::with([
+        //     'personne',
+        // ])->paginate();
+
+        return view('president.index', compact('abstractsubmissions'));
     }
 
 }

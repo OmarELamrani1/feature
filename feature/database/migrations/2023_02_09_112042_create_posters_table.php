@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('summary');
             $table->string('tracking_code')->nullable()->unique();
             $table->foreignId('personne_id')->nullable()->unique()->constrained()->onDelete('CASCADE');
+            $table->foreignId('topic_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
