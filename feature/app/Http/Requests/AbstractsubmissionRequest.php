@@ -24,7 +24,7 @@ class AbstractsubmissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
+            'title' => 'required', 'max:25',
             'type' => 'required','max:25',
             'topic_id' => 'required|exists:topics,id',
             'keywords' => 'required',

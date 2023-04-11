@@ -42,7 +42,48 @@
 
                                         </tbody>
                                     </table>
-                                </div><br><br>
+                                </div>
+
+                                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead
+                                            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">introduction</th>
+
+                                                @if ($abstractsubmission->type === "Research Paper")
+                                                    <th scope="col" class="px-6 py-3">objective</th>
+                                                    <th scope="col" class="px-6 py-3">method</th>
+                                                    <th scope="col" class="px-6 py-3">result</th>
+                                                    <th scope="col" class="px-6 py-3">conclusion</th>
+                                                @else
+                                                    <th scope="col" class="px-6 py-3">diagnosis</th>
+                                                    <th scope="col" class="px-6 py-3">treatment</th>
+                                                    <th scope="col" class="px-6 py-3">discussion</th>
+                                                @endif
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border px-6 py-4">{{ $abstractsubmission->introduction }}</td>
+                                                @if ($abstractsubmission->type === "Research Paper")
+                                                    <td class="border px-6 py-4">{{ $abstractsubmission->objective }}</td>
+                                                    <td class="border px-6 py-4">{{ $abstractsubmission->method }}</td>
+                                                    <td class="border px-6 py-4">{{ $abstractsubmission->result }}</td>
+                                                    <td class="border px-6 py-4">{{ $abstractsubmission->conclusion }}</td>
+                                                @else
+                                                    <td class="border px-6 py-4">{{ $abstractsubmission->diagnosis }}</td>
+                                                    <td class="border px-6 py-4">{{ $abstractsubmission->treatment }}</td>
+                                                    <td class="border px-6 py-4">{{ $abstractsubmission->discussion }}</td>
+                                                @endif
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <br><br>
                                 <select name="status" class="form-select w-100 p-3"
                                     aria-label="Default select example">
                                     <option disabled selected>Evaluation : </option>
@@ -58,7 +99,6 @@
                                     <p class="align_c"><button type="submit" class="btnStyle">Submit
                                             Evaluation</button></p>
                                 </div>
-
                             </form>
 
                         </div>

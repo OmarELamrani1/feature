@@ -37,11 +37,7 @@
                                 <td class="border px-6 py-4">{{ $abstractsubmission->tracking_code }}</td>
                                 <td class="border px-6 py-4">{{ $abstractsubmission->title }}</td>
 
-                                {{-- @if ($poster->evaluation && !empty($poster->evaluation->status == 'Modify')) --}}
-                                @if (
-                                    $abstractsubmission->evaluation &&
-                                        $abstractsubmission->evaluation->status == 'Modify' &&
-                                        $abstractsubmission->updated_at == $abstractsubmission->created_at)
+                                @if ($abstractsubmission->evaluation && $abstractsubmission->evaluation->status == 'Modify' && $abstractsubmission->updated_at == $abstractsubmission->created_at)
                                     <td class="border px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <span>Should be modify - {{ $abstractsubmission->evaluation->status }}
 

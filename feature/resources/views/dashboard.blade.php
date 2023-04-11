@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -12,14 +12,13 @@
 </head>
 
 <body>
-
     <div id="master">
 
         <div id="logged">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <img class="profile-photo" src="{{ asset('assets/images/logo1.png') }}"
-                alt="{{ asset('assets/images/logo1.png') }}" />
+                    alt="{{ asset('assets/images/logo1.png') }}" />
                 <x-responsive-nav-link :href="route('logout')"
                     onclick="event.preventDefault();
                                         this.closest('form').submit();">
@@ -45,74 +44,42 @@
         </div>
 
         <div id="content" class="user-content">
-
-            <form name="overview_form" method="POST" action="https://cpaper.ctimeetingtech.com/wsava23/submission">
-
-                <input type="hidden" id="publication_id" name="publication_id" />
-                <input type="hidden" id="action" name="action" />
-
-                <div>
-
                     <h1>
                         <p>My abstracts</p>
-                        <p style="color:red">If you re-open your abstract, please make sure to check all authors
-                            affiliations are correct as well as all answered questions are completed before
-                            re-submitting</p>
                     </h1>
 
                     @php
-                    $hasSubmittedAbstract = false;
+                        $hasSubmittedAbstract = false;
                         if (auth()->user()->personnes != null) {
                             $hasSubmittedAbstract = auth()->user()->personnes->abstractsubmission !== null;
                         }
-    // $hasSubmittedAbstract = auth()->user()->personnes->abstractsubmission !== null;
-@endphp
-
-@if ($abstractsubmissions && $abstractsubmissions->evaluation)
-    <a href="{{ route('checkStatus') }}">Check Status</a>
-@elseif ($hasSubmittedAbstract)
-    <p>You have already submitted an abstract</p>
-@else
-    <a href="{{ route('researchPaper') }}"><button type="button" class="btn btn-primary"
-            style="margin: 10px 0;">Submit a new
-            abstract (Research Paper)</button></a>
-    <a href="{{ route('clinicalCase') }}"><button type="button" class="btn btn-primary"
-            style="margin: 10px 0;">Submit a new
-            abstract (Clinical case)</button></a>
-@endif
-
-                    {{-- @php
-                        $hasSubmittedPoster = false;
-                        if (auth()->user()->personnes != null) {
-                            $hasSubmittedPoster = auth()->user()->personnes->abstractsubmission !== null;
-                        }
+                        // $hasSubmittedAbstract = auth()->user()->personnes->abstractsubmission !== null;
                     @endphp
 
-                    @if (!empty($evaluation->status))
-                        <a href="{{ route('checkStatus') }}">Check Status</a>
-                    @elseif ($hasSubmittedPoster)
-                        <p>You have already submitted an abstract</p>
-                    @else
-                        <a href="{{ route('researchPaper') }}"><button type="button" class="btn btn-primary"
-                                style="margin: 10px 0;">Submit a new abstract (Research Paper)</button></a>
-                        <a href="{{ route('clinicalCase') }}"><button type="button" class="btn btn-primary"
-                                style="margin: 10px 0;">Submit a new abstract (Clinical case)</button></a>
-                    @endif --}}
+                    @if ($abstractsubmissions && $abstractsubmissions->evaluation && $abstractsubmissions->updated_at == $abstractsubmissions->created_at)
+                        <a href="{{ route('checkStatus') }}">
+                            <h1>
+                                <p style="color:red">Check Status</p>
+                            </h1>
+                        </a>
 
+                    @elseif($hasSubmittedAbstract && empty($abstractsubmissions->evaluation->status))
+                        <p>Processing...</p>
 
+                    @elseif ( $abstractsubmissions  && $abstractsubmissions->evaluation->status == 'Modify' && $abstractsubmissions->updated_at != $abstractsubmissions->created_at)
+                        <p>Abstract modified, wait for evaluation...</p>
 
-                    {{-- @php
-                        $hasSubmittedPoster = auth()->user()->personnes->contains(function ($personne) {
-                            return $personne->abstractsubmission !== null;
-                        });
-                    @endphp
+                    @elseif ($abstractsubmissions && $abstractsubmissions->evaluation)
+                        <a href="{{ route('checkStatus') }}">
+                            <h1>
+                                <p style="color:red">re-Check Status</p>
+                            </h1>
+                        </a>
 
-                    @if (!empty($evaluation->status))
-                        <a href="{{ route('checkStatus') }}">Check Status</a>
-
-                    @elseif ($hasSubmittedPoster)
-                        <p>You have already submitted a Abstract</p>
-
+                    @elseif ($hasSubmittedAbstract)
+                        <h1>
+                            <p style="color:red">You have already submitted an abstract</p>
+                        </h1>
                     @else
                         <a href="{{ route('researchPaper') }}"><button type="button" class="btn btn-primary"
                                 style="margin: 10px 0;">Submit a new
@@ -120,74 +87,54 @@
                         <a href="{{ route('clinicalCase') }}"><button type="button" class="btn btn-primary"
                                 style="margin: 10px 0;">Submit a new
                                 abstract (Clinical case)</button></a>
-                    @endif --}}
-
-                    {{-- @if ($hasSubmittedAbstract) --}}
+                    @endif
 
                     <div style="">
 
                         <div>
                             <span>
-                                <h3>Submitted (3)</h3>
+                                <h3>Abstract Submitted</h3>
                             </span>
                         </div>
                         <div>
                             <div>
                                 {{-- @forelse ($abstractsubmissions as $abstractsubmission) --}}
-                                    <table cellpadding="0" class="abstract_box">
-                                        <tr>
-                                            <td class="publication_id">
-                                                #{{ $abstractsubmissions->id ?? NULL}}
-                                            </td>
-                                            <td class="abstract_box_title">{{ $abstractsubmissions->title ?? NULL}}</td>
-                                            <td rowspan="2" class="action_btn">
-                                                <a href="{{ optional($abstractsubmissions)->id ? route('abstractsubmission.show', $abstractsubmissions->id) : '#' }}" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
-
-                                                {{-- <a href="{{ route('abstractsubmission.show', $abstractsubmissions->id) }}"
-                                                    title="View"><i class="fa fa-eye" aria-hidden="true"></i></a> --}}
-                                                <a href="#" title="Delete"><i class="fa fa-trash"
-                                                        aria-hidden="true"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;</td>
-                                            <td>
-                                                <span class="abstract_box_tag">Submitted:</span>
-                                                {{ $abstractsubmissions->created_at ?? NULL}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;</td>
-                                            <td>
-                                                <span class="abstract_box_tag">Topic:</span>
-                                                {{ $abstractsubmissions->topic->name ?? NULL}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;</td>
-                                            <td>
-                                                <span class="abstract_box_tag">Type:</span>
-                                                {{ $abstractsubmissions->type ?? NULL}}
-                                            </td>
-                                        </tr>
-                                    </table>
-                                {{-- @empty --}}
-                                    {{-- <p>Null</p> --}}
-                                {{-- @endforelse --}}
-
-
-
-
+                                <table cellpadding="0" class="abstract_box">
+                                    <tr>
+                                        <td class="publication_id">
+                                            #{{ $abstractsubmissions->id ?? null }}
+                                        </td>
+                                        <td class="abstract_box_title">{{ $abstractsubmissions->title ?? null }}</td>
+                                        <td rowspan="2" class="action_btn">
+                                            <a href="{{ optional($abstractsubmissions)->id ? route('abstractsubmission.show', $abstractsubmissions->id) : '#' }}"
+                                                title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <span class="abstract_box_tag">Submitted:</span>
+                                            {{ $abstractsubmissions->created_at ?? null }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <span class="abstract_box_tag">Topic:</span>
+                                            {{ $abstractsubmissions->topic->name ?? null }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <span class="abstract_box_tag">Type:</span>
+                                            {{ $abstractsubmissions->type ?? null }}
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div><br />
                     </div>
-                    {{-- @endif --}}
-
-
-                </div>
-                <div style="clear:both"><br clear="all" /></div>
-
-            </form>
         </div>
     </div>
     <div id="footer">

@@ -19,5 +19,10 @@ class Author extends Model
         'city',
         'state',
         'country',
+        'personne_id',
     ];
+
+    public function authorAbstractsubmission(){
+        return $this->hasMany(AuthorAbstractsubmission::class);
+    }
 }

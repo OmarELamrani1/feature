@@ -24,25 +24,41 @@
                 </div>
 
                 @can('action')
-                    <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('onlyTrashed')" :active="request()->routeIs('onlyTrashed')">
-                            {{ __('Presidents removed') }}
-                        </x-nav-link>
-                    </div>
+                    <div class="shrink-0 flex items-center">
 
-                    <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('topicOnlyTrashed')" :active="request()->routeIs('topicOnlyTrashed')">
-                            {{ __('Topics removed') }}
-                        </x-nav-link>
-                    </div>
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <button class="space-x-8 sm:-my-px sm:ml-10 sm:flex text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                    <div>REMOVED</div>
 
-                    {{-- <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('postersOnlyTrashed')" :active="request()->routeIs('postersOnlyTrashed')">
-                            {{ __('Posters removed') }}
-                        </x-nav-link>
-                    </div> --}}
+                                    <div class="ml-1">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </button>
+                            </x-slot>
+
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('onlyTrashed')" :active="request()->routeIs('onlyTrashed')">
+                                    {{ __('Presidents removed') }}
+                                </x-dropdown-link>
+
+                                <x-dropdown-link :href="route('topicOnlyTrashed')" :active="request()->routeIs('topicOnlyTrashed')">
+                                    {{ __('Topics removed') }}
+                                </x-dropdown-link>
+
+                                <x-dropdown-link :href="route('abstractsOnlyTrashed')" :active="request()->routeIs('abstractsOnlyTrashed')">
+                                    {{ __('Abstract removed') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+
+                    </div>
                 @endcan
-
 
             </div>
 

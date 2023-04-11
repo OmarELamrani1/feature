@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Abstractsubmission extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -38,5 +40,17 @@ class Abstractsubmission extends Model
 
     public function evaluation(){
         return $this->hasOne(Evaluation::class);
+    }
+
+    public function authorAbstractsubmission(){
+        return $this->hasMany(AuthorAbstractsubmission::class);
+    }
+
+    public static function boot(){
+        parent::boot();
+
+        static::deleting(function(Abstractsubmission $abstractsubmission){
+            $abstractsubmission->evaluation()->delete();
+        });
     }
 }

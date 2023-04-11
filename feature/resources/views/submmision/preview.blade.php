@@ -1,6 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
-
 <head>
 
     <head>
@@ -49,7 +48,7 @@
 
         <div id="content" class="user-content">
 
-            <a href="{{ route('printsubmission', $abstractsubmission->id) }}">
+            <a href="{{ route('printsubmission', $abstractsubmission->id) }}" target="blank">
                 <button>
                     <i class="fa fa-print" aria-hidden="true"></i>Print
                 </button>
@@ -134,8 +133,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <span id="affirmations-details">Affirmations <i class="fa fa-chevron-down"
-                                aria-hidden="true"></i></span>
+                        <span id="affirmations-details">Affirmations</span>
                         <div class="preview-affirmations">
                             <!-- $Id$ -->
                             <table cellspacing="10">
@@ -143,20 +141,20 @@
                                 <tr>
                                     <td valign="top">
                                         <p>
-                                            1. I confirm that I have previewed this abstract and that all information is
+                                            1. I confirm that I have previewed this abstract and that all information is
                                             correct and in accordance to the abstract submission guidelines provided on
-                                            the Congress website. I accept that the contents of this abstract cannot be
+                                            the Congress website. I accept that the contents of this abstract cannot be
                                             modified or corrected after final submission and I am aware that it will be
                                             published exactly as submitted.
                                         </p>
                                         <br>
                                         <p>
-                                            2. Submission of the abstract constitutes my consent to publication (e.g.,
+                                            2. Submission of the abstract constitutes my consent to publication (e.g.,
                                             Congress website, Congress Notes book, etc.)
                                         </p>
                                         <br>
                                         <p>
-                                            3. I warrant and represent that I am the sole owner or have the rights of
+                                            3. I warrant and represent that I am the sole owner or have the rights of
                                             all the information and content ('Content') provided to MEAVC 2023
                                             Conferences (Hereafter: 'Organizers'). The publication of the abstract does
                                             not infringe any third-party rights including, but not limited to,
@@ -164,27 +162,34 @@
                                         </p>
                                         <br>
                                         <p>
-                                            4. I grant the Organizers a royalty-free, perpetual, irrevocable
+                                            4. I grant the Organizers a royalty-free, perpetual, irrevocable
                                             nonexclusive license to use, reproduce, publish, translate, distribute, and
                                             display the Content.
                                         </p>
                                         <br>
                                         <p>
-                                            5. The Organizers reserve the right to remove from any publication an
+                                            5. The Organizers reserve the right to remove from any publication an
                                             abstract which does not comply with the above.
                                         </p>
                                         <br>
                                         <p>
-                                            6. I herewith confirm that the contact details saved in this system are
+                                            6. I herewith confirm that the contact details saved in this system are
                                             correct, which will be used to notify me about the status of the abstract. I
                                             am responsible for informing the other authors about the status of the
                                             abstract.​
                                         </p>
                                         <p>
                                             <img src="{{ asset('assets/images/active.gif') }}" width="16"
-                                                height="16" align="absmiddle" /> Accepted
+                                                height="16" align="absmiddle" /> Affirmations Accepted
 
-                                            <font color="red" size="2">(mandatory)</font>
+                                            @if (empty($abstractsubmission->evaluation->status))
+                                                <font color="blue" size="2">(Processing...)</font>
+                                            @elseif ($abstractsubmission->evaluation->status === "Approuved")
+                                                <font color="green" size="2">({{ $abstractsubmission->evaluation->status }})</font>
+                                            @else
+                                                <font color="red" size="2">({{ $abstractsubmission->evaluation->status }})</font>
+                                            @endif
+                                            
                                         </p>
                                     </td>
                                 </tr>

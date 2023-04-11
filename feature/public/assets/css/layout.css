@@ -213,14 +213,14 @@ a.round-btn:hover, .sidebar a.round-btn:focus {
 #loader .mask {
 	fill: #3F464D;
 }
-.loadercontent {
+/* .loadercontent {
 	z-index: 2000;
 	position: absolute;
 	top: 45%;
 	width: 100%;
 	text-align: center;
 	background: url('data:/../../image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="2,2 5,2 5,3 3,3 3,9 9,9 9,7 10,7 10,10 2,10"/><polygon points="6.2,2 10,2 10,5.79 8.58,4.37 6.5,6.5 5.5,5.5 7.6,3.4"/></svg>') right no-repeat;
-}
+} */
 ul#poster_nav {
 	word-wrap:break-word;
 	width: 25%;

@@ -1,10 +1,9 @@
 <div>
-    Tracking CODE : {{ $abstractsubmission->tracking_code }} <br><br>
+    <p>An abstract has been submitted</p>
 
-    Summary : {{ $abstractsubmission->title }} <br><br>
+    <p>Abstract #: {{ $abstractsubmission->id }}</p>
 
-    <h4>
-        <a href="{{ route('getPoster', $abstractsubmission->id) }}">View Abstract</a>
-    </h4>
+    <p>Tracking CODE : <strong>{{ $abstractsubmission->tracking_code }}</strong></p>
 
+    <p>*To view the abstract submitted, please <a href="{{ route('getAbstract', $abstractsubmission->id) }}">click here.</a></p>
 </div>

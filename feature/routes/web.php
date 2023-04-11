@@ -28,55 +28,69 @@ Route::get('/', [Controller::class, 'home'])->name('home');
 Route::middleware('auth')->group(function () {
 
     Route::get('welcome', [Controller::class, 'check'])->name('check');
-
-    // Route::get('submissionprint/{id}', [Controller::class, 'submissionprint'])->name('submissionprint');
-
     Route::get('submissionprint/{id}', [Controller::class, 'generatePDF'])->name('printsubmission');
 
     Route::middleware(['AuthAccess:Admin'])->group(function () {
-
         Route::resource('topic', TopicController::class);
-        Route::get('topicOnlyTrashed', [TopicController::class, 'topicOnlyTrashed'])->name('topicOnlyTrashed');
-        Route::patch('/topic/{id}/restoreTopic', [TopicController::class, 'restoreTopic'])->name('restoreTopic');
-        Route::delete('/topic/{id}/forceDeleteTopic', [TopicController::class, 'forceDeleteTopic'])->name('forceDeleteTopic');
-
-
         Route::resource('administrator', AdminController::class)->only(['store','destroy']);
 
-        Route::get('onlyTrashed', [AdminController::class, 'onlyTrashed'])->name('onlyTrashed');
-        Route::patch('/president/{id}/restore', [AdminController::class, 'restore'])->name('restore');
-        Route::delete('/president/{id}/forceDelete', [AdminController::class, 'forceDelete'])->name('forceDelete');
+        Route::controller(AdminController::class)->group(function () {
+            Route::get('onlyTrashed', 'onlyTrashed')->name('onlyTrashed');
+            Route::patch('/president/{id}/restore', 'restore')->name('restore');
+            Route::delete('/president/{id}/forceDelete', 'forceDelete')->name('forceDelete');
+        });
 
-        Route::get('postersOnlyTrashed', [PosterController::class, 'postersOnlyTrashed'])->name('postersOnlyTrashed');
-        Route::patch('/poster/{id}/restore', [PosterController::class, 'posterRestore'])->name('posterRestore');
-        Route::delete('/poster/{id}/forceDelete', [PosterController::class, 'posterForceDelete'])->name('posterForceDelete');
+        Route::controller(TopicController::class)->group(function () {
+            Route::get('topicOnlyTrashed', 'topicOnlyTrashed')->name('topicOnlyTrashed');
+            Route::patch('/topic/{id}/restoreTopic', 'restoreTopic')->name('restoreTopic');
+            Route::delete('/topic/{id}/forceDeleteTopic', 'forceDeleteTopic')->name('forceDeleteTopic');
+        });
+
+        Route::controller(PosterController::class)->group(function () {
+            Route::get('postersOnlyTrashed', 'postersOnlyTrashed')->name('postersOnlyTrashed');
+            Route::patch('/poster/{id}/restore', 'posterRestore')->name('posterRestore');
+            Route::delete('/poster/{id}/forceDelete', 'posterForceDelete')->name('posterForceDelete');
+        });
+
+        Route::controller(AbstractsubmissionController::class)->group(function () {
+            Route::get('abstractsOnlyTrashed', 'abstractsOnlyTrashed')->name('abstractsOnlyTrashed');
+            Route::patch('/abstract/{id}/restore', 'abstractRestore')->name('abstractRestore');
+            Route::delete('/abstract/{id}/forceDelete', 'abstractForceDelete')->name('abstractForceDelete');
+        });
 
     });
 
     Route::middleware(['AuthAccess:President'])->group(function () {
         Route::resource('president', PresidentController::class);
         Route::resource('evaluation', EvaluationController::class)->only('store');
-        Route::get('getPoster/{id}', [PresidentController::class, 'getPoster'])->name('getPoster');
-        Route::get('getAbstract/{id}', [PresidentController::class, 'getAbstract'])->name('getAbstract');
-        Route::get('deletePoster/{id}', [PresidentController::class, 'deletePoster'])->name('deletePoster');
-        Route::get('deleteAbstract/{id}', [PresidentController::class, 'deleteAbstract'])->name('deleteAbstract');
+
+        Route::controller(PresidentController::class)->group(function () {
+            Route::get('getPoster/{id}', 'getPoster')->name('getPoster');
+            Route::get('getAbstract/{id}', 'getAbstract')->name('getAbstract');
+            Route::get('deletePoster/{id}', 'deletePoster')->name('deletePoster');
+            Route::get('deleteAbstract/{id}', 'deleteAbstract')->name('deleteAbstract');
+        });
+
     });
 
     Route::middleware(['AuthAccess:Personne', 'verified'])->group(function () {
-        // Route::resource('personne', PersonneController::class);
-
-        Route::post('addAuthor', [AuthorController::class, 'addAuthor'])->name('addAuthor');
-
-        Route::get('researchpaper', [AbstractsubmissionController::class, 'researchPaper'])->name('researchPaper');
-        Route::get('clinicalcase', [AbstractsubmissionController::class, 'clinicalCase'])->name('clinicalCase');
-
         Route::resource('abstractsubmission', AbstractsubmissionController::class);
         Route::resource('author', AuthorController::class);
+        Route::resource('posters', PosterController::class)->except(['index','create','edit','postersOnlyTrashed','abstractsOnlyTrashed']);
 
-        Route::resource('posters', PosterController::class)->except(['index','create','edit','postersOnlyTrashed']);
+        Route::controller(AuthorController::class)->group(function () {
+            Route::get('/search-authors', 'searchAuthors')->name('searchAuthors');
+            Route::post('addAuthor', 'addAuthor')->name('addAuthor');
+            Route::get('/authors/{id}', 'show')->name('authors.show');
+        });
+
+        Route::controller(AbstractsubmissionController::class)->group(function () {
+            Route::get('researchpaper', 'researchPaper')->name('researchPaper');
+            Route::get('clinicalcase', 'clinicalCase')->name('clinicalCase');
+        });
+
         Route::get('checkStatus', [PersonneController::class, 'checkStatus'])->name('checkStatus');
     });
-
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -21,6 +21,9 @@ class AuthorController extends Controller
     }
 
     public function addAuthor(Request $request){
+
+        $personne = auth()->user()->personnes()->first();
+
         $data = $request->validate([
             'firstname' => 'nullable|max:25',
             'lastname' => 'nullable|max:25',
@@ -33,9 +36,24 @@ class AuthorController extends Controller
             'state' => 'nullable',
             'country' => 'nullable'
         ]);
+
+        $data['personne_id'] = $personne->id;
+
         $todo = Author::create($data);
+
+
         return response()->json([
             "message" => $todo
+        ]);
+    }
+
+    public function searchAuthors(Request $request)
+    {
+        $lastname = $request->input('lastname');
+        $authors = Author::where('lastname', 'like', "$lastname%")->get();
+
+        return response()->json([
+            'authors' => $authors,
         ]);
     }
 
@@ -43,9 +61,11 @@ class AuthorController extends Controller
 
     }
 
-    public function show(Author $author)
-    {
-        //
+    public function show($id){
+        $author = Author::findOrFail($id);
+        return response()->json([
+            'author' => $author,
+        ]);
     }
 
     public function edit(Author $author)

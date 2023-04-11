@@ -1,19 +1,50 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 
 <head>
-
-    <head>
-        <title>Print Submission</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-        <link rel="stylesheet" href="{{ asset('assets/css/layout.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/css/dash.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    </head>
-
+    <title>Print Submission</title>
 </head>
+
+<style>
+    #master {
+        margin-bottom: 30px;
+        position: relative;
+    }
+
+    #content {
+        padding: 35px 20px 60px 20px;
+        background: rgba(242, 242, 242, .8);
+    }
+
+    .user-content {
+        /* width: 1200px; */
+        margin: 0 auto;
+    }
+
+    .preview-content-box {
+        border-top: 1px solid #AFB2B5;
+        border-bottom: 1px solid #AFB2B5;
+        padding: 15px 0;
+        list-style: none;
+    }
+
+    .label {
+        background: #54BFD3;
+        color: #fff;
+        border-radius: 30px;
+        padding: 10px;
+        margin-right: 2px;
+        margin-bottom: 5px;
+        display: inline-flex;
+        vertical-align: middle;
+        line-height: 20px;
+    }
+
+    #affirmations-details {
+        color: #07C;
+        cursor: pointer;
+    }
+</style>
 
 <body>
     <div id="master">
@@ -22,8 +53,8 @@
 
             <table id="preview">
                 <tr>
-                    <td style="padding-bottom: 25px;">
-                        <h1>#{{ $abstractsubmission->id }} {{ $abstractsubmission->title }}</h1>
+                    <td>
+                        <h1 style="text-align: center;">#{{ $abstractsubmission->id }} - {{ $abstractsubmission->title }}</h1>
                         <p><span id="76"><u>{{ $abstractsubmission->personne->user->nom }}
                                     {{ $abstractsubmission->personne->user->prenom }}</u></span></p>
 
@@ -41,8 +72,9 @@
                 </tr>
 
                 <tr>
-                    <td height="25px"></td>
+                    <td height="20px"></td>
                 </tr>
+
                 <tr>
                     <td class="preview-content-box">
                         <b>Introduction</b>
@@ -51,7 +83,7 @@
                         </div>
                         <br style="clear: both;" />
 
-                        @if ($abstractsubmission->type === "Clinical Case")
+                        @if ($abstractsubmission->type === 'Clinical Case')
                             <b>Diagnosis</b>
                             <div class="preview-content">
                                 <p>{{ $abstractsubmission->diagnosis }}</p>
@@ -66,7 +98,6 @@
                             <div class="preview-content">
                                 <p>{{ $abstractsubmission->discussion }}</p>
                             </div>
-
                         @else
                             <b>Objectives</b>
                             <div class="preview-content">
@@ -87,7 +118,6 @@
                             <div class="preview-content">
                                 <p>{{ $abstractsubmission->conclusion }}</p>
                             </div>
-
                         @endif
                         <br style="clear: both;" />
 
@@ -101,8 +131,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <span id="affirmations-details">Affirmations <i class="fa fa-chevron-down"
-                                aria-hidden="true"></i></span>
+                        <span id="affirmations-details">Affirmations</span>
                         <div class="preview-affirmations">
                             <!-- $Id$ -->
                             <table cellspacing="10">
@@ -110,33 +139,51 @@
                                 <tr>
                                     <td valign="top">
                                         <p>
-                                            1. I confirm that I have previewed this abstract and that all information is correct and in accordance to the abstract submission guidelines provided on the Congress website. I accept that the contents of this abstract cannot be modified or corrected after final submission and I am aware that it will be published exactly as submitted.
+                                            1. I confirm that I have previewed this abstract and that all information is
+                                            correct and in accordance to the abstract submission guidelines provided on
+                                            the Congress website. I accept that the contents of this abstract cannot be
+                                            modified or corrected after final submission and I am aware that it will be
+                                            published exactly as submitted.
                                         </p>
                                         <br>
                                         <p>
-                                            2. Submission of the abstract constitutes my consent to publication (e.g., Congress website, Congress Notes book, etc.)
+                                            2. Submission of the abstract constitutes my consent to publication (e.g.,
+                                            Congress website, Congress Notes book, etc.)
                                         </p>
                                         <br>
                                         <p>
-                                            3. I warrant and represent that I am the sole owner or have the rights of all the information and content ('Content') provided to MEAVC 2023 Conferences (Hereafter: 'Organizers'). The publication of the abstract does not infringe any third-party rights including, but not limited to, intellectual property rights.
+                                            3. I warrant and represent that I am the sole owner or have the rights of
+                                            all the information and content ('Content') provided to MEAVC 2023
+                                            Conferences (Hereafter: 'Organizers'). The publication of the abstract does
+                                            not infringe any third-party rights including, but not limited to,
+                                            intellectual property rights.
                                         </p>
                                         <br>
                                         <p>
-                                            4. I grant the Organizers a royalty-free, perpetual, irrevocable nonexclusive license to use, reproduce, publish, translate, distribute, and display the Content.
+                                            4. I grant the Organizers a royalty-free, perpetual, irrevocable
+                                            nonexclusive license to use, reproduce, publish, translate, distribute, and
+                                            display the Content.
                                         </p>
                                         <br>
                                         <p>
-                                            5. The Organizers reserve the right to remove from any publication an abstract which does not comply with the above.
+                                            5. The Organizers reserve the right to remove from any publication an
+                                            abstract which does not comply with the above.
                                         </p>
                                         <br>
                                         <p>
-                                            6. I herewith confirm that the contact details saved in this system are correct, which will be used to notify me about the status of the abstract. I am responsible for informing the other authors about the status of the abstract.​
+                                            6. I herewith confirm that the contact details saved in this system are
+                                            correct, which will be used to notify me about the status of the abstract. I
+                                            am responsible for informing the other authors about the status of the
+                                            abstract.​
                                         </p>
                                         <p>
-                                            <img src="{{ asset('assets/images/active.gif') }}"
-                                                width="16" height="16" align="absmiddle" /> Accepted
-
-                                            <font color="red" size="2">(mandatory)</font>
+                                            @if (empty($abstractsubmission->evaluation->status))
+                                                <font color="blue" size="2">(Processing...)</font>
+                                            @elseif ($abstractsubmission->evaluation->status === "Approuved")
+                                                <font color="green" size="2">({{ $abstractsubmission->evaluation->status }})</font>
+                                            @else
+                                                <font color="red" size="2">({{ $abstractsubmission->evaluation->status }})</font>
+                                            @endif
                                         </p>
                                     </td>
                                 </tr>
@@ -146,6 +193,8 @@
                         </div><br /><br />
 
             </table>
+        </div>
+    </div>
 
 </body>
 

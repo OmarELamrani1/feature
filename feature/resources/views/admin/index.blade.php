@@ -1,18 +1,12 @@
 <x-app-layout>
     @section('title', 'Admin')
 
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ Auth::user()->role }}
-        </h2>
-    </x-slot> --}}
-
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
+        <link href="{{ asset('assets/css/flowbite.min.css') }}" rel="stylesheet" type="text/css">
+        <script src="{{ asset('assets/js/flowbite.min.js') }}"></script>
     </head>
 
     <div class="py-12">

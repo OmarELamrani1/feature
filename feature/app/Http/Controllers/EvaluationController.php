@@ -29,10 +29,6 @@ class EvaluationController extends Controller
             'topic',
         ])->paginate();
 
-        // $posters = Poster::with([
-        //     'personne',
-        // ])->paginate();
-
         return view('president.index', compact('abstractsubmissions'));
     }
 

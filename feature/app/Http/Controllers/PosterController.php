@@ -98,14 +98,14 @@ class PosterController extends Controller
         return view('posters.posterstrashed', compact('posters'));
     }
 
-    // Restore presidents deleted
+    // Restore poster deleted
     public function posterRestore($id){
         $poster = Poster::onlyTrashed()->where('id', $id)->first();
         $poster->restore();
         return redirect()->back();
     }
 
-    // Delete presidents definitely
+    // Delete poster definitely
     public function posterForceDelete($id){
         $poster = Poster::onlyTrashed()->where('id', $id)->first();
         $poster->forceDelete();

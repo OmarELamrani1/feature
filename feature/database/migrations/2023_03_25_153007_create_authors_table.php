@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('country');
+            $table->foreignId('personne_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

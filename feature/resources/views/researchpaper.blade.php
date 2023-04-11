@@ -1,18 +1,12 @@
 <x-app-layout>
     @section('title', 'Research Paper')
-    {{-- <x-slot name="header">
-
-    </x-slot> --}}
 
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
-
+        <link href="{{ asset('assets/css/flowbite.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
-
     </head>
 
     <div class="py-12">
@@ -38,7 +32,7 @@
                                             {{ session('successAbstract') }}
                                         </div>
                                     @endif
-                                    <h3 class="card-title">Abstract Submission</h3>
+                                    <h3 class="card-title">Abstract Submission RESEARCH PAPER</h3>
                                 </div>
                                 <div class="card-body p-0">
                                     <div class="bs-stepper">
@@ -72,34 +66,17 @@
                                             </div>
                                             <div class="line"></div>
 
-{{-- ----------------------------------------------------------------------------- TITLE ----------------------------------------------------------------}}
+                                            <div class="step" data-target="#introobjective-part">
+                                                <button type="button" class="step-trigger" role="tab"
+                                                    aria-controls="introobjective-part"
+                                                    id="introobjective-part-trigger">
+                                                    <span class="bs-stepper-circle">4</span>
+                                                    <span class="bs-stepper-label">Introduction & Objectives</span>
+                                                </button>
+                                            </div>
+                                        </div>
 
-<div id="researchTitleForm">
-    <div class="step" data-target="#introobjective-part">
-        <button type="button" class="step-trigger" role="tab" aria-controls="introobjective-part"
-                id="introobjective-part-trigger">
-            <span class="bs-stepper-circle">4</span>
-            <span class="bs-stepper-label">Introduction & Objectives</span>
-        </button>
-    </div>
-</div>
-
-<div id="clinicalTitleForm">
-    <div class="step" data-target="#introdiagnosis-part">
-        <button type="button" class="step-trigger" role="tab" aria-controls="introdiagnosis-part"
-                id="introdiagnosis-part-trigger">
-            <span class="bs-stepper-circle">4</span>
-            <span class="bs-stepper-label">Introduction & Diagnosis</span>
-        </button>
-      </div>
-</div>
-
-                                    </div> {{--  End dyal ster lwel f title --}}
-
-                                    {{--  Begin dyal ster tani f title --}}
                                         <div class="bs-stepper-header" role="tablist">
-<div id="researchTitleForm2">
-
                                             <div class="step" data-target="#methodresult-part">
                                                 <button type="button" class="step-trigger" role="tab"
                                                     aria-controls="methodresult-part" id="methodresult-part-trigger">
@@ -112,23 +89,11 @@
                                             <div class="step" data-target="#conclusion-part">
                                                 <button type="button" class="step-trigger" role="tab"
                                                     aria-controls="conclusion-part" id="conclusion-part-trigger">
-                                                    <span class="bs-stepper-circle">5</span>
+                                                    <span class="bs-stepper-circle">6</span>
                                                     <span class="bs-stepper-label">Conclusion</span>
                                                 </button>
                                             </div>
-</div>
-
-<div id="clinicalTitleForm2">
-                                            <div class="step" data-target="#treatmentDiscussion-part">
-                                                <button type="button" class="step-trigger" role="tab"
-                                                    aria-controls="treatmentDiscussion-part" id="treatmentDiscussion-part-trigger">
-                                                    <span class="bs-stepper-circle">5</span>
-                                                    <span class="bs-stepper-label">Treatment & Discussion</span>
-                                                </button>
-                                            </div>
-</div>
-<div class="line"></div>
-{{-- ----------------------------------------------------------------------------- END TITLE ----------------------------------------------------------------}}
+                                            <div class="line"></div>
 
                                             <div class="step" data-target="#disclosure-part">
                                                 <button type="button" class="step-trigger" role="tab"
@@ -166,35 +131,27 @@
                                                 <div id="TitleTopic-part" class="content" role="tabpanel"
                                                     aria-labelledby="TitleTopic-part-trigger">
                                                     <br><span>Please enter the title of your abstract, select the type
-                                                        and
-                                                        the topic.</span><br><br>
+                                                        and the topic.</span><br><br>
                                                     <div class="form-group">
                                                         <label for="title">Title * <em class="emText">limited to 25
-                                                                words in UPPER CASE</em></label>
-                                                        {{-- <input class="form-control" type="text" id="title" name="title" oninput="this.value = this.value.toUpperCase()"> --}}
+                                                                words in UPPER CASE</em></label><br>
+                                                        <span style="color: red;" id="title-error" class="error"></span>
                                                         <textarea class="form-control" name="title" id="title" maxlength="25"
                                                             oninput="this.value = this.value.toUpperCase()"></textarea>
                                                     </div>
 
                                                     <div class="form-group">
-
-                                                        <label for="type">Type:</label>
-                                                        <select class="form-control" id="type" name="type">
-                                                            <option value="choose" disabled selected>Choose a Type of submission</option>
-                                                            <option value="Research Paper">Research Paper</option>
-                                                            <option value="Clinical Case">Clinical Case</option>
-                                                        </select>
-
-                                                        {{-- <label for="type">Type:*</label>
+                                                        <label for="type">Type:*</label>
                                                         <input type="hidden" name="type" value="Research Paper">
                                                         <select class="form-control" name="type" id="type">
                                                             <option value="Research Paper" disabled selected>Research
                                                                 Paper</option>
-                                                        </select> --}}
+                                                        </select>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="topic_id">Main Topic:*</label>
+                                                        <span style="color: red;" id="topic-error" class="error"></span>
                                                         <select class="form-control" name="topic_id" id="topic_id">
                                                             <option value="choose" disabled selected>Choose Topic
                                                             </option>
@@ -205,12 +162,10 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                    <button type="button"
+                                                    <button type="button" id="next-button-1"
+                                                        onclick="validateTitleTopic()"
                                                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                         onclick="stepper.next()">Next</button>
-
-                                                    {{-- <button type="button" class="btn btn-primary"
-                                                        onclick="stepper.next()">Next</button> --}}
                                                 </div>
 
                                                 <div id="Authors-part" class="content" role="tabpanel"
@@ -255,9 +210,54 @@
                                                                             class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                                                                             Add new Author
                                                                         </h3>
+
+                                                                        {{-- ----------------------------------------------------------------------------------------------------------------------------- --}}
+
+                                                                        <div>
+                                                                            <label for="last-name">Search by Last Name:</label><br>
+                                                                            <div class="inline-flex mb-3">
+                                                                                <input type="text" id="last-name" name="lastname">
+                                                                                <button type="button" class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="search-button">Search</button>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div id="authors-table-container"
+                                                                            style="display:none;">
+                                                                            <table id="authors-table"
+                                                                                style="border: 1px solid black;">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>First Name</th>
+                                                                                        <th>Last Name</th>
+                                                                                        <th>Email</th>
+                                                                                        <th>Adress</th>
+                                                                                        <th>Phone</th>
+                                                                                        <th>Departement</th>
+                                                                                        <th>Institution</th>
+                                                                                        <th>City</th>
+                                                                                        <th>State</th>
+                                                                                        <th>Country</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+
+                                                                        <p id="no-authors-message"
+                                                                            style="display:none;">No authors found.</p>
+
+                                                                        {{-- ----------------------------------------------------------------------------------------------------------------------------- --}}
+
+
+
                                                                         <form id="step2-form" class="space-y-6"
                                                                             action="#" method="POST">
                                                                             @csrf
+
+                                                                            <input type="hidden" name="id"
+                                                                                id="last_author_id" value="">
 
                                                                             <div>
                                                                                 <label for="firstname"
@@ -393,7 +393,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr id="todo-list">
+                                                                    <tr id="todo-list" style="text-align: center;">
                                                                         <td class="firstname"></td>
                                                                         <td class="lastname"></td>
                                                                         <td class="email"></td>
@@ -425,9 +425,10 @@
                                                     <div class="form-group">
                                                         <label for="keywords"><strong>Keywords</strong></label>
                                                         <p>- Please provide 1-5 keywords</p>
-                                                        <input type="text" name="keywords" class="form-control"
-                                                            id="keywords" placeholder="Enter keywords">
-                                                        <button id="addKeywordBtn">Add</button>
+                                                        <div class="inline-flex mb-3">
+                                                            <input type="text" name="keywords" class="form-control" id="keywords" placeholder="Enter keywords">
+                                                            <button id="addKeywordBtn" class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                                                        </div>
                                                         <ul id="keywordList"></ul>
                                                     </div>
 
@@ -435,139 +436,98 @@
                                                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                         onclick="stepper.previous()">Previous</button>
 
-                                                    <button type="button"
+                                                    <button type="button" id="next-button-2"
                                                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                         onclick="stepper.next()">Next</button>
                                                 </div>
 
-
-{{-- ----------------------------------------------------------------------------- INPUT ----------------------------------------------------------------}}
-                                                <div id="research-fields">
-                                                    <div id="introobjective-part" class="content" role="tabpanel"
-                                                        aria-labelledby="introobjective-part-trigger">
+                                                <div id="introobjective-part" class="content" role="tabpanel"
+                                                    aria-labelledby="introobjective-part-trigger">
+                                                    <div class="form-group">
+                                                        <label for="introduction"><strong>Introduction</strong> <em
+                                                                class="emText">limited to 300 words:</em></label>
                                                         <div class="form-group">
-                                                            <label for="introduction"><strong>Introduction</strong> <em
-                                                                    class="emText">limited to 300 words:</em></label>
-                                                            <div class="form-group">
-                                                                <textarea name="introduction" id="compose-textarea" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your introduction here..." style="height: 300px"></textarea>
-                                                            </div>
+                                                            <span style="color: red;" id="introduction-error"
+                                                                class="error"></span>
+                                                            <textarea name="introduction" id="introduction" class="form-control" maxlength="300"
+                                                                placeholder="Type or paste your introduction here..." style="height: 300px"></textarea>
                                                         </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="objective"><strong>Objectives</strong> <em
+                                                                class="emText">limited to 300 words:</em></label>
                                                         <div class="form-group">
-                                                            <label for="objective"><strong>Objectives</strong> <em
-                                                                    class="emText">limited to 300 words:</em></label>
-                                                            <div class="form-group">
-                                                                <textarea name="objective" id="compose-textarea" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your objective here..." style="height: 300px"></textarea>
-                                                            </div>
+                                                            <span style="color: red;" id="objective-error"
+                                                                class="error"></span>
+                                                            <textarea name="objective" id="objective" class="form-control" maxlength="300"
+                                                                placeholder="Type or paste your objective here..." style="height: 300px"></textarea>
                                                         </div>
-
-                                                        <button type="button"
-                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                            onclick="stepper.previous()">Previous</button>
-
-                                                        <button type="button"
-                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                            onclick="stepper.next()">Next</button>
                                                     </div>
 
-                                                    <div id="methodresult-part" class="content" role="tabpanel"
-                                                        aria-labelledby="methodresult-part-trigger">
-                                                        <div class="form-group">
-                                                            <label for="method"><strong>Method</strong> <em
-                                                                    class="emText">limited to 300 words:</em></label>
-                                                            <div class="form-group">
-                                                                <textarea name="method" id="compose-textarea" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your method here..." style="height: 300px"></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="result"><strong>Result</strong> <em
-                                                                    class="emText">limited to 300 words:</em></label>
-                                                            <div class="form-group">
-                                                                <textarea name="result" id="compose-textarea" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your result here..." style="height: 300px"></textarea>
-                                                            </div>
-                                                        </div>
+                                                    <button type="button"
+                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                        onclick="stepper.previous()">Previous</button>
 
-                                                        <button type="button"
-                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                            onclick="stepper.previous()">Previous</button>
-
-                                                        <button type="button"
-                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                            onclick="stepper.next()">Next</button>
-                                                    </div>
-
-                                                    <div id="conclusion-part" class="content" role="tabpanel"
-                                                        aria-labelledby="conclusion-part-trigger">
-                                                        <div class="form-group">
-                                                            <label for="conclusion"><strong>Conclusion</strong> <em
-                                                                    class="emText">limited to 300 words:</em></label>
-                                                            <div class="form-group">
-                                                                <textarea name="conclusion" id="compose-textarea" class="form-control" style="height: 300px"></textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <button type="button"
-                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                            onclick="stepper.previous()">Previous</button>
-
-                                                        <button type="button"
-                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                            onclick="stepper.next()">Next</button>
-                                                    </div>
+                                                    <button type="button" id="next-button-3"
+                                                        onclick="validateIntroObject()"
+                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                        onclick="stepper.next()">Next</button>
                                                 </div>
 
-                                                <div id="clinical-fields">
-                                                    <div id="introdiagnosis-part" class="content" role="tabpanel"
-                                                        aria-labelledby="introdiagnosis-part-trigger">
+                                                <div id="methodresult-part" class="content" role="tabpanel"
+                                                    aria-labelledby="methodresult-part-trigger">
+                                                    <div class="form-group">
+                                                        <label for="method"><strong>Method</strong> <em
+                                                                class="emText">limited to 300 words:</em></label>
                                                         <div class="form-group">
-                                                            <label
-                                                                for="introduction"><strong>Introduction</strong>limited
-                                                                to 300 words:</label>
-                                                            <div class="form-group">
-                                                                <textarea name="introduction" id="compose-textarea" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your introduction here..." style="height: 300px"></textarea>
-                                                            </div>
+                                                            <span style="color: red;" id="method-error"
+                                                                class="error"></span>
+                                                            <textarea name="method" id="method" class="form-control" maxlength="300"
+                                                                placeholder="Type or paste your method here..." style="height: 300px"></textarea>
                                                         </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="result"><strong>Result</strong> <em
+                                                                class="emText">limited to 300 words:</em></label>
                                                         <div class="form-group">
-                                                            <label for="diagnosis"><strong>Diagnosis</strong></label>
-                                                            <div class="form-group">
-                                                                <textarea name="diagnosis" id="compose-textarea" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your diagnosis here..." style="height: 300px"></textarea>
-                                                            </div>
+                                                            <span style="color: red;" id="result-error"
+                                                                class="error"></span>
+                                                            <textarea name="result" id="result" class="form-control" maxlength="300"
+                                                                placeholder="Type or paste your result here..." style="height: 300px"></textarea>
                                                         </div>
-                                                        <button type="button" class="btn btn-primary"
-                                                            onclick="stepper.previous()">Previous</button>
-                                                        <button type="button" class="btn btn-primary"
-                                                            onclick="stepper.next()">Next</button>
                                                     </div>
 
-                                                    <div id="treatmentDiscussion-part" class="content"
-                                                        role="tabpanel"
-                                                        aria-labelledby="treatmentDiscussion-part-trigger">
-                                                        <div class="form-group">
-                                                            <label for="treatment"><strong>Treatment</strong></label>
-                                                            <div class="form-group">
-                                                                <textarea name="treatment" id="compose-textarea" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your treatment here..." style="height: 300px"></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="discussion"><strong>Discussion</strong></label>
-                                                            <div class="form-group">
-                                                                <textarea name="discussion" id="compose-textarea" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your discussion here..." style="height: 300px"></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" class="btn btn-primary"
-                                                            onclick="stepper.previous()">Previous</button>
-                                                        <button type="button" class="btn btn-primary"
-                                                            onclick="stepper.next()">Next</button>
-                                                    </div>
+                                                    <button type="button"
+                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                        onclick="stepper.previous()">Previous</button>
+
+                                                    <button type="button" id="next-button-4"
+                                                        onclick="validateMethodResult()"
+                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                        onclick="stepper.next()">Next</button>
                                                 </div>
-{{-- ----------------------------------------------------------------------------- END INPUT ----------------------------------------------------------------}}
+
+                                                <div id="conclusion-part" class="content" role="tabpanel"
+                                                    aria-labelledby="conclusion-part-trigger">
+                                                    <div class="form-group">
+                                                        <label for="conclusion"><strong>Conclusion</strong> <em
+                                                                class="emText">limited to 300 words:</em></label>
+                                                        <div class="form-group">
+                                                            <span style="color: red;" id="conclusion-error"
+                                                                class="error"></span>
+                                                            <textarea name="conclusion" id="conclusion" class="form-control" style="height: 300px"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <button type="button"
+                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                        onclick="stepper.previous()">Previous</button>
+
+                                                    <button type="button" id="next-button-5"
+                                                        onclick="validateConclusion()"
+                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                        onclick="stepper.next()">Next</button>
+                                                </div>
 
                                                 <div id="disclosure-part" class="content" role="tabpanel"
                                                     aria-labelledby="disclosure-part-trigger">
@@ -608,11 +568,6 @@
                                                     <button type="button"
                                                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                         onclick="stepper.next()">Next</button>
-
-                                                    {{-- <button type="button" class="btn btn-primary"
-                                                        onclick="stepper.previous()">Previous</button>
-                                                    <button type="button" class="btn btn-primary"
-                                                        onclick="stepper.next()">Next</button> --}}
                                                 </div>
 
                                                 <div id="affirmation-part" class="content" role="tabpanel"
@@ -673,9 +628,6 @@
                                                         <label class="form-check-label" for="affirmation"><strong>I
                                                                 Agree</strong>
                                                         </label>
-                                                        {{-- <input type="checkbox" name="affirmation" id="affirmation">
-                                                        <strong>I
-                                                            Agree</strong> --}}
                                                         <p>* You may proceed to the next step but the system will not
                                                             let
                                                             you complete your submission without entering mandatory
@@ -693,24 +645,12 @@
 
                                                 <div id="previewfinish-part" class="content" role="tabpanel"
                                                     aria-labelledby="previewfinish-part-trigger">
-                                                    {{-- <div class="form-group">
-                                                        <label for="exampleInputFile">File input</label>
-                                                        <div class="input-group">
-                                                            <div class="custom-file">
-                                                                <input type="file" class="custom-file-input"
-                                                                    id="exampleInputFile">
-                                                                <label class="custom-file-label"
-                                                                    for="exampleInputFile">Choose file</label>
-                                                            </div>
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text">Upload</span>
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
 
                                                     <button type="button"
                                                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                         onclick="stepper.previous()">Previous</button>
+
+                                                    <input type="hidden" name="author_id" id="author-id" value="">
 
                                                     <div class="text-center">
                                                         <p class="align_c"><button type="submit"
@@ -726,30 +666,12 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    Abstract Submission
+                                    Abstract Submission RESEARCH PAPER
                                 </div>
                             </div>
                             <!-- /.card -->
                         </div>
                     </div>
-
-                    {{-- @php
-                        $hasSubmittedPoster = auth()->user()->personnes->contains(function ($personne) {
-                            return $personne->poster !== null;
-                        });
-                    @endphp
-
-                    @if (!empty($evaluation->status))
-                        <a href="{{ route('checkStatus') }}">Check Status</a>
-
-                    @elseif ($hasSubmittedPoster)
-                        <p>You have already submitted a poster</p>
-
-                    @else
-                        @include('submitPoster')
-
-                    @endif --}}
-
 
                 </div>
             </div>
@@ -768,6 +690,11 @@
             color: white;
             font-size: 14px;
         }
+
+        #authors-table th,
+        #authors-table td {
+            border: 1px solid black;
+        }
     </style>
     <!-- jQuery -->
     <script src="{{ asset('assets/js/jquery-2.2.4.min.js') }}"></script>
@@ -777,13 +704,15 @@
     <script src="https: //cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https: //cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
+    <script src="{{ asset('assets/js/flowbite.min.js') }}"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    {{-- <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> --}}
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-    <script src="{{ asset('assets/js/submission.js') }}"></script>
+    <script src="{{ asset('assets/js/researchclinical.js') }}"></script>
+    <script src="{{ asset('assets/js/researchValidate.js') }}"></script>
 
     <script>
         // BS-Stepper Init
@@ -791,4 +720,89 @@
             window.stepper = new Stepper(document.querySelector('.bs-stepper'))
         })
     </script>
+
+    <script>
+        const searchButton = document.querySelector('#search-button');
+        const lastNameInput = document.querySelector('#last-name');
+        const authorsTableContainer = document.querySelector('#authors-table-container');
+        const authorsTable = document.querySelector('#authors-table tbody');
+        const noAuthorsMessage = document.querySelector('#no-authors-message');
+
+        searchButton.addEventListener('click', () => {
+
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+            });
+
+            const lastname = lastNameInput.value.trim();
+
+            fetch(`{{ route('searchAuthors') }}?lastname=${lastname}`)
+                .then(response => response.json())
+                .then(data => {
+                    authorsTable.innerHTML = '';
+
+                    if (data.authors.length === 0) {
+                        noAuthorsMessage.style.display = 'block';
+                        authorsTableContainer.style.display = 'none';
+                    } else {
+                        noAuthorsMessage.style.display = 'none';
+                        authorsTableContainer.style.display = 'block';
+
+                        data.authors.forEach(author => {
+                            if (author.id && author.firstname && author.lastname && author.email && author.adress && author.phone && author.departement && author.institution && author.city && author.state && author.country) {
+                                const tr = document.createElement('tr');
+                                tr.innerHTML = `
+                                    <td>${author.firstname}</td>
+                                    <td>${author.lastname}</td>
+                                    <td>${author.email}</td>
+                                    <td>${author.adress}</td>
+                                    <td>${author.phone}</td>
+                                    <td>${author.departement}</td>
+                                    <td>${author.institution}</td>
+                                    <td>${author.city}</td>
+                                    <td>${author.state}</td>
+                                    <td>${author.country}</td>
+                                    <td>
+                                        <button type="button" data-author-id="${author.id}" class="add-author-button">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </td>
+                                `;
+                                authorsTable.appendChild(tr);
+                            }
+                        });
+
+
+                        const addAuthorButtons = document.querySelectorAll('.add-author-button');
+                        addAuthorButtons.forEach(addAuthorButton => {
+                            addAuthorButton.addEventListener('click', () => {
+                                const authorId = addAuthorButton.dataset.authorId;
+                                const authorIdInput = document.querySelector('#author-id');
+                                authorIdInput.value = authorId;
+                                const authorData = addAuthorButton.closest('tr').querySelectorAll('td');
+                                const todoListRow = document.querySelector('#todo-list');
+                                todoListRow.querySelector('.firstname').textContent = authorData[0].textContent;
+                                todoListRow.querySelector('.lastname').textContent = authorData[1].textContent;
+                                todoListRow.querySelector('.email').textContent = authorData[2].textContent;
+                                todoListRow.querySelector('.adress').textContent = authorData[3].textContent;
+                                todoListRow.querySelector('.phone').textContent = authorData[4].textContent;
+                                todoListRow.querySelector('.departement').textContent = authorData[5].textContent;
+                                todoListRow.querySelector('.institution').textContent = authorData[6].textContent;
+                                todoListRow.querySelector('.city').textContent = authorData[7].textContent;
+                                todoListRow.querySelector('.state').textContent = authorData[8].textContent;
+                                todoListRow.querySelector('.country').textContent = authorData[9].textContent;
+                            });
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('An error occurred while searching for authors:', error);
+                });
+        });
+    </script>
+
 </x-app-layout>

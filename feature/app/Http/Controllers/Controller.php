@@ -26,18 +26,13 @@ class Controller extends BaseController
         return view('accueil');
     }
 
-    // public function submissionprint($id){
-    //     $abstractsubmission = Abstractsubmission::findOrFail($id);
-    //     return view('print.submissionprint', compact('abstractsubmission'));
-    // }
-
     public function generatePDF($id)
     {
         $abstractsubmission = Abstractsubmission::findOrFail($id);
 
-        $pdf = Pdf::loadView('print.submissionprint', compact('abstractsubmission'));
+        $pdf = PDF::loadView('print.submissionprint', compact('abstractsubmission'));
 
-        return $pdf->download('abstractsubmission.pdf');
+        return $pdf->stream('abstractsubmission.pdf');
     }
 
     public function check()
@@ -54,26 +49,10 @@ class Controller extends BaseController
 
                 $abstractsubmissions = Abstractsubmission::paginate();
 
-                // $posters = Poster::with([
-                //     'personne',
-                // ])->paginate();
-
                 return view('president.index', compact('abstractsubmissions'));
             } else if (Auth::user()->role == "Personne") {
 
                 $personnes = auth()->user()->personnes;
-                // dd($personnes->id);
-
-                // $evaluation = null;
-                // foreach ($personnes as $personne) {
-                //     $poster = $personne->poster;
-                //     if ($poster !== null) {
-                //         $evaluation = Evaluation::where('poster_id', $poster->id)->first();
-                //         if ($evaluation !== null) {
-                //             break;
-                //         }
-                //     }
-                // }
 
                 $abstractsubmissions = Abstractsubmission::where('personne_id', $personnes->id)->first();
 

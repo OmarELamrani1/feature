@@ -32,8 +32,13 @@
 
                             @if ($checkStatus->status == 'Approuved' || $checkStatus->status == 'Rejected')
                                 <div class="panel-heading">
-                                    {{-- <div class="panel-title">Tracking CODE : {{ $checkStatus->poster->tracking_code }}</div> --}}
                                     <div class="panel-title">Status : {{ $checkStatus->status }}</div>
+
+                                    <a href="{{ route('printsubmission',   $checkStatus->abstractsubmission->id) }}" target="blank">
+                                        <button>
+                                            <i class="fa fa-print" aria-hidden="true"></i>Print
+                                        </button>
+                                    </a>
                                 </div>
                             @endif
 
@@ -101,18 +106,6 @@
                                                             @endforeach
                                                             <option value="" disabled>---</option>
                                                         </select>
-
-
-
-                                                        {{-- <select class="form-control" name="topic_id" id="topic_id">
-                                                            <option name="topic_id" value="{{ $checkStatus->abstractsubmission->topic->id }}" disabled selected>{{ $checkStatus->abstractsubmission->topic->name }}
-                                                            </option>
-                                                            @foreach ($topics as $topic)
-                                                                <option name="topic_id" value="{{ $topic->id }}">
-                                                                    {{ $topic->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select> --}}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -248,100 +241,6 @@
                         </div>
                         <p class="clear">&nbsp;</p>
                     </article>
-
-                    {{-- @if ($checkStatus->status == 'Approuved' || $checkStatus->status == 'Rejected')
-                        <div class="panel-heading"> --}}
-                    {{-- <div class="panel-title">Tracking CODE : {{ $checkStatus->poster->tracking_code }}</div> --}}
-                    {{-- <div class="panel-title">Status : {{ $checkStatus->status }}</div>
-                        </div>
-                    @endif --}}
-
-                    {{-- @if ($checkStatus->status == 'Modify')
-                        <div class="container">
-                            <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                                <div class="panel-heading">
-                                    <div class="panel-title">Status : {{ $checkStatus->status }}</div><br> --}}
-                    {{-- <div class="panel-title" style="float:right; position: relative; top:-20px">Status : {{ $checkStatus->status }}</div> --}}
-                    {{-- </div>
-
-                                <form class="form-horizontal"
-                                    action="{{ route('posters.update', $checkStatus->abstractsubmission->id) }}"
-                                    method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-
-                                    @if ($checkStatus->abstractsubmission->type === 'Clinical Case')
-                                        <div class="content">
-                                            <h1><span class="trackCode">TRACKING CODE :
-                                                    {{ $checkStatus->abstractsubmission->tracking_code }}</span>
-                                            </h1>
-                                            <p>&nbsp;</p>
-
-                                            <form action="{{ route('evaluation.store') }}" method="post">
-                                                @csrf
-
-                                                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                                    <table
-                                                        class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                                        <thead
-                                                            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                                            <tr>
-                                                                <th scope="col" class="px-6 py-3">title</th>
-                                                                <th scope="col" class="px-6 py-3">type</th>
-                                                                <th scope="col" class="px-6 py-3">Topic</th>
-                                                                <th scope="col" class="px-6 py-3">Keywords</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr> --}}
-                    {{-- <td class="border px-6 py-4">{{ $abstractsubmission->title }}</td>
-                                                        <td class="border px-6 py-4">{{ $abstractsubmission->type }}</td>
-                                                        <td class="border px-6 py-4">{{ $abstractsubmission->topic->name }}</td>
-                                                        <td class="border px-6 py-4">{{ $abstractsubmission->keywords }}</td> --}}
-                    {{-- </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div><br><br>
-                                                <select name="status" class="form-select w-100 p-3"
-                                                    aria-label="Default select example">
-                                                    <option disabled selected>Evaluation : </option>
-                                                    <option name="status" value="Approuved">Approuved</option>
-                                                    <option name="status" value="Modify">Modify</option>
-                                                    <option name="status" value="Rejected">Rejected</option>
-                                                </select><br> --}}
-
-                    {{-- <input type="hidden" name="abstractsubmission_id"
-                                            value="{{ $abstractsubmission->id }}"> --}}
-
-                    {{-- <div class="text-center">
-                                                    <p class="align_c"><button type="submit" class="btnStyle">Submit
-                                                            Evaluation</button></p>
-                                                </div>
-
-                                            </form>
-
-                                        </div>
-                                    @else
-                                        @include('researchpaper')
-                                    @endif
-
-                                    <div style="margin-bottom: 25px" class="input-group"> --}}
-                    {{-- <img class="img-thumbnail w-100 p-3" src="{{ Storage::url($checkStatus->poster->path) }}" alt="POSTER">
-                                    <input type="file" class="form-control-plaintext mt-3" value="{{ $checkStatus->poster->path }}"name="path" id="path"> --}}
-                    {{-- </div>
-
-                                    <div style="margin-bottom: 25px" class="input-group">
-                                        <label for="summary" class="sr-only">Summary : </label> --}}
-                    {{-- <input type="summary" class="form-control" value="{{ $checkStatus->poster->summary }}"name="summary" id="summary" placeholder="summary"> --}}
-                    {{-- </div>
-
-                                    <button type="submit" class="btn btn-primary mb-2 bg-primary">Confirm</button>
-                                </form>
-
-                            </div>
-                        </div>
-                    @endif --}}
                 </div>
             </div>
         </div>

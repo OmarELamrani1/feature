@@ -33,14 +33,8 @@ class PresidentController extends Controller
     }
 
     public function deleteAbstract($id){
-
         Abstractsubmission::findOrFail($id)->delete();
         return redirect()->back()->with('deletedAbstract', 'Abstract deleted.');
-
-        // $poster = Abstractsubmission::findOrFail($id);
-        // $poster->delete();
-
-        // return redirect()->back();
     }
 
     public function create()

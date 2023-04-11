@@ -32,24 +32,6 @@ class PersonneController extends Controller
         return view('checkStatus', compact(['checkStatus','topics']));
     }
 
-
-    // public function checkStatus(){
-    //     $personnes = auth()->user()->personnes;
-
-    //     $checkStatus = null;
-    //     foreach ($personnes as $personne) {
-    //         $abstractsubmission = $personne->abstractsubmission;
-    //         if ($abstractsubmission !== null) {
-    //             $checkStatus = Evaluation::where('abstractsubmission_id', $abstractsubmission->id)->first();
-    //             if ($checkStatus !== null) {
-    //                 break;
-    //             }
-    //         }
-    //     }
-
-    //     return view('checkStatus', compact('checkStatus'));
-    // }
-
     public function create()
     {
         //
