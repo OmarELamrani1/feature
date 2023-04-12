@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/search-authors', 'searchAuthors')->name('searchAuthors');
             Route::post('addAuthor', 'addAuthor')->name('addAuthor');
             Route::get('/authors/{id}', 'show')->name('authors.show');
+            Route::delete('deleteAuthor/{id}', 'deleteAuthor')->name('deleteAuthor');
         });
 
         Route::controller(AbstractsubmissionController::class)->group(function () {

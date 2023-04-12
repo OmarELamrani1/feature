@@ -19,18 +19,41 @@ class AbstractsubmissionController extends Controller
 {
     public function researchPaper()
     {
-        if(auth()->user()->personnes->abstractsubmission->count() == 3){
+        $researchPaperCount = 0;
+
+        if (auth()->user()->personnes->abstractsubmission) {
+            foreach (auth()->user()->personnes->abstractsubmission as $abstract) {
+                if ($abstract->type == 'Research Paper') {
+                    $researchPaperCount++;
+                }
+            }
+        }
+
+        if ($researchPaperCount >= 3) {
             abort(404);
         }
+
         $topics = Topic::all();
         return view('researchpaper', compact('topics'));
+
     }
 
     public function clinicalCase()
     {
-        if(auth()->user()->personnes->abstractsubmission->count() == 3){
+        $clinicalCaseCount = 0;
+
+        if (auth()->user()->personnes->abstractsubmission) {
+            foreach (auth()->user()->personnes->abstractsubmission as $abstract) {
+                if ($abstract->type == 'Clinical Case') {
+                    $clinicalCaseCount++;
+                }
+            }
+        }
+
+        if ($clinicalCaseCount >= 3) {
             abort(404);
         }
+
         $topics = Topic::all();
         return view('clinicalcase', compact('topics'));
     }
@@ -82,13 +105,13 @@ class AbstractsubmissionController extends Controller
         }
 
         // Send email to user for successfully submit
-        // Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
+        Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
 
-        // // Send email to president for evaluation
-        // $presidents = User::where('role', 'President')->get();
-        // foreach ($presidents as $president) {
-        //     Mail::to($president->email)->send(new PosterStored($abstractsubmission));
-        // }
+        // Send email to president for evaluation
+        $presidents = User::where('role', 'President')->get();
+        foreach ($presidents as $president) {
+            Mail::to($president->email)->send(new PosterStored($abstractsubmission));
+        }
 
         return view('submmision.preview', compact('abstractsubmission'));
     }
@@ -112,20 +135,22 @@ class AbstractsubmissionController extends Controller
 
         $affirmation = $request->has('affirmation') ? 1 : 0;
 
+        // Send email to user for successfully submit
+        Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
+
         // Send email to president for evaluation
-        // $president = User::where('role', 'President')->first();
-        // Mail::to($president->email)->send(new PosterStored($abstractsubmission));
+        $presidents = User::where('role', 'President')->get();
+        foreach ($presidents as $president) {
+            Mail::to($president->email)->send(new PosterStored($abstractsubmission));
+        }
 
-        // // Send email to user for successfully submit
-        // Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
 
+        // $personnes = auth()->user()->personnes;
+        // $abstractsubmissions = Abstractsubmission::where('personne_id', $personnes->id)->first();
 
-        $personnes = auth()->user()->personnes;
-        $abstractsubmissions = Abstractsubmission::where('personne_id', $personnes->id)->first();
+        $abstractsubmission = Abstractsubmission::findOrFail($abstractsubmission->id);
+        return view('submmision.preview', compact('abstractsubmission'));
 
-        return view('dashboard', compact('abstractsubmissions'));
-
-        // return view('dashboard');
     }
 
     public function destroy(Abstractsubmission $abstractsubmission)
@@ -135,20 +160,23 @@ class AbstractsubmissionController extends Controller
     }
 
     // Get only deleted abstracts
-    public function abstractsOnlyTrashed(){
+    public function abstractsOnlyTrashed()
+    {
         $abstractsubmissions = Abstractsubmission::onlyTrashed()->paginate();
         return view('submmision.abstracttrashed', compact('abstractsubmissions'));
     }
 
     // Restore abstract deleted
-    public function abstractRestore($id){
+    public function abstractRestore($id)
+    {
         $abstractsubmission = Abstractsubmission::onlyTrashed()->where('id', $id)->first();
         $abstractsubmission->restore();
         return redirect()->back();
     }
 
     // Delete abstract definitely
-    public function abstractForceDelete($id){
+    public function abstractForceDelete($id)
+    {
         $abstractsubmission = Abstractsubmission::onlyTrashed()->where('id', $id)->first();
         $abstractsubmission->forceDelete();
         return redirect()->back();

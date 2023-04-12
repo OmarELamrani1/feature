@@ -22,7 +22,7 @@ class Personne extends Model
     }
 
     public function abstractsubmission(){
-        return $this->hasOne(Abstractsubmission::class);
+        return $this->hasMany(Abstractsubmission::class);
     }
 
     public static function boot(){

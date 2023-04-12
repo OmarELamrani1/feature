@@ -50,6 +50,19 @@ hr {
 	padding: 10px 15px;
 	box-shadow: 0 -1px 0 #e0e0e0,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
 }
+.abstract_box_status{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+	text-align: left;
+	font-weight: 600;
+	vertical-align: top;
+}
+.abstract_box_status:hover{
+    text-decoration: underline;
+}
+
 .abstract_box_title {
 	width: 930px;
 	white-space: nowrap;
@@ -103,17 +116,19 @@ hr {
 	color:#3F454C;
 }
 .action_btn {
+    position: absolute;
+    display: inline-flex;
 	width: 15%;
 	text-align: right;
 	vertical-align: middle;
 }
 .action_btn a {
-	padding-right: 10px;
+	padding-right: 25px;
 	color: 	#3F454C;
 	font-size: 17px;
 }
 .action_btn a:hover,.action_btn a:focus {
-	color: #000;
+	color: #ca3333;
 }
 .preview_rating {
 	margin-bottom: 15px;

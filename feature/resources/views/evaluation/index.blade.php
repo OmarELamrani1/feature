@@ -44,7 +44,7 @@
 
                         <select name="status" class="form-select w-100 p-3" aria-label="Default select example">
                             <option disabled selected>Evaluation : </option>
-                            <option name="status" value="Approuved">Approuved</option>
+                            <option name="status" value="Approved">Approved</option>
                             <option name="status" value="Modify">Modify</option>
                             <option name="status" value="Rejected">Rejected</option>
                         </select><br>

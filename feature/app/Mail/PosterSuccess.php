@@ -35,7 +35,7 @@ class PosterSuccess extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Abstract submission Success',
+            subject: 'MEAVC - Confirmation of Abstract Submission',
         );
     }
 

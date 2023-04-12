@@ -95,23 +95,25 @@
                                             </div>
                                             <div class="line"></div>
 
+                                            <div class="step" data-target="#affirmation-part">
+                                                <button type="button" class="step-trigger" role="tab"
+                                                    aria-controls="affirmation-part" id="affirmation-part-trigger">
+                                                    <span class="bs-stepper-circle">7</span>
+                                                    <span class="bs-stepper-label">Affirmation</span>
+                                                </button>
+                                            </div>
+                                            <div class="line"></div>
+
                                             <div class="step" data-target="#disclosure-part">
                                                 <button type="button" class="step-trigger" role="tab"
                                                     aria-controls="disclosure-part" id="disclosure-part-trigger">
-                                                    <span class="bs-stepper-circle">7</span>
+                                                    <span class="bs-stepper-circle">8</span>
                                                     <span class="bs-stepper-label">Disclosure</span>
                                                 </button>
                                             </div>
                                             <div class="line"></div>
 
-                                            <div class="step" data-target="#affirmation-part">
-                                                <button type="button" class="step-trigger" role="tab"
-                                                    aria-controls="affirmation-part" id="affirmation-part-trigger">
-                                                    <span class="bs-stepper-circle">8</span>
-                                                    <span class="bs-stepper-label">Affirmation</span>
-                                                </button>
-                                            </div>
-                                            <div class="line"></div>
+
 
                                             <div class="step" data-target="#previewfinish-part">
                                                 <button type="button" class="step-trigger" role="tab"
@@ -135,7 +137,8 @@
                                                     <div class="form-group">
                                                         <label for="title">Title * <em class="emText">limited to 25
                                                                 words in UPPER CASE</em></label><br>
-                                                        <span style="color: red;" id="title-error" class="error"></span>
+                                                        <span style="color: red;" id="title-error"
+                                                            class="error"></span>
                                                         <textarea class="form-control" name="title" id="title" maxlength="25"
                                                             oninput="this.value = this.value.toUpperCase()"></textarea>
                                                     </div>
@@ -151,7 +154,8 @@
 
                                                     <div class="form-group">
                                                         <label for="topic_id">Main Topic:*</label>
-                                                        <span style="color: red;" id="topic-error" class="error"></span>
+                                                        <span style="color: red;" id="topic-error"
+                                                            class="error"></span>
                                                         <select class="form-control" name="topic_id" id="topic_id">
                                                             <option value="choose" disabled selected>Choose Topic
                                                             </option>
@@ -214,10 +218,14 @@
                                                                         {{-- ----------------------------------------------------------------------------------------------------------------------------- --}}
 
                                                                         <div>
-                                                                            <label for="last-name">Search by Last Name:</label><br>
+                                                                            <label for="last-name">Search by Last
+                                                                                Name:</label><br>
                                                                             <div class="inline-flex mb-3">
-                                                                                <input type="text" id="last-name" name="lastname">
-                                                                                <button type="button" class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="search-button">Search</button>
+                                                                                <input type="text" id="last-name"
+                                                                                    name="lastname">
+                                                                                <button type="button"
+                                                                                    class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                                                    id="search-button">Search</button>
                                                                             </div>
                                                                         </div>
 
@@ -390,6 +398,8 @@
                                                                         </th>
                                                                         <th scope="col" class="px-6 py-3">country
                                                                         </th>
+                                                                        <th scope="col" class="px-6 py-3">Action
+                                                                        </th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -404,6 +414,11 @@
                                                                         <td class="city"></td>
                                                                         <td class="state"></td>
                                                                         <td class="country"></td>
+                                                                        <td>
+                                                                            <a href="#" class="delete-author">
+                                                                                <i class="far fa-trash-alt"></i>
+                                                                            </a>
+                                                                        </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -426,8 +441,11 @@
                                                         <label for="keywords"><strong>Keywords</strong></label>
                                                         <p>- Please provide 1-5 keywords</p>
                                                         <div class="inline-flex mb-3">
-                                                            <input type="text" name="keywords" class="form-control" id="keywords" placeholder="Enter keywords">
-                                                            <button id="addKeywordBtn" class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                                                            <input type="text" name="keywords"
+                                                                class="form-control" id="keywords"
+                                                                placeholder="Enter keywords">
+                                                            <button id="addKeywordBtn"
+                                                                class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
                                                         </div>
                                                         <ul id="keywordList"></ul>
                                                     </div>
@@ -542,13 +560,11 @@
 
                                                         <div class="flex items-center mb-4">
 
-                                                            <input type="radio" name="disclosure"
-                                                                value="provide_disclosure" id="provide_disclosure">
-                                                            Please provide your statement (max. 255 characters)
+                                                            <input type="radio" name="disclosure" value="provide_disclosure" id="provide_disclosure">
+                                                            <label for="disclosure">Please provide your statement (max. 255 characters)</label>
 
-                                                            <div id="disclosure_field" style="display: none;">
-                                                                <label for="disclosure">Statement:</label>
-                                                                <textarea name="disclosure" id="disclosure" maxlength="255"></textarea>
+                                                            <div class="form-group" id="disclosure_field" style="display: none;">
+                                                                    <textarea name="disclosure" id="disclosure" class="form-control" style="margin-left: 30px; width:600px; height: 300px;"></textarea>
                                                             </div>
                                                         </div>
 
@@ -650,7 +666,8 @@
                                                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                         onclick="stepper.previous()">Previous</button>
 
-                                                    <input type="hidden" name="author_id" id="author-id" value="">
+                                                    <input type="hidden" name="author_id" id="author-id"
+                                                        value="">
 
                                                     <div class="text-center">
                                                         <p class="align_c"><button type="submit"
@@ -753,7 +770,9 @@
                         authorsTableContainer.style.display = 'block';
 
                         data.authors.forEach(author => {
-                            if (author.id && author.firstname && author.lastname && author.email && author.adress && author.phone && author.departement && author.institution && author.city && author.state && author.country) {
+                            if (author.id && author.firstname && author.lastname && author.email &&
+                                author.adress && author.phone && author.departement && author
+                                .institution && author.city && author.state && author.country) {
                                 const tr = document.createElement('tr');
                                 tr.innerHTML = `
                                     <td>${author.firstname}</td>
@@ -783,18 +802,29 @@
                                 const authorId = addAuthorButton.dataset.authorId;
                                 const authorIdInput = document.querySelector('#author-id');
                                 authorIdInput.value = authorId;
-                                const authorData = addAuthorButton.closest('tr').querySelectorAll('td');
+                                const authorData = addAuthorButton.closest('tr')
+                                    .querySelectorAll('td');
                                 const todoListRow = document.querySelector('#todo-list');
-                                todoListRow.querySelector('.firstname').textContent = authorData[0].textContent;
-                                todoListRow.querySelector('.lastname').textContent = authorData[1].textContent;
-                                todoListRow.querySelector('.email').textContent = authorData[2].textContent;
-                                todoListRow.querySelector('.adress').textContent = authorData[3].textContent;
-                                todoListRow.querySelector('.phone').textContent = authorData[4].textContent;
-                                todoListRow.querySelector('.departement').textContent = authorData[5].textContent;
-                                todoListRow.querySelector('.institution').textContent = authorData[6].textContent;
-                                todoListRow.querySelector('.city').textContent = authorData[7].textContent;
-                                todoListRow.querySelector('.state').textContent = authorData[8].textContent;
-                                todoListRow.querySelector('.country').textContent = authorData[9].textContent;
+                                todoListRow.querySelector('.firstname').textContent =
+                                    authorData[0].textContent;
+                                todoListRow.querySelector('.lastname').textContent = authorData[
+                                    1].textContent;
+                                todoListRow.querySelector('.email').textContent = authorData[2]
+                                    .textContent;
+                                todoListRow.querySelector('.adress').textContent = authorData[3]
+                                    .textContent;
+                                todoListRow.querySelector('.phone').textContent = authorData[4]
+                                    .textContent;
+                                todoListRow.querySelector('.departement').textContent =
+                                    authorData[5].textContent;
+                                todoListRow.querySelector('.institution').textContent =
+                                    authorData[6].textContent;
+                                todoListRow.querySelector('.city').textContent = authorData[7]
+                                    .textContent;
+                                todoListRow.querySelector('.state').textContent = authorData[8]
+                                    .textContent;
+                                todoListRow.querySelector('.country').textContent = authorData[
+                                    9].textContent;
                             });
                         });
                     }
@@ -803,6 +833,31 @@
                     console.error('An error occurred while searching for authors:', error);
                 });
         });
+
+        $(document).ready(function() {
+            // Attach click event to delete button
+            $('#saved-data-table').on('click', '.delete-author', function(event) {
+                event.preventDefault();
+                var row = $(this).closest('tr');
+                var authorId = row.data('author-id'); // Get the author ID from the data attribute
+                // Send AJAX request to delete the author
+                $.ajax({
+                    url: 'deleteAuthor/'+authorId,
+                    type: 'DELETE',
+                    data: {
+                        id: authorId
+                    },
+                    success: function(data) {
+                        // Remove the row from the table on success
+                        row.remove();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log('AJAX Error: ' + textStatus);
+                    }
+                });
+            });
+        });
+
     </script>
 
 </x-app-layout>

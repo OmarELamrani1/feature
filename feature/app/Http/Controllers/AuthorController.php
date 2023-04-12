@@ -47,6 +47,13 @@ class AuthorController extends Controller
         ]);
     }
 
+    public function deleteAuthor($id){
+        $author = Author::findOrFail($id)->delete();
+        return response()->json([
+            'author' => $author,
+        ]);
+    }
+
     public function searchAuthors(Request $request)
     {
         $lastname = $request->input('lastname');

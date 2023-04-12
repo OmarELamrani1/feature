@@ -179,7 +179,7 @@
                                         <p>
                                             @if (empty($abstractsubmission->evaluation->status))
                                                 <font color="blue" size="2">(Processing...)</font>
-                                            @elseif ($abstractsubmission->evaluation->status === "Approuved")
+                                            @elseif ($abstractsubmission->evaluation->status === "Approved")
                                                 <font color="green" size="2">({{ $abstractsubmission->evaluation->status }})</font>
                                             @else
                                                 <font color="red" size="2">({{ $abstractsubmission->evaluation->status }})</font>

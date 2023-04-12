@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
 
     <head>
         <title>Publication Submission</title>
@@ -11,8 +10,6 @@
         <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     </head>
-
-</head>
 
 <body>
     <div id="master">
@@ -184,12 +181,15 @@
 
                                             @if (empty($abstractsubmission->evaluation->status))
                                                 <font color="blue" size="2">(Processing...)</font>
-                                            @elseif ($abstractsubmission->evaluation->status === "Approuved")
+                                            @elseif ($abstractsubmission->evaluation->status === "Approved")
                                                 <font color="green" size="2">({{ $abstractsubmission->evaluation->status }})</font>
+
+                                            @elseif ($abstractsubmission->evaluation && $abstractsubmission->evaluation->status == 'Modify' && $abstractsubmission->updated_at != $abstractsubmission->created_at)
+                                                <font color="grey" size="2">(Abstract modified, wait for evaluation...)</font>
                                             @else
                                                 <font color="red" size="2">({{ $abstractsubmission->evaluation->status }})</font>
                                             @endif
-                                            
+
                                         </p>
                                     </td>
                                 </tr>

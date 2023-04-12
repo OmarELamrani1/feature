@@ -45,18 +45,42 @@ class Controller extends BaseController
                 $presidents = President::paginate(5);
 
                 return view('admin.index', compact(['presidents', 'topics']));
+
             } else if (Auth::user()->role == "President") {
 
                 $abstractsubmissions = Abstractsubmission::paginate();
 
                 return view('president.index', compact('abstractsubmissions'));
+
             } else if (Auth::user()->role == "Personne") {
 
                 $personnes = auth()->user()->personnes;
 
                 $abstractsubmissions = Abstractsubmission::where('personne_id', $personnes->id)->get();
 
-                return view('dashboard', compact('abstractsubmissions'));
+                $hasSubmittedAbstract = false;
+                if (auth()->user()->personnes != null) {
+                    $hasSubmittedAbstract = auth()->user()->personnes->abstractsubmission !== null;
+                }
+
+                if (auth()->user()->personnes != null) {
+                    $hasSubmittedAbstract = auth()->user()->personnes->abstractsubmission;
+                }
+
+                $researchPaperCount = 0;
+                $clinicalCaseCount = 0;
+
+                if (auth()->user()->personnes->abstractsubmission) {
+                    foreach (auth()->user()->personnes->abstractsubmission as $abstract) {
+                        if ($abstract->type == 'Research Paper') {
+                            $researchPaperCount++;
+                        } elseif ($abstract->type == 'Clinical Case') {
+                            $clinicalCaseCount++;
+                        }
+                    }
+                }
+
+                return view('dashboard', compact(['abstractsubmissions','researchPaperCount','clinicalCaseCount']));
             } else {
                 abort(404);
             }

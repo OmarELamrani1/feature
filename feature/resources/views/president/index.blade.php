@@ -39,7 +39,7 @@
 
                                 @if ($abstractsubmission->evaluation && $abstractsubmission->evaluation->status == 'Modify' && $abstractsubmission->updated_at == $abstractsubmission->created_at)
                                     <td class="border px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <span>Should be modify - {{ $abstractsubmission->evaluation->status }}
+                                        <span>Abstract Evaluated: Modification Needed
 
                                             <a href="{{ route('deleteAbstract', $abstractsubmission->id) }}"
                                                 class="text-red-600 hover:text-red-900 inline-flex float-right space-x-2 flex-shrink-0">
@@ -50,7 +50,7 @@
                                     </td>
                                 @elseif (!empty($abstractsubmission->evaluation) && $abstractsubmission->evaluation->status != 'Modify')
                                     <td class="border px-6 py-4">
-                                        <span>Abstract aleready evaluated - {{ $abstractsubmission->evaluation->status }}
+                                        <span>Abstract already evaluated - {{ $abstractsubmission->evaluation->status }}
 
                                             <a href="{{ route('deleteAbstract', $abstractsubmission->id) }}"
                                                 class="text-red-500 hover:text-red-900 inline-flex float-right space-x-2 flex-shrink-0">

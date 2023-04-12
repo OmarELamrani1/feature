@@ -21,18 +21,32 @@ jQuery(document).ready(function ($) {
         // Validate the phone number input
         var phoneInput = jQuery("#phone");
         var phoneValue = phoneInput.val();
-        var phonePattern = /^\d{10}$/;
+        var phonePattern = /^(\+)?\d+$/;
         if (!phonePattern.test(phoneValue)) {
             phoneInput.addClass("error");
-            phoneInput.after("<span class='error-message'>Please enter a valid phone number (06 ..)</span>");
+            phoneInput.after(
+                "<span class='error-message'>Please enter a valid phone number</span>"
+            );
             return;
         } else {
             phoneInput.removeClass("error");
             jQuery(".error-message").remove();
         }
 
+        // var phoneInput = jQuery("#phone");
+        // var phoneValue = phoneInput.val();
+        // var phonePattern = /^\d{18}$/;
+        // if (!phonePattern.test(phoneValue)) {
+        //     phoneInput.addClass("error");
+        //     phoneInput.after("<span class='error-message'>Please enter a valid phone number (06 ..)</span>");
+        //     return;
+        // } else {
+        //     phoneInput.removeClass("error");
+        //     jQuery(".error-message").remove();
+        // }
+
         var formData = {
-            id: jQuery('#last_author_id').val(),
+            id: jQuery("#last_author_id").val(),
             firstname: jQuery("#firstname").val(),
             lastname: jQuery("#lastname").val(),
             email: jQuery("#email").val(),
@@ -91,18 +105,41 @@ jQuery(document).ready(function ($) {
                 jQuery("#addAuthor").modal("hide");
 
                 // Show the saved data in a table below
-                var tableRow = '<tr id="todo-list' + data.id + '">' +
-                    '<td class="firstname">' + data.firstname + '</td>' +
-                    '<td class="lastname">' + data.lastname + '</td>' +
-                    '<td class="email">' + data.email + '</td>' +
-                    '<td class="adress">' + data.adress + '</td>' +
-                    '<td class="phone">' + data.phone + '</td>' +
-                    '<td class="departement">' + data.departement + '</td>' +
-                    '<td class="institution">' + data.institution + '</td>' +
-                    '<td class="city">' + data.city + '</td>' +
-                    '<td class="state">' + data.state + '</td>' +
-                    '<td class="country">' + data.country + '</td>' +
-                '</tr>';
+                var tableRow =
+                    '<tr id="todo-list' +
+                    data.id +
+                    '">' +
+                    '<td class="firstname">' +
+                    data.firstname +
+                    "</td>" +
+                    '<td class="lastname">' +
+                    data.lastname +
+                    "</td>" +
+                    '<td class="email">' +
+                    data.email +
+                    "</td>" +
+                    '<td class="adress">' +
+                    data.adress +
+                    "</td>" +
+                    '<td class="phone">' +
+                    data.phone +
+                    "</td>" +
+                    '<td class="departement">' +
+                    data.departement +
+                    "</td>" +
+                    '<td class="institution">' +
+                    data.institution +
+                    "</td>" +
+                    '<td class="city">' +
+                    data.city +
+                    "</td>" +
+                    '<td class="state">' +
+                    data.state +
+                    "</td>" +
+                    '<td class="country">' +
+                    data.country +
+                    "</td>" +
+                    "</tr>";
                 jQuery("#saved-data-table").append(tableRow);
             },
             error: function (data) {
@@ -111,7 +148,6 @@ jQuery(document).ready(function ($) {
         });
     });
 });
-
 
 var keywordList = [];
 

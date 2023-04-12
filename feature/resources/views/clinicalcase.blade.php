@@ -88,20 +88,20 @@
                                             </div>
                                             <div class="line"></div>
 
-                                            <div class="step" data-target="#disclosure-part">
-                                                <button type="button" class="step-trigger" role="tab"
-                                                    aria-controls="disclosure-part" id="disclosure-part-trigger">
-                                                    <span class="bs-stepper-circle">7</span>
-                                                    <span class="bs-stepper-label">Disclosure</span>
-                                                </button>
-                                            </div>
-                                            <div class="line"></div>
-
                                             <div class="step" data-target="#affirmation-part">
                                                 <button type="button" class="step-trigger" role="tab"
                                                     aria-controls="affirmation-part" id="affirmation-part-trigger">
                                                     <span class="bs-stepper-circle">6</span>
                                                     <span class="bs-stepper-label">Affirmation</span>
+                                                </button>
+                                            </div>
+                                            <div class="line"></div>
+
+                                            <div class="step" data-target="#disclosure-part">
+                                                <button type="button" class="step-trigger" role="tab"
+                                                    aria-controls="disclosure-part" id="disclosure-part-trigger">
+                                                    <span class="bs-stepper-circle">7</span>
+                                                    <span class="bs-stepper-label">Disclosure</span>
                                                 </button>
                                             </div>
                                             <div class="line"></div>
@@ -493,17 +493,15 @@
                                                             this abstract?</p>
 
 
-                                                        <div class="flex items-center mb-4">
+                                                            <div class="flex items-center mb-4">
 
-                                                            <input type="radio" name="disclosure"
-                                                                value="provide_disclosure" id="provide_disclosure">
-                                                            Please provide your statement (max. 255 characters)
+                                                                <input type="radio" name="disclosure" value="provide_disclosure" id="provide_disclosure">
+                                                                <label for="disclosure">Please provide your statement (max. 255 characters)</label>
 
-                                                            <div id="disclosure_field" style="display: none;">
-                                                                <label for="disclosure">Statement:</label>
-                                                                <textarea name="disclosure" id="disclosure" maxlength="255"></textarea>
+                                                                <div class="form-group" id="disclosure_field" style="display: none;">
+                                                                        <textarea name="disclosure" id="disclosure" class="form-control" style="margin-left: 30px; width:600px; height: 300px;"></textarea>
+                                                                </div>
                                                             </div>
-                                                        </div>
 
                                                         <div class="flex items-center">
                                                             <input type="radio" name="disclosure"
@@ -749,6 +747,30 @@
                 console.error('An error occurred while searching for authors:', error);
             });
     });
+
+    $(document).ready(function() {
+            // Attach click event to delete button
+            $('#saved-data-table').on('click', '.delete-author', function(event) {
+                event.preventDefault();
+                var row = $(this).closest('tr');
+                var authorId = row.data('author-id'); // Get the author ID from the data attribute
+                // Send AJAX request to delete the author
+                $.ajax({
+                    url: 'deleteAuthor/'+authorId,
+                    type: 'DELETE',
+                    data: {
+                        id: authorId
+                    },
+                    success: function(data) {
+                        // Remove the row from the table on success
+                        row.remove();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log('AJAX Error: ' + textStatus);
+                    }
+                });
+            });
+        });
 </script>
 
 </x-app-layout>

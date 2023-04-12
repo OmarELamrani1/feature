@@ -23,8 +23,7 @@
 
                                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead
-                                            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr>
                                                 <th scope="col" class="px-6 py-3">title</th>
                                                 <th scope="col" class="px-6 py-3">type</th>
@@ -87,7 +86,7 @@
                                 <select name="status" class="form-select w-100 p-3"
                                     aria-label="Default select example">
                                     <option disabled selected>Evaluation : </option>
-                                    <option name="status" value="Approuved">Approuved</option>
+                                    <option name="status" value="Approved">Approved</option>
                                     <option name="status" value="Modify">Modify</option>
                                     <option name="status" value="Rejected">Rejected</option>
                                 </select><br>

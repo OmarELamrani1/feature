@@ -30,9 +30,9 @@
                                 </div>
                             @endif
 
-                            @if ($checkStatus->status == 'Approuved' || $checkStatus->status == 'Rejected')
+                            @if ($checkStatus->status == 'Approved' || $checkStatus->status == 'Rejected')
                                 <div class="panel-heading">
-                                    <div class="panel-title">Status : {{ $checkStatus->status }}</div>
+                                    <div class="panel-title">Status : {{ $checkStatus->status }}</div><br>
 
                                     <a href="{{ route('printsubmission',   $checkStatus->abstractsubmission->id) }}" target="blank">
                                         <button>
@@ -220,15 +220,9 @@
                                             <label class="form-check-label" for="affirmation"><strong>I
                                                     Agree</strong>
                                             </label>
-                                            {{-- <input type="checkbox" name="affirmation" id="affirmation">
-                                                        <strong>I
-                                                            Agree</strong> --}}
                                             <p>* entering mandatory information.</p>
                                         </div>
                                     </div>
-
-
-
                                     <div class="text-center">
                                         <p class="align_c">
                                             <button type="submit" class="btnStyle">Update Abstract</button>
