@@ -19,15 +19,19 @@ class AbstractsubmissionController extends Controller
 {
     public function researchPaper()
     {
+        if(auth()->user()->personnes->abstractsubmission->count() == 3){
+            abort(404);
+        }
         $topics = Topic::all();
-
         return view('researchpaper', compact('topics'));
     }
 
     public function clinicalCase()
     {
+        if(auth()->user()->personnes->abstractsubmission->count() == 3){
+            abort(404);
+        }
         $topics = Topic::all();
-
         return view('clinicalcase', compact('topics'));
     }
 
@@ -78,13 +82,13 @@ class AbstractsubmissionController extends Controller
         }
 
         // Send email to user for successfully submit
-        Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
+        // Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
 
-        // Send email to president for evaluation
-        $presidents = User::where('role', 'President')->get();
-        foreach ($presidents as $president) {
-            Mail::to($president->email)->send(new PosterStored($abstractsubmission));
-        }
+        // // Send email to president for evaluation
+        // $presidents = User::where('role', 'President')->get();
+        // foreach ($presidents as $president) {
+        //     Mail::to($president->email)->send(new PosterStored($abstractsubmission));
+        // }
 
         return view('submmision.preview', compact('abstractsubmission'));
     }
@@ -109,11 +113,11 @@ class AbstractsubmissionController extends Controller
         $affirmation = $request->has('affirmation') ? 1 : 0;
 
         // Send email to president for evaluation
-        $president = User::where('role', 'President')->first();
-        Mail::to($president->email)->send(new PosterStored($abstractsubmission));
+        // $president = User::where('role', 'President')->first();
+        // Mail::to($president->email)->send(new PosterStored($abstractsubmission));
 
-        // Send email to user for successfully submit
-        Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
+        // // Send email to user for successfully submit
+        // Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
 
 
         $personnes = auth()->user()->personnes;

@@ -53,6 +53,68 @@
                         if (auth()->user()->personnes != null) {
                             $hasSubmittedAbstract = auth()->user()->personnes->abstractsubmission !== null;
                         }
+
+                        if (auth()->user()->personnes != null) {
+                            $hasSubmittedAbstract = auth()->user()->personnes->abstractsubmission;
+                        }
+
+                        if (auth()->user()->personnes->abstractsubmission) {
+                            $countAbstract = auth()->user()->personnes->abstractsubmission->count();
+                        }else {
+                            $countAbstract = 0;                            
+                        }
+                    @endphp
+
+@if ($countAbstract != 3)
+    <a href="{{ route('researchPaper') }}"><button type="button" class="btn btn-primary"
+        style="margin: 10px 0;">Submit a new
+        abstract (Research Paper)</button></a>
+    <a href="{{ route('clinicalCase') }}"><button type="button" class="btn btn-primary"
+        style="margin: 10px 0;">Submit a new
+        abstract (Clinical case)</button></a>
+        <p>ba9i lik {{ 3 - $countAbstract }}</p>
+
+@elseif($countAbstract == 3)
+    <p>saliti, nod jme3 krek</p>
+
+{{-- @elseif ($hasSubmittedAbstract > 3 && $hasSubmittedAbstract > 0 && empty($abstractsubmissions->evaluation->status))
+    <a href="{{ route('researchPaper') }}"><button type="button" class="btn btn-primary" style="margin: 10px 0;">Submit a new
+        abstract (Research Paper)</button></a>
+    <a href="{{ route('clinicalCase') }}"><button type="button" class="btn btn-primary" style="margin: 10px 0;">Submit a new
+        abstract (Clinical case)</button></a>
+    <p>You have submitted {{ $hasSubmittedAbstract }} abstracts.</p> --}}
+
+{{-- @elseif ($hasSubmittedAbstract == 3 && empty($abstractsubmissions->evaluation->status))
+    <p>You have already submitted three abstracts.</p> --}}
+
+{{-- @elseif ($abstractsubmissions && $abstractsubmissions->evaluation->status == 'Modify' && $abstractsubmissions->updated_at != $abstractsubmissions->created_at)
+    <p>Abstract modified, wait for evaluation...</p>
+
+@elseif ($abstractsubmissions && $abstractsubmissions->evaluation)
+    <a href="{{ route('checkStatus') }}">
+        <h1>
+            <p style="color:red">re-Check Status</p>
+        </h1>
+    </a> --}}
+
+{{-- @elseif ($hasSubmittedAbstract)
+    <h1>
+        <p style="color:red">You have already submitted an abstract</p>
+    </h1> --}}
+{{-- @else
+    <a href="{{ route('researchPaper') }}"><button type="button" class="btn btn-primary"
+            style="margin: 10px 0;">Submit a new
+            abstract (Research Paper)</button></a>
+    <a href="{{ route('clinicalCase') }}"><button type="button" class="btn btn-primary"
+            style="margin: 10px 0;">Submit a new
+            abstract (Clinical case)</button></a> --}}
+@endif
+
+                    {{-- @php
+                        $hasSubmittedAbstract = false;
+                        if (auth()->user()->personnes != null) {
+                            $hasSubmittedAbstract = auth()->user()->personnes->abstractsubmission !== null;
+                        }
                         // $hasSubmittedAbstract = auth()->user()->personnes->abstractsubmission !== null;
                     @endphp
 
@@ -87,26 +149,53 @@
                         <a href="{{ route('clinicalCase') }}"><button type="button" class="btn btn-primary"
                                 style="margin: 10px 0;">Submit a new
                                 abstract (Clinical case)</button></a>
-                    @endif
+                    @endif --}}
 
                     <div style="">
 
                         <div>
                             <span>
-                                <h3>Abstract Submitted</h3>
+                                <h3>Abstract Submitted ({{$countAbstract}})</h3>
                             </span>
                         </div>
                         <div>
                             <div>
                                 {{-- @forelse ($abstractsubmissions as $abstractsubmission) --}}
+                                @foreach ($abstractsubmissions as $abstract)
+                                    
                                 <table cellpadding="0" class="abstract_box">
                                     <tr>
-                                        <td class="publication_id">
-                                            #{{ $abstractsubmissions->id ?? null }}
+                                        <td>
+            @if ($abstract && $abstract->evaluation && $abstract->updated_at == $abstract->created_at)
+                <a href="{{ route('checkStatus', $abstract->id) }}">
+                    <h1>
+                        <p style="color:red">Check Status</p>
+                    </h1>
+                </a>
+
+            @elseif ($abstract->evaluation  && $abstract->evaluation->status == 'Modify' && $abstract->updated_at != $abstract->created_at)
+                <p>Abstract modified, wait for evaluation...</p>
+
+            @elseif ($abstract && $abstract->evaluation)
+                    <a href="{{ route('checkStatus', $abstract->id) }}">
+                        <h1>
+                            <p style="color:red">re-Check Status</p>
+                        </h1>
+                    </a>
+
+            @else
+                <p>Processing...</p>
+            @endif
+
                                         </td>
-                                        <td class="abstract_box_title">{{ $abstractsubmissions->title ?? null }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="publication_id">
+                                            #{{ $abstract->id ?? null }}
+                                        </td>
+                                        <td class="abstract_box_title">{{ $abstract->title ?? null }}</td>
                                         <td rowspan="2" class="action_btn">
-                                            <a href="{{ optional($abstractsubmissions)->id ? route('abstractsubmission.show', $abstractsubmissions->id) : '#' }}"
+                                            <a href="{{ optional($abstract)->id ? route('abstractsubmission.show', $abstract->id) : '#' }}"
                                                 title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
@@ -114,24 +203,26 @@
                                         <td>&nbsp;</td>
                                         <td>
                                             <span class="abstract_box_tag">Submitted:</span>
-                                            {{ $abstractsubmissions->created_at ?? null }}
+                                            {{ $abstract->created_at ?? null }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td>
                                             <span class="abstract_box_tag">Topic:</span>
-                                            {{ $abstractsubmissions->topic->name ?? null }}
+                                            {{ $abstract->topic->name ?? null }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td>
                                             <span class="abstract_box_tag">Type:</span>
-                                            {{ $abstractsubmissions->type ?? null }}
+                                            {{ $abstract->type ?? null }}
                                         </td>
                                     </tr>
                                 </table>
+                                @endforeach
+
                             </div>
                         </div><br />
                     </div>

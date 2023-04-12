@@ -54,7 +54,7 @@ class Controller extends BaseController
 
                 $personnes = auth()->user()->personnes;
 
-                $abstractsubmissions = Abstractsubmission::where('personne_id', $personnes->id)->first();
+                $abstractsubmissions = Abstractsubmission::where('personne_id', $personnes->id)->get();
 
                 return view('dashboard', compact('abstractsubmissions'));
             } else {

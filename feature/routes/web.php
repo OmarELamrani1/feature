@@ -89,7 +89,7 @@ Route::middleware('auth')->group(function () {
             Route::get('clinicalcase', 'clinicalCase')->name('clinicalCase');
         });
 
-        Route::get('checkStatus', [PersonneController::class, 'checkStatus'])->name('checkStatus');
+        Route::get('checkStatus/{id}', [PersonneController::class, 'checkStatus'])->name('checkStatus');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

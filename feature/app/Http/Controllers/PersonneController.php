@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Abstractsubmission;
 use App\Models\Evaluation;
 use App\Models\Personne;
 use App\Models\Topic;
@@ -19,15 +20,19 @@ class PersonneController extends Controller
         //
     }
 
-    public function checkStatus(){
-        $user = auth()->user();
-        $abstractsubmission = $user->personnes->abstractsubmission;
+    public function checkStatus($id){
+        // $user = auth()->user();
+        // $abstractsubmission = $user->personnes->abstractsubmission;
 
-        $checkStatus = null;
-        if ($abstractsubmission !== null) {
-            $checkStatus = Evaluation::where('abstractsubmission_id', $abstractsubmission->id)->first();
+        // $checkStatus = null;
+        // if ($abstractsubmission !== null) {
+            
+        // }
+        if(!Abstractsubmission::where('personne_id', auth()->user()->personnes->id)->first()){
+            abort(404);
         }
-
+        $checkStatus = Evaluation::where('abstractsubmission_id', $id)->first();
+        
         $topics = Topic::get();
         return view('checkStatus', compact(['checkStatus','topics']));
     }

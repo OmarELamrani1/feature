@@ -30,7 +30,7 @@ return new class extends Migration
             $table->boolean('affirmation')->default(0);
             $table->string('disclosure')->nullable();
             $table->string('tracking_code')->nullable()->unique();
-            $table->foreignId('personne_id')->nullable()->unique()->constrained()->onDelete('CASCADE');
+            $table->foreignId('personne_id')->nullable()->constrained()->onDelete('CASCADE');
             $table->timestamps();
             $table->softDeletes();
         });
