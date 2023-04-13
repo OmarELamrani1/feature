@@ -1,6 +1,6 @@
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     // CREATE
-    $("#submitAuthor").click(function (e) {
+    $("#submitAuthor").click(function(e) {
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr(
@@ -48,36 +48,34 @@ jQuery(document).ready(function ($) {
             url: "addAuthor",
             data: formData,
             dataType: "json",
-            success: function (data) {
-                console.log(data);
-
-                // $(".delete-author-btn").attr("data-author-id", data.id);
+            success: function(data) {
+                console.log(data.message.id);
 
                 var todo =
                     '<tr id="todo-list' +
-                    data.id +
+                    data.message.id +
                     '"><td>' +
-                    data.firstname +
+                    data.message.firstname +
                     "</td><td>" +
-                    data.lastname +
+                    data.message.lastname +
                     "</td><td class='email'>" +
-                    data.email +
+                    data.message.email +
                     "</td><td>" +
-                    data.adress +
+                    data.message.adress +
                     "</td><td>" +
-                    data.phone +
+                    data.message.phone +
                     "</td><td>" +
-                    data.departement +
+                    data.message.departement +
                     "</td><td>" +
-                    data.institution +
+                    data.message.institution +
                     "</td><td>" +
-                    data.city +
+                    data.message.city +
                     "</td><td>" +
-                    data.state +
+                    data.message.state +
                     "</td><td>" +
-                    data.country +
+                    data.message.country +
                     "</td><td><button type='button' class='delete-author-btn' data-author-id='" +
-                    data.id +
+                    data.message.id +
                     "'><i class='fa fa-trash'></i></button></td></tr>";
                 if (statee == "add") {
                     jQuery("#todo-list").append(todo);
@@ -91,50 +89,40 @@ jQuery(document).ready(function ($) {
 
                 // Show the saved data in a table below
                 var tableRow =
-                    '<tr id="todo-list' +
-                    data.id +
-                    '">' +
-                    '<td class="firstname">' +
-                    data.firstname +
-                    "</td>" +
-                    '<td class="lastname">' +
-                    data.lastname +
-                    "</td>" +
-                    '<td class="email">' +
-                    data.email +
-                    "</td>" +
-                    '<td class="adress">' +
-                    data.adress +
-                    "</td>" +
-                    '<td class="phone">' +
-                    data.phone +
-                    "</td>" +
-                    '<td class="departement">' +
-                    data.departement +
-                    "</td>" +
-                    '<td class="institution">' +
-                    data.institution +
-                    "</td>" +
-                    '<td class="city">' +
-                    data.city +
-                    "</td>" +
-                    '<td class="state">' +
-                    data.state +
-                    "</td>" +
-                    '<td class="country">' +
-                    data.country +
+                    '<tr class="soufiane' + data.message.id + '" id = "todo-list' +
+                    data.message.id +
+                    '"><td>' +
+                    data.message.firstname +
+                    "</td><td>" +
+                    data.message.lastname +
+                    "</td><td class='email'>" +
+                    data.message.email +
+                    "</td><td>" +
+                    data.message.adress +
+                    "</td><td>" +
+                    data.message.phone +
+                    "</td><td>" +
+                    data.message.departement +
+                    "</td><td>" +
+                    data.message.institution +
+                    "</td><td>" +
+                    data.message.city +
+                    "</td><td>" +
+                    data.message.state +
+                    "</td><td>" +
+                    data.message.country +
                     "</td><td><button type='button' class='delete-author-btn' data-author-id='" +
-                    data.id +
+                    data.message.id +
                     "'><i class='fa fa-trash'></i></button></td></tr>";
                 jQuery("#saved-data-table").append(tableRow);
             },
-            error: function (data) {
+            error: function(data) {
                 alert("Data Not Saved :(");
             },
         });
     });
 
-    $("#saved-data-table").on("click", ".delete-author-btn", function (e) {
+    $("#saved-data-table").on("click", ".delete-author-btn", function(e) {
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr(
@@ -157,10 +145,15 @@ jQuery(document).ready(function ($) {
         $.ajax({
             url: deleteUrl,
             type: "GET",
-            success: function (data) {
+            success: function(data) {
+                // $("body").on("click", ".delete-author-btn", function() {
+                // $(this).parents("tr").remove();
+                // });
+                $('.soufiane' + authorId).remove();
+
                 console.log("Success" + data);
             },
-            error: function (error) {
+            error: function(error) {
                 console.log("Error" + error);
             },
         });
@@ -197,7 +190,7 @@ var addKeywordBtn = document.getElementById("addKeywordBtn");
 var keywordListElem = document.getElementById("keywordList");
 var form = document.getElementById("my-form");
 
-addKeywordBtn.addEventListener("click", function () {
+addKeywordBtn.addEventListener("click", function() {
     var keywordInput = document.getElementById("keywords");
     var keyword = keywordInput.value.trim();
 
@@ -216,13 +209,13 @@ addKeywordBtn.addEventListener("click", function () {
     }
 });
 
-form.addEventListener("submit", function () {
+form.addEventListener("submit", function() {
     var keywordsInput = document.getElementById("keywords");
     keywordsInput.value = keywordList.join(",");
 });
 
-$(document).ready(function () {
-    $("input[type=radio][name=disclosure]").change(function () {
+$(document).ready(function() {
+    $("input[type=radio][name=disclosure]").change(function() {
         if (this.value === "provide_disclosure") {
             $("#disclosure_field").show();
         } else {

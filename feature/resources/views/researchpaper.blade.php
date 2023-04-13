@@ -415,13 +415,13 @@
                                                                         <td class="city"></td>
                                                                         <td class="state"></td>
                                                                         <td class="country"></td>
-                                                                        <td>
+                                                                        {{-- <td id="authorData">
                                                                             @if ($author)
                                                                               <button class="delete-author-btn" id="hhh" data-author-id="{{ $author->id }}">
                                                                                 <i class='fa fa-trash'></i>
                                                                               </button>
                                                                             @endif
-                                                                        </td>
+                                                                        </td> --}}
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -725,6 +725,7 @@
             border: 1px solid black;
         }
     </style>
+
     <!-- jQuery -->
     <script src="{{ asset('assets/js/jquery-2.2.4.min.js') }}"></script>
 
@@ -797,6 +798,7 @@
                                     <td>${author.city}</td>
                                     <td>${author.state}</td>
                                     <td>${author.country}</td>
+                                    <td>${author.id}</td>
                                     <td>
                                         <button type="button" data-author-id="${author.id}" class="add-author-button">
                                             <i class="fas fa-plus"></i>
@@ -808,35 +810,58 @@
                         });
 
 
+                        const authorsChoose = document.querySelector('#saved-data-table tbody');
                         const addAuthorButtons = document.querySelectorAll('.add-author-button');
                         addAuthorButtons.forEach(addAuthorButton => {
                             addAuthorButton.addEventListener('click', () => {
                                 const authorId = addAuthorButton.dataset.authorId;
                                 const authorIdInput = document.querySelector('#author-id');
                                 authorIdInput.value = authorId;
-                                const authorData = addAuthorButton.closest('tr')
-                                    .querySelectorAll('td');
-                                const todoListRow = document.querySelector('#todo-list');
-                                todoListRow.querySelector('.firstname').textContent =
-                                    authorData[0].textContent;
-                                todoListRow.querySelector('.lastname').textContent = authorData[
-                                    1].textContent;
-                                todoListRow.querySelector('.email').textContent = authorData[2]
-                                    .textContent;
-                                todoListRow.querySelector('.adress').textContent = authorData[3]
-                                    .textContent;
-                                todoListRow.querySelector('.phone').textContent = authorData[4]
-                                    .textContent;
-                                todoListRow.querySelector('.departement').textContent =
-                                    authorData[5].textContent;
-                                todoListRow.querySelector('.institution').textContent =
-                                    authorData[6].textContent;
-                                todoListRow.querySelector('.city').textContent = authorData[7]
-                                    .textContent;
-                                todoListRow.querySelector('.state').textContent = authorData[8]
-                                    .textContent;
-                                todoListRow.querySelector('.country').textContent = authorData[
-                                    9].textContent;
+                                const authorData = addAuthorButton.closest('tr').querySelectorAll('td');
+
+                                const tr = document.createElement('tr');
+                                tr.classList.add('soufiane'+authorData[10].textContent);
+                                
+                                tr.innerHTML = `
+                                    <td>${authorData[0].textContent}</td>
+                                    <td>${authorData[1].textContent}</td>
+                                    <td>${authorData[2].textContent}</td>
+                                    <td>${authorData[3].textContent}</td>
+                                    <td>${authorData[4].textContent}</td>
+                                    <td>${authorData[5].textContent}</td>
+                                    <td>${authorData[6].textContent}</td>
+                                    <td>${authorData[7].textContent}</td>
+                                    <td>${authorData[8].textContent}</td>
+                                    <td>${authorData[9].textContent}</td>
+    <td>
+        <button type='button' class='delete-author-btn' data-author-id='`+authorData[10].textContent+`'>
+            <i class='fa fa-trash'></i>
+        </button>
+    </td>`;
+                                    
+                                authorsChoose.appendChild(tr);
+
+                                // const todoListRow = document.querySelector('#todo-list');
+                                // todoListRow.querySelector('.firstname').textContent =
+                                //     authorData[0].textContent;
+                                // todoListRow.querySelector('.lastname').textContent = authorData[
+                                //     1].textContent;
+                                // todoListRow.querySelector('.email').textContent = authorData[2]
+                                //     .textContent;
+                                // todoListRow.querySelector('.adress').textContent = authorData[3]
+                                //     .textContent;
+                                // todoListRow.querySelector('.phone').textContent = authorData[4]
+                                //     .textContent;
+                                // todoListRow.querySelector('.departement').textContent =
+                                //     authorData[5].textContent;
+                                // todoListRow.querySelector('.institution').textContent =
+                                //     authorData[6].textContent;
+                                // todoListRow.querySelector('.city').textContent = authorData[7]
+                                //     .textContent;
+                                // todoListRow.querySelector('.state').textContent = authorData[8]
+                                //     .textContent;
+                                // todoListRow.querySelector('.country').textContent = authorData[
+                                //     9].textContent;
                             });
                         });
                     }
