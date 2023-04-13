@@ -10,14 +10,6 @@ jQuery(document).ready(function ($) {
         });
         e.preventDefault();
 
-        // // Phone validation
-        // var phoneRegex = /^[0-9]{10}$/;
-        // var phone = jQuery("#phone").val();
-        // if (!phoneRegex.test(phone)) {
-        //     alert("Please enter a valid phone number.");
-        //     return;
-        // }
-
         // Validate the phone number input
         var phoneInput = jQuery("#phone");
         var phoneValue = phoneInput.val();
@@ -32,18 +24,6 @@ jQuery(document).ready(function ($) {
             phoneInput.removeClass("error");
             jQuery(".error-message").remove();
         }
-
-        // var phoneInput = jQuery("#phone");
-        // var phoneValue = phoneInput.val();
-        // var phonePattern = /^\d{18}$/;
-        // if (!phonePattern.test(phoneValue)) {
-        //     phoneInput.addClass("error");
-        //     phoneInput.after("<span class='error-message'>Please enter a valid phone number (06 ..)</span>");
-        //     return;
-        // } else {
-        //     phoneInput.removeClass("error");
-        //     jQuery(".error-message").remove();
-        // }
 
         var formData = {
             id: jQuery("#last_author_id").val(),
@@ -70,6 +50,9 @@ jQuery(document).ready(function ($) {
             dataType: "json",
             success: function (data) {
                 console.log(data);
+
+                // $(".delete-author-btn").attr("data-author-id", data.id);
+
                 var todo =
                     '<tr id="todo-list' +
                     data.id +
@@ -93,7 +76,9 @@ jQuery(document).ready(function ($) {
                     data.state +
                     "</td><td>" +
                     data.country +
-                    "</td></tr>";
+                    "</td><td><button type='button' class='delete-author-btn' data-author-id='" +
+                    data.id +
+                    "'><i class='fa fa-trash'></i></button></td></tr>";
                 if (statee == "add") {
                     jQuery("#todo-list").append(todo);
                     // jQuery("#saved-data-table").html(todo);
@@ -138,8 +123,9 @@ jQuery(document).ready(function ($) {
                     "</td>" +
                     '<td class="country">' +
                     data.country +
-                    "</td>" +
-                    "</tr>";
+                    "</td><td><button type='button' class='delete-author-btn' data-author-id='" +
+                    data.id +
+                    "'><i class='fa fa-trash'></i></button></td></tr>";
                 jQuery("#saved-data-table").append(tableRow);
             },
             error: function (data) {
@@ -147,7 +133,63 @@ jQuery(document).ready(function ($) {
             },
         });
     });
+
+    $("#saved-data-table").on("click", ".delete-author-btn", function (e) {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+        });
+        e.preventDefault();
+
+        var authorId = $(this).data("author-id");
+        console.log(authorId);
+
+        if (authorId === undefined) {
+            alert("No Author ID");
+            return;
+        }
+
+        var deleteUrl = "/deleteAuthor/" + authorId;
+
+        $.ajax({
+            url: deleteUrl,
+            type: "GET",
+            success: function (data) {
+                console.log("Success" + data);
+            },
+            error: function (error) {
+                console.log("Error" + error);
+            },
+        });
+    });
 });
+
+// Delete author with AJAX
+// $(".delete-author-btn").click(function () {
+//     var authorId = $(this).data("author-id");
+//     console.log(authorId);
+
+//     if (!authorId) {
+//         alert("Author ID is missing!");
+//         return;
+//     }
+
+//     var deleteUrl = "deleteAuthor/" + authorId;
+
+//     $.ajax({
+//         url: deleteUrl,
+//         type: "GET",
+//         success: function (data) {
+//             console.log(data);
+//         },
+//         error: function (error) {
+//             console.log(error);
+//         },
+//     });
+// });
 
 var keywordList = [];
 

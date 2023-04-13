@@ -7,6 +7,8 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="{{ asset('assets/css/flowbite.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
+
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
 
     <div class="py-12">
@@ -264,8 +266,7 @@
                                                                             action="#" method="POST">
                                                                             @csrf
 
-                                                                            <input type="hidden" name="id"
-                                                                                id="last_author_id" value="">
+                                                                            <input type="hidden" name="id" id="last_author_id" value="">
 
                                                                             <div>
                                                                                 <label for="firstname"
@@ -415,9 +416,11 @@
                                                                         <td class="state"></td>
                                                                         <td class="country"></td>
                                                                         <td>
-                                                                            <a href="#" class="delete-author">
-                                                                                <i class="far fa-trash-alt"></i>
-                                                                            </a>
+                                                                            @if ($author)
+                                                                              <button class="delete-author-btn" id="hhh" data-author-id="{{ $author->id }}">
+                                                                                <i class='fa fa-trash'></i>
+                                                                              </button>
+                                                                            @endif
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -444,7 +447,7 @@
                                                             <input type="text" name="keywords"
                                                                 class="form-control" id="keywords"
                                                                 placeholder="Enter keywords">
-                                                            <button id="addKeywordBtn"
+                                                            <button id="addKeywordBtn" type="button"
                                                                 class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
                                                         </div>
                                                         <ul id="keywordList"></ul>
@@ -659,22 +662,31 @@
                                                         onclick="stepper.next()">Next</button>
                                                 </div>
 
-                                                <div id="previewfinish-part" class="content" role="tabpanel"
-                                                    aria-labelledby="previewfinish-part-trigger">
+                                                <div id="previewfinish-part" class="content" role="tabpanel" aria-labelledby="previewfinish-part-trigger">
 
-                                                    <button type="button"
-                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                        onclick="stepper.previous()">Previous</button>
+                                                    <p>
+                                                        {{ session('title') }}
+                                                        {{ session('type') }}
+                                                        {{ session('topic_id') }}
+                                                        {{ session('keywords') }}
+                                                        {{ session('introduction') }}
+                                                        {{ session('objective') }}
+                                                        {{ session('method') }}
+                                                        {{ session('result') }}
+                                                        {{ session('conclusion') }}
+                                                        {{ session('disclosure') }}
+                                                        {{ session('tracking_code') }}
+                                                    </p>
+                                                    <br><br><br>
 
-                                                    <input type="hidden" name="author_id" id="author-id"
-                                                        value="">
+                                                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="stepper.previous()">Previous</button>
+
+                                                    <input type="hidden" name="author_id" id="author-id" value="">
 
                                                     <div class="text-center">
-                                                        <p class="align_c"><button type="submit"
-                                                                class="btnStyle">Submit Abstract</button></p>
+                                                        <p class="align_c"><button type="submit" class="btnStyle">Submit Abstract</button></p>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </form>
 
@@ -834,29 +846,29 @@
                 });
         });
 
-        $(document).ready(function() {
-            // Attach click event to delete button
-            $('#saved-data-table').on('click', '.delete-author', function(event) {
-                event.preventDefault();
-                var row = $(this).closest('tr');
-                var authorId = row.data('author-id'); // Get the author ID from the data attribute
-                // Send AJAX request to delete the author
-                $.ajax({
-                    url: 'deleteAuthor/'+authorId,
-                    type: 'DELETE',
-                    data: {
-                        id: authorId
-                    },
-                    success: function(data) {
-                        // Remove the row from the table on success
-                        row.remove();
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log('AJAX Error: ' + textStatus);
-                    }
-                });
-            });
-        });
+        // $(document).ready(function() {
+        //     // Attach click event to delete button
+        //     $('#saved-data-table').on('click', '.deleteAuthor', function(event) {
+        //         event.preventDefault();
+        //         var row = $(this).closest('tr');
+        //         var authorId = row.data('author-id'); // Get the author ID from the data attribute
+        //         // Send AJAX request to delete the author
+        //         $.ajax({
+        //             url: 'deleteAuthor/'+authorId,
+        //             type: 'DELETE',
+        //             data: {
+        //                 id: authorId
+        //             },
+        //             success: function(data) {
+        //                 // Remove the row from the table on success
+        //                 row.remove();
+        //             },
+        //             error: function(jqXHR, textStatus, errorThrown) {
+        //                 console.log('AJAX Error: ' + textStatus);
+        //             }
+        //         });
+        //     });
+        // });
 
     </script>
 

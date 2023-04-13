@@ -78,11 +78,13 @@ Route::middleware('auth')->group(function () {
         Route::resource('author', AuthorController::class);
         Route::resource('posters', PosterController::class)->except(['index','create','edit','postersOnlyTrashed','abstractsOnlyTrashed']);
 
+        Route::get('deleteAuthor/{id?}', [AuthorController::class, 'deleteAuthor'])->name('deleteAuthor');
+
         Route::controller(AuthorController::class)->group(function () {
             Route::get('/search-authors', 'searchAuthors')->name('searchAuthors');
             Route::post('addAuthor', 'addAuthor')->name('addAuthor');
             Route::get('/authors/{id}', 'show')->name('authors.show');
-            Route::delete('deleteAuthor/{id}', 'deleteAuthor')->name('deleteAuthor');
+            // Route::delete('deleteAuthor/{id}', 'deleteAuthor')->name('deleteAuthor');
         });
 
         Route::controller(AbstractsubmissionController::class)->group(function () {
