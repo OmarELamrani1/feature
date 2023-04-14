@@ -2,13 +2,20 @@
     @section('title', 'Research Paper')
 
     <head>
+
+        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="{{ asset('assets/css/flowbite.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
 
+        <!-- summernote -->
+        <link href="{{ asset('assets/css/summernote/summernote.min.css') }}" rel="stylesheet" type="text/css">
+
         <meta name="csrf-token" content="{{ csrf_token() }}">
+
     </head>
 
     <div class="py-12">
@@ -225,7 +232,7 @@
                                                                             <div class="inline-flex mb-3">
                                                                                 <input type="text" id="last-name"
                                                                                     name="lastname">
-                                                                                <button type="button"
+                                                                                <button type="button" data-search-url="{{ route('searchAuthors') }}"
                                                                                     class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                                                     id="search-button">Search</button>
                                                                             </div>
@@ -266,7 +273,8 @@
                                                                             action="#" method="POST">
                                                                             @csrf
 
-                                                                            <input type="hidden" name="id" id="last_author_id" value="">
+                                                                            <input type="hidden" name="id"
+                                                                                id="last_author_id" value="">
 
                                                                             <div>
                                                                                 <label for="firstname"
@@ -380,27 +388,17 @@
                                                                 <thead
                                                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                                     <tr>
-                                                                        <th scope="col" class="px-6 py-3">First
-                                                                            Name</th>
-                                                                        <th scope="col" class="px-6 py-3">Last Name
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">Email
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">Adress
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">Phone
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">
-                                                                            departement</th>
-                                                                        <th scope="col" class="px-6 py-3">
-                                                                            institution</th>
+                                                                        <th scope="col" class="px-6 py-3">First Name</th>
+                                                                        <th scope="col" class="px-6 py-3">Last Name</th>
+                                                                        <th scope="col" class="px-6 py-3">Email</th>
+                                                                        <th scope="col" class="px-6 py-3">Adress</th>
+                                                                        <th scope="col" class="px-6 py-3">Phone</th>
+                                                                        <th scope="col" class="px-6 py-3">departement</th>
+                                                                        <th scope="col" class="px-6 py-3">institution</th>
                                                                         <th scope="col" class="px-6 py-3">city</th>
-                                                                        <th scope="col" class="px-6 py-3">state
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">country
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">Action
-                                                                        </th>
+                                                                        <th scope="col" class="px-6 py-3">state</th>
+                                                                        <th scope="col" class="px-6 py-3">country</th>
+                                                                        <th scope="col" class="px-6 py-3">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -465,13 +463,12 @@
                                                 <div id="introobjective-part" class="content" role="tabpanel"
                                                     aria-labelledby="introobjective-part-trigger">
                                                     <div class="form-group">
-                                                        <label for="introduction"><strong>Introduction</strong> <em
-                                                                class="emText">limited to 300 words:</em></label>
+                                                        <label for="introduction"><strong>Introduction</strong> <em class="emText">limited to 300 words:</em></label>
                                                         <div class="form-group">
                                                             <span style="color: red;" id="introduction-error"
                                                                 class="error"></span>
-                                                            <textarea name="introduction" id="introduction" class="form-control" maxlength="300"
-                                                                placeholder="Type or paste your introduction here..." style="height: 300px"></textarea>
+                                                            <textarea name="introduction" id="introduction" class="form-control"
+                                                                placeholder="Type or paste your introduction here..."></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -480,8 +477,7 @@
                                                         <div class="form-group">
                                                             <span style="color: red;" id="objective-error"
                                                                 class="error"></span>
-                                                            <textarea name="objective" id="objective" class="form-control" maxlength="300"
-                                                                placeholder="Type or paste your objective here..." style="height: 300px"></textarea>
+                                                            <textarea name="objective" id="objective" class="form-control" placeholder="Type or paste your objective here..."></textarea>
                                                         </div>
                                                     </div>
 
@@ -563,11 +559,15 @@
 
                                                         <div class="flex items-center mb-4">
 
-                                                            <input type="radio" name="disclosure" value="provide_disclosure" id="provide_disclosure">
-                                                            <label for="disclosure">Please provide your statement (max. 255 characters)</label>
+                                                            <input type="radio" name="disclosure"
+                                                                value="provide_disclosure" id="provide_disclosure">
+                                                            <label for="disclosure">Please provide your statement (max.
+                                                                255 characters)</label>
 
-                                                            <div class="form-group" id="disclosure_field" style="display: none;">
-                                                                    <textarea name="disclosure" id="disclosure" class="form-control" style="margin-left: 30px; width:600px; height: 300px;"></textarea>
+                                                            <div class="form-group" id="disclosure_field"
+                                                                style="display: none;">
+                                                                <textarea name="disclosure" id="disclosure" class="form-control"
+                                                                    style="margin-left: 30px; width:600px; height: 300px;"></textarea>
                                                             </div>
                                                         </div>
 
@@ -662,7 +662,8 @@
                                                         onclick="stepper.next()">Next</button>
                                                 </div>
 
-                                                <div id="previewfinish-part" class="content" role="tabpanel" aria-labelledby="previewfinish-part-trigger">
+                                                <div id="previewfinish-part" class="content" role="tabpanel"
+                                                    aria-labelledby="previewfinish-part-trigger">
 
                                                     <p>
                                                         {{ session('title') }}
@@ -679,12 +680,16 @@
                                                     </p>
                                                     <br><br><br>
 
-                                                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="stepper.previous()">Previous</button>
+                                                    <button type="button"
+                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                        onclick="stepper.previous()">Previous</button>
 
-                                                    <input type="hidden" name="author_id" id="author-id" value="">
+                                                    <input type="hidden" name="author_id" id="author-id"
+                                                        value="">
 
                                                     <div class="text-center">
-                                                        <p class="align_c"><button type="submit" class="btnStyle">Submit Abstract</button></p>
+                                                        <p class="align_c"><button type="submit"
+                                                                class="btnStyle">Submit Abstract</button></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -726,21 +731,6 @@
         }
     </style>
 
-    <!-- jQuery -->
-    <script src="{{ asset('assets/js/jquery-2.2.4.min.js') }}"></script>
-
-    <!-- BS-Stepper -->
-    <script src="{{ asset('assets/js/bs-stepper.min.js') }}"></script>
-    <script src="https: //cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https: //cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
-    <script src="{{ asset('assets/js/flowbite.min.js') }}"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
     <script src="{{ asset('assets/js/researchclinical.js') }}"></script>
     <script src="{{ asset('assets/js/researchValidate.js') }}"></script>
 
@@ -749,152 +739,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             window.stepper = new Stepper(document.querySelector('.bs-stepper'))
         })
-    </script>
-
-    <script>
-        const searchButton = document.querySelector('#search-button');
-        const lastNameInput = document.querySelector('#last-name');
-        const authorsTableContainer = document.querySelector('#authors-table-container');
-        const authorsTable = document.querySelector('#authors-table tbody');
-        const noAuthorsMessage = document.querySelector('#no-authors-message');
-
-        searchButton.addEventListener('click', () => {
-
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr(
-                        "content"
-                    ),
-                },
-            });
-
-            const lastname = lastNameInput.value.trim();
-
-            fetch(`{{ route('searchAuthors') }}?lastname=${lastname}`)
-                .then(response => response.json())
-                .then(data => {
-                    authorsTable.innerHTML = '';
-
-                    if (data.authors.length === 0) {
-                        noAuthorsMessage.style.display = 'block';
-                        authorsTableContainer.style.display = 'none';
-                    } else {
-                        noAuthorsMessage.style.display = 'none';
-                        authorsTableContainer.style.display = 'block';
-
-                        data.authors.forEach(author => {
-                            if (author.id && author.firstname && author.lastname && author.email &&
-                                author.adress && author.phone && author.departement && author
-                                .institution && author.city && author.state && author.country) {
-                                const tr = document.createElement('tr');
-                                tr.innerHTML = `
-                                    <td>${author.firstname}</td>
-                                    <td>${author.lastname}</td>
-                                    <td>${author.email}</td>
-                                    <td>${author.adress}</td>
-                                    <td>${author.phone}</td>
-                                    <td>${author.departement}</td>
-                                    <td>${author.institution}</td>
-                                    <td>${author.city}</td>
-                                    <td>${author.state}</td>
-                                    <td>${author.country}</td>
-                                    <td style="color:transparent;">${author.id}</td>
-                                    <td>
-                                        <button type="button" data-author-id="${author.id}" class="add-author-button">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </td>
-                                `;
-                                authorsTable.appendChild(tr);
-                            }
-                        });
-
-
-                        const authorsChoose = document.querySelector('#saved-data-table tbody');
-                        const addAuthorButtons = document.querySelectorAll('.add-author-button');
-                        addAuthorButtons.forEach(addAuthorButton => {
-                            addAuthorButton.addEventListener('click', () => {
-                                const authorId = addAuthorButton.dataset.authorId;
-                                const authorIdInput = document.querySelector('#author-id');
-                                authorIdInput.value = authorId;
-                                const authorData = addAuthorButton.closest('tr').querySelectorAll('td');
-
-                                const tr = document.createElement('tr');
-                                tr.classList.add('soufiane'+authorData[10].textContent);
-                                
-                                tr.innerHTML = `
-                                    <td>${authorData[0].textContent}</td>
-                                    <td>${authorData[1].textContent}</td>
-                                    <td>${authorData[2].textContent}</td>
-                                    <td>${authorData[3].textContent}</td>
-                                    <td>${authorData[4].textContent}</td>
-                                    <td>${authorData[5].textContent}</td>
-                                    <td>${authorData[6].textContent}</td>
-                                    <td>${authorData[7].textContent}</td>
-                                    <td>${authorData[8].textContent}</td>
-                                    <td>${authorData[9].textContent}</td>
-    <td>
-        <button type='button' class='delete-author-btn' data-author-id='`+authorData[10].textContent+`'>
-            <i class='fa fa-trash'></i>
-        </button>
-    </td>`;
-                                    
-                                authorsChoose.appendChild(tr);
-
-                                // const todoListRow = document.querySelector('#todo-list');
-                                // todoListRow.querySelector('.firstname').textContent =
-                                //     authorData[0].textContent;
-                                // todoListRow.querySelector('.lastname').textContent = authorData[
-                                //     1].textContent;
-                                // todoListRow.querySelector('.email').textContent = authorData[2]
-                                //     .textContent;
-                                // todoListRow.querySelector('.adress').textContent = authorData[3]
-                                //     .textContent;
-                                // todoListRow.querySelector('.phone').textContent = authorData[4]
-                                //     .textContent;
-                                // todoListRow.querySelector('.departement').textContent =
-                                //     authorData[5].textContent;
-                                // todoListRow.querySelector('.institution').textContent =
-                                //     authorData[6].textContent;
-                                // todoListRow.querySelector('.city').textContent = authorData[7]
-                                //     .textContent;
-                                // todoListRow.querySelector('.state').textContent = authorData[8]
-                                //     .textContent;
-                                // todoListRow.querySelector('.country').textContent = authorData[
-                                //     9].textContent;
-                            });
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('An error occurred while searching for authors:', error);
-                });
-        });
-
-        // $(document).ready(function() {
-        //     // Attach click event to delete button
-        //     $('#saved-data-table').on('click', '.deleteAuthor', function(event) {
-        //         event.preventDefault();
-        //         var row = $(this).closest('tr');
-        //         var authorId = row.data('author-id'); // Get the author ID from the data attribute
-        //         // Send AJAX request to delete the author
-        //         $.ajax({
-        //             url: 'deleteAuthor/'+authorId,
-        //             type: 'DELETE',
-        //             data: {
-        //                 id: authorId
-        //             },
-        //             success: function(data) {
-        //                 // Remove the row from the table on success
-        //                 row.remove();
-        //             },
-        //             error: function(jqXHR, textStatus, errorThrown) {
-        //                 console.log('AJAX Error: ' + textStatus);
-        //             }
-        //         });
-        //     });
-        // });
-
     </script>
 
 </x-app-layout>

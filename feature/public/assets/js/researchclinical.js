@@ -1,6 +1,14 @@
-jQuery(document).ready(function($) {
+$(function () {
+    $('#introduction').summernote(),
+    $('#objective').summernote(),
+    $('#method').summernote(),
+    $('#result').summernote(),
+    $('#conclusion').summernote()
+  });
+
+  jQuery(document).ready(function ($) {
     // CREATE
-    $("#submitAuthor").click(function(e) {
+    $("#submitAuthor").click(function (e) {
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr(
@@ -48,7 +56,7 @@ jQuery(document).ready(function($) {
             url: "addAuthor",
             data: formData,
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
                 console.log(data.message.id);
 
                 var todo =
@@ -84,8 +92,8 @@ jQuery(document).ready(function($) {
                     jQuery("#todo" + todo_id).replaceWith(todo);
                 }
 
-                jQuery("#firstname").val("");
-                jQuery("#lastname").val(""),
+                    jQuery("#firstname").val("");
+                    jQuery("#lastname").val(""),
                     jQuery("#email").val(""),
                     jQuery("#adress").val(""),
                     jQuery("#phone").val(""),
@@ -95,11 +103,13 @@ jQuery(document).ready(function($) {
                     jQuery("#state").val(""),
                     jQuery("#country").val(""),
 
-                    $("#closeModal").trigger('click');
+                    $("#closeModal").trigger("click");
 
                 // Show the saved data in a table below
                 var tableRow =
-                    '<tr class="soufiane' + data.message.id + '" id = "todo-list' +
+                    '<tr class="dataIdAuthor' +
+                    data.message.id +
+                    '" id = "todo-list' +
                     data.message.id +
                     '"><td>' +
                     data.message.firstname +
@@ -126,13 +136,13 @@ jQuery(document).ready(function($) {
                     "'><i class='fa fa-trash'></i></button></td></tr>";
                 jQuery("#saved-data-table").append(tableRow);
             },
-            error: function(data) {
+            error: function (data) {
                 alert("Data Not Saved :(");
             },
         });
     });
 
-    $("#saved-data-table").on("click", ".delete-author-btn", function(e) {
+    $("#saved-data-table").on("click", ".delete-author-btn", function (e) {
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr(
@@ -155,44 +165,123 @@ jQuery(document).ready(function($) {
         $.ajax({
             url: deleteUrl,
             type: "GET",
-            success: function(data) {
+            success: function (data) {
                 // $("body").on("click", ".delete-author-btn", function() {
                 // $(this).parents("tr").remove();
                 // });
-                $('.soufiane' + authorId).remove();
+                $(".dataIdAuthor" + authorId).remove();
 
                 console.log("Success" + data);
             },
-            error: function(error) {
+            error: function (error) {
                 console.log("Error" + error);
             },
         });
     });
+
+
+
+        const searchButton = document.querySelector('#search-button');
+        searchButton.addEventListener('click', () => {
+
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+            });
+
+            const lastNameInput = document.querySelector('#last-name');
+            const authorsTableContainer = document.querySelector('#authors-table-container');
+            const authorsTable = document.querySelector('#authors-table tbody');
+            const noAuthorsMessage = document.querySelector('#no-authors-message');
+
+            const lastname = lastNameInput.value.trim();
+
+            const searchUrl = searchButton.dataset.searchUrl;
+
+            jQuery("#last-name").val("");
+
+            fetch(`${searchUrl}?lastname=${lastname}`)
+
+            // fetch(`{{ route('searchAuthors') }}?lastname=${lastname}`)
+                .then(response => response.json())
+                .then(data => {
+                    authorsTable.innerHTML = '';
+
+                    if (data.authors.length === 0) {
+                        noAuthorsMessage.style.display = 'block';
+                        authorsTableContainer.style.display = 'none';
+                    } else {
+                        noAuthorsMessage.style.display = 'none';
+                        authorsTableContainer.style.display = 'block';
+
+                        data.authors.forEach(author => {
+                            if (author.id && author.firstname && author.lastname && author.email &&
+                                author.adress && author.phone && author.departement && author
+                                .institution && author.city && author.state && author.country) {
+                                const tr = document.createElement('tr');
+                                tr.innerHTML = `
+                                    <td>${author.firstname}</td>
+                                    <td>${author.lastname}</td>
+                                    <td>${author.email}</td>
+                                    <td>${author.adress}</td>
+                                    <td>${author.phone}</td>
+                                    <td>${author.departement}</td>
+                                    <td>${author.institution}</td>
+                                    <td>${author.city}</td>
+                                    <td>${author.state}</td>
+                                    <td>${author.country}</td>
+                                    <td style="color:transparent;">${author.id}</td>
+                                    <td>
+                                        <button type="button" data-author-id="${author.id}" class="add-author-button">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </td>`;
+                                authorsTable.appendChild(tr);
+                            }
+                        });
+
+                        const authorsChoose = document.querySelector('#saved-data-table tbody');
+                        const addAuthorButtons = document.querySelectorAll('.add-author-button');
+                        addAuthorButtons.forEach(addAuthorButton => {
+                            addAuthorButton.addEventListener('click', () => {
+                                const authorId = addAuthorButton.dataset.authorId;
+                                const authorIdInput = document.querySelector('#author-id');
+                                authorIdInput.value = authorId;
+                                const authorData = addAuthorButton.closest('tr')
+                                    .querySelectorAll('td');
+
+                                const tr = document.createElement('tr');
+                                tr.classList.add('dataIdAuthor' + authorData[10].textContent);
+
+                                tr.innerHTML = `
+                                    <td>${authorData[0].textContent}</td>
+                                    <td>${authorData[1].textContent}</td>
+                                    <td>${authorData[2].textContent}</td>
+                                    <td>${authorData[3].textContent}</td>
+                                    <td>${authorData[4].textContent}</td>
+                                    <td>${authorData[5].textContent}</td>
+                                    <td>${authorData[6].textContent}</td>
+                                    <td>${authorData[7].textContent}</td>
+                                    <td>${authorData[8].textContent}</td>
+                                    <td>${authorData[9].textContent}</td>
+                                    <td>
+                                        <button type='button' class='delete-author-btn' data-author-id='` + authorData[10].textContent + `'>
+                                            <i class='fa fa-trash'></i>
+                                        </button>
+                                    </td>`;
+                                authorsChoose.appendChild(tr);
+                            });
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('An error occurred while searching for authors:', error);
+                });
+        });
 });
-
-// Delete author with AJAX
-// $(".delete-author-btn").click(function () {
-//     var authorId = $(this).data("author-id");
-//     console.log(authorId);
-
-//     if (!authorId) {
-//         alert("Author ID is missing!");
-//         return;
-//     }
-
-//     var deleteUrl = "deleteAuthor/" + authorId;
-
-//     $.ajax({
-//         url: deleteUrl,
-//         type: "GET",
-//         success: function (data) {
-//             console.log(data);
-//         },
-//         error: function (error) {
-//             console.log(error);
-//         },
-//     });
-// });
 
 var keywordList = [];
 
@@ -200,7 +289,7 @@ var addKeywordBtn = document.getElementById("addKeywordBtn");
 var keywordListElem = document.getElementById("keywordList");
 var form = document.getElementById("my-form");
 
-addKeywordBtn.addEventListener("click", function() {
+addKeywordBtn.addEventListener("click", function () {
     var keywordInput = document.getElementById("keywords");
     var keyword = keywordInput.value.trim();
 
@@ -219,13 +308,13 @@ addKeywordBtn.addEventListener("click", function() {
     }
 });
 
-form.addEventListener("submit", function() {
+form.addEventListener("submit", function () {
     var keywordsInput = document.getElementById("keywords");
     keywordsInput.value = keywordList.join(",");
 });
 
-$(document).ready(function() {
-    $("input[type=radio][name=disclosure]").change(function() {
+$(document).ready(function () {
+    $("input[type=radio][name=disclosure]").change(function () {
         if (this.value === "provide_disclosure") {
             $("#disclosure_field").show();
         } else {

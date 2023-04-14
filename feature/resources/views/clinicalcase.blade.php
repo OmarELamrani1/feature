@@ -2,11 +2,20 @@
     @section('title', 'Clinical Case')
 
     <head>
+
+        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="{{ asset('assets/css/flowbite.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
+
+        <!-- summernote -->
+        <link href="{{ asset('assets/css/summernote/summernote-bs4.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets/css/summernote/summernote.min.css') }}" rel="stylesheet" type="text/css">
+
     </head>
 
     <div class="py-12">
@@ -187,7 +196,7 @@
                                                                 <!-- Modal content -->
                                                                 <div
                                                                     class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                                    <button type="button"
+                                                                    <button type="button" id="closeModal"
                                                                         class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                                                                         data-modal-hide="addAuthor">
                                                                         <svg aria-hidden="true" class="w-5 h-5"
@@ -211,7 +220,7 @@
                                                     <label for="last-name">Search by Last Name:</label><br>
                                                     <div class="inline-flex mb-3">
                                                         <input type="text" id="last-name" name="lastname">
-                                                        <button type="button" class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="search-button">Search</button>
+                                                        <button type="button" data-search-url="{{ route('searchAuthors') }}" class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="search-button">Search</button>
                                                     </div>
                                                 </div>
 
@@ -358,25 +367,17 @@
                                                                 <thead
                                                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                                     <tr>
-                                                                        <th scope="col" class="px-6 py-3">First
-                                                                            Name</th>
-                                                                        <th scope="col" class="px-6 py-3">Last Name
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">Email
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">Adress
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">Phone
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">
-                                                                            departement</th>
-                                                                        <th scope="col" class="px-6 py-3">
-                                                                            institution</th>
+                                                                        <th scope="col" class="px-6 py-3">First Name</th>
+                                                                        <th scope="col" class="px-6 py-3">Last Name</th>
+                                                                        <th scope="col" class="px-6 py-3">Email</th>
+                                                                        <th scope="col" class="px-6 py-3">Adress</th>
+                                                                        <th scope="col" class="px-6 py-3">Phone</th>
+                                                                        <th scope="col" class="px-6 py-3">departement</th>
+                                                                        <th scope="col" class="px-6 py-3">institution</th>
                                                                         <th scope="col" class="px-6 py-3">city</th>
-                                                                        <th scope="col" class="px-6 py-3">state
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">country
-                                                                        </th>
+                                                                        <th scope="col" class="px-6 py-3">state</th>
+                                                                        <th scope="col" class="px-6 py-3">country</th>
+                                                                        <th scope="col" class="px-6 py-3">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -431,15 +432,16 @@
                                                 <div id="introdiagnosis-part" class="content" role="tabpanel"
                                                     aria-labelledby="introdiagnosis-part-trigger">
                                                     <div class="form-group">
-                                                        <label for="introduction"><strong>Introduction</strong>limited to 300 words:</label>
+                                                        <label for="introduction"><strong>Introduction</strong> <em class="emText">limited to 300 words:</em></label>
+                                                        {{-- <label for="introduction"><strong>Introduction</strong>limited to 300 words:</label> --}}
                                                         <div class="form-group">
                                                             <span style="color: red;" id="intro-error" class="error"></span>
-                                                            <textarea name="introduction" id="introduction" class="form-control" maxlength="300"
-                                                                placeholder="Type or paste your introduction here..." style="height: 300px"></textarea>
+                                                            <textarea style="height: 300px" name="introduction" id="introduction" class="form-control" maxlength="300"
+                                                                placeholder="Type or paste your introduction here..."></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="diagnosis"><strong>Diagnosis</strong></label>
+                                                        <label for="diagnosis"><strong>Diagnosis</strong> <em class="emText">limited to 300 words:</em></label>
                                                         <div class="form-group">
                                                             <span style="color: red;" id="diagnosis-error" class="error"></span>
                                                             <textarea name="diagnosis" id="diagnosis" class="form-control" maxlength="300"
@@ -640,20 +642,6 @@
             border: 1px solid black;
         }
     </style>
-    <!-- jQuery -->
-    <script src="{{ asset('assets/js/jquery-2.2.4.min.js') }}"></script>
-
-    <!-- BS-Stepper -->
-    <script src="{{ asset('assets/js/bs-stepper.min.js') }}"></script>
-    <script src="https: //cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https: //cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
-    <script src="{{ asset('assets/js/flowbite.min.js') }}"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <script src="{{ asset('assets/js/researchclinical.js') }}"></script>
     <script src="{{ asset('assets/js/clinicalValidate.js') }}"></script>
@@ -664,113 +652,5 @@
             window.stepper = new Stepper(document.querySelector('.bs-stepper'))
         })
     </script>
-
-<script>
-    const searchButton = document.querySelector('#search-button');
-    const lastNameInput = document.querySelector('#last-name');
-    const authorsTableContainer = document.querySelector('#authors-table-container');
-    const authorsTable = document.querySelector('#authors-table tbody');
-    const noAuthorsMessage = document.querySelector('#no-authors-message');
-
-    searchButton.addEventListener('click', () => {
-
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr(
-                    "content"
-                ),
-            },
-        });
-
-        const lastname = lastNameInput.value.trim();
-
-        fetch(`{{ route('searchAuthors') }}?lastname=${lastname}`)
-            .then(response => response.json())
-            .then(data => {
-                authorsTable.innerHTML = '';
-
-                if (data.authors.length === 0) {
-                    noAuthorsMessage.style.display = 'block';
-                    authorsTableContainer.style.display = 'none';
-                } else {
-                    noAuthorsMessage.style.display = 'none';
-                    authorsTableContainer.style.display = 'block';
-
-                    data.authors.forEach(author => {
-                        if (author.id && author.firstname && author.lastname) {
-                            const tr = document.createElement('tr');
-                            tr.innerHTML = `
-                                <td>${author.firstname}</td>
-                                <td>${author.lastname}</td>
-                                <td>${author.email}</td>
-                                <td>${author.adress}</td>
-                                <td>${author.phone}</td>
-                                <td>${author.departement}</td>
-                                <td>${author.institution}</td>
-                                <td>${author.city}</td>
-                                <td>${author.state}</td>
-                                <td>${author.country}</td>
-                                <td>
-                                    <button type="button" data-author-id="${author.id}" class="add-author-button">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </td>
-                            `;
-                            authorsTable.appendChild(tr);
-                        }
-                    });
-
-                    const addAuthorButtons = document.querySelectorAll('.add-author-button');
-                    addAuthorButtons.forEach(addAuthorButton => {
-                        addAuthorButton.addEventListener('click', () => {
-                            const authorId = addAuthorButton.dataset.authorId;
-                            const authorIdInput = document.querySelector('#author-id');
-                            authorIdInput.value = authorId;
-                            const authorData = addAuthorButton.closest('tr')
-                                .querySelectorAll('td');
-                            const todoListRow = document.querySelector('#todo-list');
-                            todoListRow.querySelector('.firstname').textContent = authorData[0].textContent;
-                                todoListRow.querySelector('.lastname').textContent = authorData[1].textContent;
-                                todoListRow.querySelector('.email').textContent = authorData[2].textContent;
-                                todoListRow.querySelector('.adress').textContent = authorData[3].textContent;
-                                todoListRow.querySelector('.phone').textContent = authorData[4].textContent;
-                                todoListRow.querySelector('.departement').textContent = authorData[5].textContent;
-                                todoListRow.querySelector('.institution').textContent = authorData[6].textContent;
-                                todoListRow.querySelector('.city').textContent = authorData[7].textContent;
-                                todoListRow.querySelector('.state').textContent = authorData[8].textContent;
-                                todoListRow.querySelector('.country').textContent = authorData[9].textContent;
-                        });
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('An error occurred while searching for authors:', error);
-            });
-    });
-
-    $(document).ready(function() {
-            // Attach click event to delete button
-            $('#saved-data-table').on('click', '.delete-author', function(event) {
-                event.preventDefault();
-                var row = $(this).closest('tr');
-                var authorId = row.data('author-id'); // Get the author ID from the data attribute
-                // Send AJAX request to delete the author
-                $.ajax({
-                    url: 'deleteAuthor/'+authorId,
-                    type: 'DELETE',
-                    data: {
-                        id: authorId
-                    },
-                    success: function(data) {
-                        // Remove the row from the table on success
-                        row.remove();
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log('AJAX Error: ' + textStatus);
-                    }
-                });
-            });
-        });
-</script>
 
 </x-app-layout>
