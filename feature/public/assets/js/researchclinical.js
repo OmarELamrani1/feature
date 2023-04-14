@@ -84,8 +84,18 @@ jQuery(document).ready(function($) {
                     jQuery("#todo" + todo_id).replaceWith(todo);
                 }
 
-                jQuery("#step2-form").trigger("reset");
-                jQuery("#addAuthor").modal("hide");
+                jQuery("#firstname").val("");
+                jQuery("#lastname").val(""),
+                    jQuery("#email").val(""),
+                    jQuery("#adress").val(""),
+                    jQuery("#phone").val(""),
+                    jQuery("#departement").val(""),
+                    jQuery("#institution").val(""),
+                    jQuery("#city").val(""),
+                    jQuery("#state").val(""),
+                    jQuery("#country").val(""),
+
+                    $("#closeModal").trigger('click');
 
                 // Show the saved data in a table below
                 var tableRow =
