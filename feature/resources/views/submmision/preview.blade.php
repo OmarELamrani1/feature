@@ -78,44 +78,44 @@
                     <td class="preview-content-box">
                         <b>Introduction</b>
                         <div class="preview-content">
-                            <p>{{ $abstractsubmission->introduction }}</p>
+                            <p>{!! $abstractsubmission->introduction !!}</p>
                         </div>
                         <br style="clear: both;" />
 
                         @if ($abstractsubmission->type === 'Clinical Case')
                             <b>Diagnosis</b>
                             <div class="preview-content">
-                                <p>{{ $abstractsubmission->diagnosis }}</p>
+                                <p>{!! $abstractsubmission->diagnosis !!}</p>
                             </div>
                             <br style="clear: both;" />
                             <b>Treatment</b>
                             <div class="preview-content">
-                                <p>{{ $abstractsubmission->treatment }}</p>
+                                <p>{!! $abstractsubmission->treatment !!}</p>
                             </div>
                             <br style="clear: both;" />
                             <b>Discussion</b>
                             <div class="preview-content">
-                                <p>{{ $abstractsubmission->discussion }}</p>
+                                <p>{!! $abstractsubmission->discussion !!}</p>
                             </div>
                         @else
                             <b>Objectives</b>
                             <div class="preview-content">
-                                <p>{{ $abstractsubmission->objective }}</p>
+                                <p>{!! $abstractsubmission->objective !!}</p>
                             </div>
                             <br style="clear: both;" />
                             <b>Methods</b>
                             <div class="preview-content">
-                                <p>{{ $abstractsubmission->method }}</p>
+                                <p>{!! $abstractsubmission->method !!}</p>
                             </div>
                             <br style="clear: both;" />
                             <b>Results</b>
                             <div class="preview-content">
-                                <p>{{ $abstractsubmission->result }}</p>
+                                <p>{!! $abstractsubmission->result !!}</p>
                             </div>
                             <br style="clear: both;" />
                             <b>Conclusions</b>
                             <div class="preview-content">
-                                <p>{{ $abstractsubmission->conclusion }}</p>
+                                <p>{!! $abstractsubmission->conclusion !!}</p>
                             </div>
                         @endif
                         <br style="clear: both;" />

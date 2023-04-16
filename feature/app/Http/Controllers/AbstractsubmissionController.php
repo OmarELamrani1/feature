@@ -79,7 +79,6 @@ class AbstractsubmissionController extends Controller
         $data['tracking_code'] = random_int(100000, 999999);
         $data['personne_id'] = $personne->id;
 
-
         $request->session()->put([
             'title' => $request->input('title'),
             'type' => $request->input('type'),
@@ -93,8 +92,6 @@ class AbstractsubmissionController extends Controller
             'disclosure' => $request->input('disclosure'),
             'tracking_code' => $request->input('tracking_code')
         ]);
-
-        dd(session()->all());
 
         $abstractsubmission = Abstractsubmission::create($data);
         $abstractsubmission_id = $abstractsubmission->id;
