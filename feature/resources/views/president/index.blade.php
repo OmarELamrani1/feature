@@ -25,10 +25,23 @@
 
                     {{ __('ABSTRACT SUBMISSIONS :') }}<br><br>
                     <table class="w-full whitespace-no-wrapw-full whitespace-no-wrap">
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+
                         <thead>
                             <tr class="text-center font-bold">
                                 <td class="border px-6 py-4">Tracking Number</td>
                                 <td class="border px-6 py-4">Title</td>
+                                <td class="border px-6 py-4">President</td>
                                 <td class="border px-6 py-4">Action</td>
                             </tr>
                         </thead>
@@ -37,7 +50,27 @@
                                 <td class="border px-6 py-4">{{ $abstractsubmission->tracking_code }}</td>
                                 <td class="border px-6 py-4">{{ $abstractsubmission->title }}</td>
 
-                                @if ($abstractsubmission->evaluation && $abstractsubmission->evaluation->status == 'Modify' && $abstractsubmission->updated_at == $abstractsubmission->created_at)
+                                <td class="border px-6 py-4">
+                                    @if ($abstractsubmission->president_id == NULL)
+                                        <form action="{{ route('abstractsubmission.update', $abstractsubmission->id) }}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <select class="form-control" name="president_id" id="president_id">
+                                                <option value="choose" selected disabled>Assign evaluation to :</option>
+                                                @foreach ($presidents as $president)
+                                                        <option value="{{ $president->id }}">{{ $president->user->nom }} {{ $president->user->prenom }}</option>
+                                                @endforeach
+                                            </select>
+                                            <button type="submit" class="btn btn-success">Assign</button>
+                                        </form>
+                                    @else
+                                        Assigned to : {{ $abstractsubmission->president->user->nom }} {{ $abstractsubmission->president->user->prenom }}
+                                    @endif
+
+                                </td>
+
+                                {{-- @if ($abstractsubmission->evaluation && $abstractsubmission->evaluation->status == 'Modify' && $abstractsubmission->updated_at == $abstractsubmission->created_at) --}}
+                                @if ($abstractsubmission->evaluation && $abstractsubmission->evaluation->status == 'Modify' && $abstractsubmission->modified == false)
                                     <td class="border px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <span>Abstract Evaluated: Modification Needed
 
@@ -52,18 +85,18 @@
                                     <td class="border px-6 py-4">
                                         <span>Abstract already evaluated - {{ $abstractsubmission->evaluation->status }}
 
-                                            <a href="{{ route('deleteAbstract', $abstractsubmission->id) }}"
-                                                class="text-red-500 hover:text-red-900 inline-flex float-right space-x-2 flex-shrink-0">
-                                                <i class="fas fa-trash"></i>
-                                                <span>Delete</span>
-                                            </a>
+                                            @if ($abstractsubmission->president_id == auth()->user()->presidents->id)
+                                                <a href="{{ route('deleteAbstract', $abstractsubmission->id) }}"
+                                                    class="text-red-500 hover:text-red-900 inline-flex float-right space-x-2 flex-shrink-0">
+                                                    <i class="fas fa-trash"></i>
+                                                    <span>Delete</span>
+                                                </a>
+                                            @endif
                                         </span>
                                     </td>
-                                @else
+
+                                @elseif (empty($abstractsubmission->evaluation->status) && $abstractsubmission->president_id != NULL && $abstractsubmission->president_id == auth()->user()->presidents->id)
                                     <td class="border px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        @if ($abstractsubmission->evaluation)
-                                            <span>Abstract modified</span>
-                                        @endif
                                         <div class="flex justify-between">
                                             <a href="{{ route('getAbstract', $abstractsubmission->id) }}"
                                                 class="text-blue-600 hover:text-blue-900 flex items-center space-x-2">
@@ -76,6 +109,21 @@
                                                 <span>Delete</span>
                                             </a>
                                         </div>
+                                    </td>
+                                @else
+                                    <td class="border px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        @if ($abstractsubmission->updated_at != $abstractsubmission->created_at)
+                                            <span>Abstract modified</span><br>
+                                            <a href="{{ route('getAbstract', $abstractsubmission->id) }}"
+                                                class="text-blue-600 hover:text-blue-900 flex items-center space-x-2">
+                                                <i class="fas fa-eye"></i>
+                                                <span>View</span>
+                                            </a>
+                                        @elseif ($abstractsubmission->president_id == NULL)
+                                            Abstract should be assigned to a president to evaluate
+                                        @else
+                                            Processing...
+                                        @endif
                                     </td>
                                 @endif
 

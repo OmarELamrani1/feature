@@ -23,21 +23,28 @@ class AbstractsubmissionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required', 'max:25',
-            'type' => 'required','max:25',
-            'topic_id' => 'required|exists:topics,id',
-            'keywords' => 'required',
-            'introduction' => 'required', 'max:300',
-            'objective' => 'nullable', 'max:300',
-            'method' => 'nullable', 'max:300',
-            'result' => 'nullable', 'max:300',
-            'conclusion' => 'nullable', 'max:300',
-            'diagnosis' => 'nullable', 'max:300',
-            'treatment' => 'nullable', 'max:300',
-            'discussion' => 'nullable', 'max:300',
-            'affirmation' => 'required',
-            'disclosure' => 'nullable',
-        ];
+        if (auth()->user()->role == "Personne") {
+            return [
+                'title' => 'required', 'max:25',
+                'type' => 'required','max:25',
+                'topic_id' => 'required|exists:topics,id',
+                'keywords' => 'required',
+                'introduction' => 'required', 'max:300',
+                'objective' => 'nullable', 'max:300',
+                'method' => 'nullable', 'max:300',
+                'result' => 'nullable', 'max:300',
+                'conclusion' => 'nullable', 'max:300',
+                'diagnosis' => 'nullable', 'max:300',
+                'treatment' => 'nullable', 'max:300',
+                'discussion' => 'nullable', 'max:300',
+                'affirmation' => 'required',
+                'disclosure' => 'nullable',
+                'president_id' => 'nullable'
+            ];
+        } else{
+            return [
+                'president_id' => 'required'
+            ];
+        }
     }
 }

@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
 
     });
 
+    Route::resource('abstractsubmission', AbstractsubmissionController::class)->only('update');
+
     Route::middleware(['AuthAccess:President'])->group(function () {
         Route::resource('president', PresidentController::class);
         Route::resource('evaluation', EvaluationController::class)->only('store');
@@ -74,7 +76,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['AuthAccess:Personne', 'verified'])->group(function () {
-        Route::resource('abstractsubmission', AbstractsubmissionController::class);
+        Route::resource('abstractsubmission', AbstractsubmissionController::class)->except('update');
         Route::resource('author', AuthorController::class);
         Route::resource('posters', PosterController::class)->except(['index','create','edit','postersOnlyTrashed','abstractsOnlyTrashed']);
 

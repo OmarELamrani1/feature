@@ -49,8 +49,9 @@ class Controller extends BaseController
             } else if (Auth::user()->role == "President") {
 
                 $abstractsubmissions = Abstractsubmission::paginate();
+                $presidents = President::with('user')->get();
 
-                return view('president.index', compact('abstractsubmissions'));
+                return view('president.index', compact(['abstractsubmissions','presidents']));
 
             } else if (Auth::user()->role == "Personne") {
 

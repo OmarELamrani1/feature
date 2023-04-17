@@ -21,4 +21,8 @@ class President extends Model
         return $this->hasOne(Evaluation::class);
     }
 
+    public function abstractsubmission(){
+        return $this->hasMany(Abstractsubmission::class);
+    }
+
 }

@@ -232,7 +232,8 @@
                                                                             <div class="inline-flex mb-3">
                                                                                 <input type="text" id="last-name"
                                                                                     name="lastname">
-                                                                                <button type="button" data-search-url="{{ route('searchAuthors') }}"
+                                                                                <button type="button"
+                                                                                    data-search-url="{{ route('searchAuthors') }}"
                                                                                     class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                                                     id="search-button">Search</button>
                                                                             </div>
@@ -388,17 +389,27 @@
                                                                 <thead
                                                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                                     <tr>
-                                                                        <th scope="col" class="px-6 py-3">First Name</th>
-                                                                        <th scope="col" class="px-6 py-3">Last Name</th>
-                                                                        <th scope="col" class="px-6 py-3">Email</th>
-                                                                        <th scope="col" class="px-6 py-3">Adress</th>
-                                                                        <th scope="col" class="px-6 py-3">Phone</th>
-                                                                        <th scope="col" class="px-6 py-3">departement</th>
-                                                                        <th scope="col" class="px-6 py-3">institution</th>
+                                                                        <th scope="col" class="px-6 py-3">First
+                                                                            Name</th>
+                                                                        <th scope="col" class="px-6 py-3">Last Name
+                                                                        </th>
+                                                                        <th scope="col" class="px-6 py-3">Email
+                                                                        </th>
+                                                                        <th scope="col" class="px-6 py-3">Adress
+                                                                        </th>
+                                                                        <th scope="col" class="px-6 py-3">Phone
+                                                                        </th>
+                                                                        <th scope="col" class="px-6 py-3">
+                                                                            departement</th>
+                                                                        <th scope="col" class="px-6 py-3">
+                                                                            institution</th>
                                                                         <th scope="col" class="px-6 py-3">city</th>
-                                                                        <th scope="col" class="px-6 py-3">state</th>
-                                                                        <th scope="col" class="px-6 py-3">country</th>
-                                                                        <th scope="col" class="px-6 py-3">Action</th>
+                                                                        <th scope="col" class="px-6 py-3">state
+                                                                        </th>
+                                                                        <th scope="col" class="px-6 py-3">country
+                                                                        </th>
+                                                                        <th scope="col" class="px-6 py-3">Action
+                                                                        </th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -463,7 +474,8 @@
                                                 <div id="introobjective-part" class="content" role="tabpanel"
                                                     aria-labelledby="introobjective-part-trigger">
                                                     <div class="form-group">
-                                                        <label for="introduction"><strong>Introduction</strong> <em class="emText">limited to 300 words:</em></label>
+                                                        <label for="introduction"><strong>Introduction</strong> <em
+                                                                class="emText">limited to 300 words:</em></label>
                                                         <div class="form-group">
                                                             <span style="color: red;" id="introduction-error"
                                                                 class="error"></span>
@@ -665,19 +677,53 @@
                                                 <div id="previewfinish-part" class="content" role="tabpanel"
                                                     aria-labelledby="previewfinish-part-trigger">
 
-                                                    <p>
-                                                        {{ session('title') }}
-                                                        {{ session('type') }}
-                                                        {{ session('topic_id') }}
-                                                        {{ session('keywords') }}
-                                                        {{ session('introduction') }}
-                                                        {{ session('objective') }}
-                                                        {{ session('method') }}
-                                                        {{ session('result') }}
-                                                        {{ session('conclusion') }}
-                                                        {{ session('disclosure') }}
-                                                        {{ session('tracking_code') }}
-                                                    </p>
+                                                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                                <tr>
+                                                                    <th scope="col" class="px-6 py-3">title</th>
+                                                                    <th scope="col" class="px-6 py-3">type</th>
+                                                                    <th scope="col" class="px-6 py-3">Topic</th>
+                                                                    <th scope="col" class="px-6 py-3">Keywords</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="border px-6 py-4">{{ session('title') }}</td>
+                                                                    <td class="border px-6 py-4">{{ session('type') }}</td>
+                                                                    <td class="border px-6 py-4">{{ session('topic_id') }}</td>
+                                                                    <td class="border px-6 py-4">{{ session('keywords') }}</td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                                            <thead
+                                                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                                <tr>
+                                                                    <th scope="col" class="px-6 py-3">introduction</th>
+                                                                        <th scope="col" class="px-6 py-3">objective</th>
+                                                                        <th scope="col" class="px-6 py-3">method</th>
+                                                                        <th scope="col" class="px-6 py-3">result</th>
+                                                                        <th scope="col" class="px-6 py-3">conclusion</th>
+                                                                        <th scope="col" class="px-6 py-3">Dsiclosure</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="border px-6 py-4">{!! session('introduction') !!}</td>
+                                                                    <td class="border px-6 py-4">{!! session('objective') !!}</td>
+                                                                    <td class="border px-6 py-4">{!! session('method') !!}</td>
+                                                                    <td class="border px-6 py-4">{!! session('result') !!}</td>
+                                                                    <td class="border px-6 py-4">{!! session('conclusion') !!}</td>
+                                                                    <td class="border px-6 py-4">{{ session('disclosure') }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                     <br><br><br>
 
                                                     <button type="button"

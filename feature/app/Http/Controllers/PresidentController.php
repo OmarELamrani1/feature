@@ -6,6 +6,7 @@ use App\Models\Abstractsubmission;
 use App\Models\Poster;
 use App\Models\President;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PresidentController extends Controller
 {
@@ -28,7 +29,7 @@ class PresidentController extends Controller
     }
 
     public function getAbstract(Request $request, $id){
-        $abstractsubmission = Abstractsubmission::findOrFail($id);
+        $abstractsubmission = Abstractsubmission::where('president_id', Auth::user()->presidents->id)->findOrFail($id)->first();
         return view('evaluation.abstractsubmissionevaluation', compact(['abstractsubmission','request']));
     }
 

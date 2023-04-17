@@ -120,13 +120,13 @@ class AbstractsubmissionController extends Controller
         }
 
         // Send email to user for successfully submit
-        Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
+        // Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
 
-        // Send email to president for evaluation
-        $presidents = User::where('role', 'President')->get();
-        foreach ($presidents as $president) {
-            Mail::to($president->email)->send(new PosterStored($abstractsubmission));
-        }
+        // // Send email to president for evaluation
+        // $presidents = User::where('role', 'President')->get();
+        // foreach ($presidents as $president) {
+        //     Mail::to($president->email)->send(new PosterStored($abstractsubmission));
+        // }
 
         return view('submmision.preview', compact('abstractsubmission'));
     }
@@ -144,27 +144,31 @@ class AbstractsubmissionController extends Controller
 
     public function update(AbstractsubmissionRequest $request, Abstractsubmission $abstractsubmission)
     {
+        $abstractsubmission = Abstractsubmission::findOrFail($abstractsubmission->id);
 
-        $affirmation = $request->has('affirmation') ? 1 : 0;
-        $abstractsubmission->update(array_merge($request->validated(), ['affirmation' => $affirmation]));
+        if (auth()->user()->role == "Personne") {
 
-        $affirmation = $request->has('affirmation') ? 1 : 0;
+            $affirmation = $request->has('affirmation') ? 1 : 0;
+            $abstractsubmission->update(array_merge($request->validated(), ['affirmation' => $affirmation]));
+            $abstractsubmission->modified = true;
+            $abstractsubmission->save();
+            return view('submmision.preview', compact('abstractsubmission'));
+        }
 
-        // Send email to user for successfully submit
-        Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
-
-        // Send email to president for evaluation
-        $presidents = User::where('role', 'President')->get();
-        foreach ($presidents as $president) {
-            Mail::to($president->email)->send(new PosterStored($abstractsubmission));
+        else {
+            $abstractsubmission->update($request->all());
+            return redirect()->back();
         }
 
 
-        // $personnes = auth()->user()->personnes;
-        // $abstractsubmissions = Abstractsubmission::where('personne_id', $personnes->id)->first();
+        // Send email to user for successfully submit
+        // Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
 
-        $abstractsubmission = Abstractsubmission::findOrFail($abstractsubmission->id);
-        return view('submmision.preview', compact('abstractsubmission'));
+        // // Send email to president for evaluation
+        // $presidents = User::where('role', 'President')->get();
+        // foreach ($presidents as $president) {
+        //     Mail::to($president->email)->send(new PosterStored($abstractsubmission));
+        // }
 
     }
 

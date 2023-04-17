@@ -31,6 +31,8 @@ return new class extends Migration
             $table->string('disclosure')->nullable();
             $table->string('tracking_code')->nullable()->unique();
             $table->foreignId('personne_id')->nullable()->constrained()->onDelete('CASCADE');
+            $table->foreignId('president_id')->nullable()->constrained();
+            $table->boolean('modified')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

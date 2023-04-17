@@ -28,6 +28,7 @@ class Abstractsubmission extends Model
         'disclosure',
         'tracking_code',
         'personne_id',
+        'president_id'
     ];
 
     public function topic(){
@@ -36,6 +37,10 @@ class Abstractsubmission extends Model
 
     public function personne(){
         return $this->belongsTo(Personne::class, 'personne_id');
+    }
+
+    public function president(){
+        return $this->belongsTo(President::class, 'president_id');
     }
 
     public function evaluation(){

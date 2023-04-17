@@ -65,12 +65,12 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="border px-6 py-4">{{ $abstractsubmission->introduction }}</td>
+                                                <td class="border px-6 py-4">{!! $abstractsubmission->introduction !!}</td>
                                                 @if ($abstractsubmission->type === "Research Paper")
-                                                    <td class="border px-6 py-4">{{ $abstractsubmission->objective }}</td>
-                                                    <td class="border px-6 py-4">{{ $abstractsubmission->method }}</td>
-                                                    <td class="border px-6 py-4">{{ $abstractsubmission->result }}</td>
-                                                    <td class="border px-6 py-4">{{ $abstractsubmission->conclusion }}</td>
+                                                    <td class="border px-6 py-4">{!! $abstractsubmission->objective !!}</td>
+                                                    <td class="border px-6 py-4">{!! $abstractsubmission->method !!}</td>
+                                                    <td class="border px-6 py-4">{!! $abstractsubmission->result !!}</td>
+                                                    <td class="border px-6 py-4">{!! $abstractsubmission->conclusion !!}</td>
                                                 @else
                                                     <td class="border px-6 py-4">{{ $abstractsubmission->diagnosis }}</td>
                                                     <td class="border px-6 py-4">{{ $abstractsubmission->treatment }}</td>
