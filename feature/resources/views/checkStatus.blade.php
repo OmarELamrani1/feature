@@ -297,7 +297,7 @@
                                             </p>
                                             <br><br>
                                             <input class="form-check-input" type="checkbox" id="affirmation"
-                                                name="affirmation" required>
+                                                name="affirmation" required><br>
                                             <label class="form-check-label" for="affirmation"><strong>I Agree</strong></label>
                                             <p>* entering mandatory information.</p>
                                         </div>

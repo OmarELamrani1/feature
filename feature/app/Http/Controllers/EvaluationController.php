@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Abstractsubmission;
 use App\Models\Evaluation;
 use App\Models\Poster;
+use App\Models\President;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +30,9 @@ class EvaluationController extends Controller
             'topic',
         ])->paginate();
 
-        return view('president.index', compact('abstractsubmissions'));
+        $presidents = President::with('user')->get();
+
+        return view('president.index', compact(['abstractsubmissions','presidents']));
     }
 
 }

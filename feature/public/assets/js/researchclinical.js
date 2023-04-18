@@ -319,6 +319,7 @@ if (previewButton) {
     previewButton.addEventListener('click', function() {
         var title = document.getElementById('title').value;
         var topic = document.getElementById('topic_id').value;
+        var topicName = document.getElementById('topic_id').options[document.getElementById('topic_id').selectedIndex].text;
         var liElems = keywordListElem.getElementsByTagName("li");
         var keywords = "";
 
@@ -329,29 +330,50 @@ if (previewButton) {
             }
         }
 
-        var introduction = document.getElementById('introduction').value;
-        var objective = document.getElementById('objective').value;
-        var method = document.getElementById('method').value;
-        var result = document.getElementById('result').value;
-        var conclusion = document.getElementById('conclusion').value;
-        var disclosure = document.getElementById('disclosure').value;
 
-        if (!title || !topic || !keywords) {
-            alert('Please fill in all required fields');
-            return;
+        var type = document.getElementById('type').value;
+        var introduction = document.getElementById('introduction').value;
+        var objective = '';
+        var method = '';
+        var result = '';
+        var conclusion = '';
+        disclosure = document.getElementById('disclosure').value;
+
+        if (type === 'Research Paper') {
+            objective = document.getElementById('objective').value;
+            method = document.getElementById('method').value;
+            result = document.getElementById('result').value;
+            conclusion = document.getElementById('conclusion').value;
+        } else if (type === 'Clinical Case') {
+            diagnosis = document.getElementById('diagnosis').value;
+            treatment = document.getElementById('treatment').value;
+            discussion = document.getElementById('discussion').value;
         }
 
-        var preview = document.getElementById('preview');
-        preview.innerHTML = '<tr><td class="border px-6 py-4">' + title + '</td> <td class="border px-6 py-4">' + topic + '</td><td class="border px-6 py-4">' + keywords + '</td></tr>';
+        if (type === 'Research Paper') {
+            var preview = document.getElementById('preview');
+            preview.innerHTML = '<tr><td class="border px-6 py-4">' + title + '</td> <td class="border px-6 py-4">' + topicName + '</td><td class="border px-6 py-4">' + keywords + '</td></tr>';
 
-        var preview1 = document.getElementById('preview1');
-        preview1.innerHTML = '<tr><td class="border px-6 py-4">' + introduction + '</td> <td class="border px-6 py-4">' + objective + '</td></tr>';
+            var preview1 = document.getElementById('preview1');
+            preview1.innerHTML = '<tr><td class="border px-6 py-4">' + introduction + '</td> <td class="border px-6 py-4">' + objective + '</td></tr>';
 
-        var preview2 = document.getElementById('preview2');
-        preview2.innerHTML = '<tr><td class="border px-6 py-4">' + method + '</td> <td class="border px-6 py-4">' + result + '</td></tr>';
+            var preview2 = document.getElementById('preview2');
+            preview2.innerHTML = '<tr><td class="border px-6 py-4">' + method + '</td> <td class="border px-6 py-4">' + result + '</td></tr>';
 
-        var preview3 = document.getElementById('preview3');
-        preview3.innerHTML = '<tr><td class="border px-6 py-4">' + conclusion + '</td> <td class="border px-6 py-4">' + disclosure + '</td></tr>';
+            var preview3 = document.getElementById('preview3');
+            preview3.innerHTML = '<tr><td class="border px-6 py-4">' + conclusion + '</td> <td class="border px-6 py-4">' + disclosure + '</td></tr>';
+        }
+        else{
+            var previewClinicalCase = document.getElementById('previewClinicalCase');
+            previewClinicalCase.innerHTML = '<tr><td class="border px-6 py-4">' + title + '</td> <td class="border px-6 py-4">' + topicName + '</td><td class="border px-6 py-4">' + keywords + '</td></tr>';
+
+            var previewClinicalCase1 = document.getElementById('previewClinicalCase1');
+            previewClinicalCase1.innerHTML = '<tr><td class="border px-6 py-4">' + introduction + '</td> <td class="border px-6 py-4">' + diagnosis + '</td></tr>';
+
+            var previewClinicalCase2 = document.getElementById('previewClinicalCase2');
+            previewClinicalCase2.innerHTML = '<tr><td class="border px-6 py-4">' + treatment + '</td> <td class="border px-6 py-4">' + discussion + '</td><td class="border px-6 py-4">' + disclosure + '</td></tr>';
+        }
+
     });
 } else {
     console.log('Button not found');

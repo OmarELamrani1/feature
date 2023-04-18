@@ -612,9 +612,8 @@
                                                         </p>
                                                         <br><br>
                                                         <input class="form-check-input" type="checkbox"
-                                                            id="affirmation" name="affirmation" required>
-                                                        <label class="form-check-label" for="affirmation"><strong>I
-                                                                Agree</strong>
+                                                            id="affirmation" name="affirmation" required><br>
+                                                        <label class="form-check-label" for="affirmation"><strong>I Agree</strong>
                                                         </label>
                                                         <p>* You may proceed to the next step but the system will not
                                                             let
