@@ -79,8 +79,7 @@
                         @if (empty($researchPaperCount || $clinicalCaseCount))
                             <table cellpadding="0" class="abstract_box">
                                 <tr>
-                                    <td class="abstract_box_title" style="text-align: center;">No abstract submitted yet
-                                    </td>
+                                    <td class="abstract_box_title" style="text-align: center;">You don't have any files.</td>
                                 </tr>
                             </table>
                         @endif
@@ -88,7 +87,8 @@
                             <table cellpadding="0" class="abstract_box">
                                 <tr>
                                     <td class="abstract_box_status">
-                                        @if ($abstract && $abstract->evaluation && $abstract->updated_at == $abstract->created_at)
+                                        {{-- @if ($abstract && $abstract->evaluation && $abstract->updated_at == $abstract->created_at) --}}
+                                        @if ($abstract && $abstract->evaluation && $abstract->modified == false)
                                             <a href="{{ route('checkStatus', $abstract->id) }}">
                                                 <h1>
                                                     <p style="color:rgb(74, 128, 72)">Check Status</p>

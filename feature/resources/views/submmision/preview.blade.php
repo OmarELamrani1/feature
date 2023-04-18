@@ -184,7 +184,7 @@
                                             @elseif ($abstractsubmission->evaluation->status === "Approved")
                                                 <font color="green" size="2">({{ $abstractsubmission->evaluation->status }})</font>
 
-                                            @elseif ($abstractsubmission->evaluation && $abstractsubmission->evaluation->status == 'Modify' && $abstractsubmission->updated_at != $abstractsubmission->created_at)
+                                            @elseif ($abstractsubmission->evaluation && $abstractsubmission->evaluation->status == 'Modify' && $abstractsubmission->modified == true)
                                                 <font color="grey" size="2">(Abstract modified, wait for evaluation...)</font>
                                             @else
                                                 <font color="red" size="2">({{ $abstractsubmission->evaluation->status }})</font>

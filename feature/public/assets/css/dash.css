@@ -116,16 +116,14 @@ hr {
 	color:#3F454C;
 }
 .action_btn {
-    position: absolute;
-    display: inline-flex;
 	width: 15%;
-	text-align: right;
 	vertical-align: middle;
 }
 .action_btn a {
 	padding-right: 25px;
 	color: 	#3F454C;
-	font-size: 17px;
+	font-size: 20px;
+    padding: 5px;
 }
 .action_btn a:hover,.action_btn a:focus {
 	color: #ca3333;

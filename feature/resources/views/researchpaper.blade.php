@@ -558,49 +558,6 @@
                                                         onclick="stepper.next()">Next</button>
                                                 </div>
 
-                                                <div id="disclosure-part" class="content" role="tabpanel"
-                                                    aria-labelledby="disclosure-part-trigger">
-                                                    <div class="form-group">
-                                                        <label for="disclosure"><strong>Disclosure</strong></label>
-                                                        <p>Do you or any of the co-authors have a significant financial
-                                                            interest, consultancy or other relationship with products,
-                                                            manufacturer(s) of products or providers of services related
-                                                            to
-                                                            this abstract?</p>
-
-
-                                                        <div class="flex items-center mb-4">
-
-                                                            <input type="radio" name="disclosure"
-                                                                value="provide_disclosure" id="provide_disclosure">
-                                                            <label for="disclosure">Please provide your statement (max.
-                                                                255 characters)</label>
-
-                                                            <div class="form-group" id="disclosure_field"
-                                                                style="display: none;">
-                                                                <textarea name="disclosure" id="disclosure" class="form-control"
-                                                                    style="margin-left: 30px; width:600px; height: 300px;"></textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="flex items-center">
-                                                            <input type="radio" name="disclosure"
-                                                                value="No significant relationships"
-                                                                id="No significant relationships"> No significant
-                                                            relationships
-                                                        </div>
-
-                                                    </div>
-
-                                                    <button type="button"
-                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                        onclick="stepper.previous()">Previous</button>
-
-                                                    <button type="button"
-                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                        onclick="stepper.next()">Next</button>
-                                                </div>
-
                                                 <div id="affirmation-part" class="content" role="tabpanel"
                                                     aria-labelledby="affirmation-part-trigger">
                                                     <div class="form-group">
@@ -674,30 +631,68 @@
                                                         onclick="stepper.next()">Next</button>
                                                 </div>
 
+                                                <div id="disclosure-part" class="content" role="tabpanel"
+                                                    aria-labelledby="disclosure-part-trigger">
+                                                    <div class="form-group">
+                                                        <label for="disclosure"><strong>Disclosure</strong></label>
+                                                        <p>Do you or any of the co-authors have a significant financial
+                                                            interest, consultancy or other relationship with products,
+                                                            manufacturer(s) of products or providers of services related
+                                                            to
+                                                            this abstract?</p>
+
+
+                                                        <div class="flex items-center mb-4">
+
+                                                            <input type="radio" name="disclosure"
+                                                                value="provide_disclosure" id="provide_disclosure">
+                                                            <label for="disclosure">Please provide your statement (max.
+                                                                255 characters)</label>
+
+                                                            <div class="form-group" id="disclosure_field"
+                                                                style="display: none;">
+                                                                <textarea name="disclosure" id="disclosure" class="form-control"
+                                                                    style="margin-left: 30px; width:600px; height: 300px;"></textarea>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="flex items-center">
+                                                            <input type="radio" name="disclosure"
+                                                                value="No significant relationships"
+                                                                id="No significant relationships"> No significant
+                                                            relationships
+                                                        </div>
+
+                                                    </div>
+
+                                                    <button type="button"
+                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                        onclick="stepper.previous()">Previous</button>
+
+                                                    <button type="button" id="preview-button"
+                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                        onclick="stepper.next()">Next</button>
+                                                </div>
+
                                                 <div id="previewfinish-part" class="content" role="tabpanel"
                                                     aria-labelledby="previewfinish-part-trigger">
 
                                                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                        <table
+                                                            class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                                            <thead
+                                                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                                 <tr>
                                                                     <th scope="col" class="px-6 py-3">title</th>
-                                                                    <th scope="col" class="px-6 py-3">type</th>
                                                                     <th scope="col" class="px-6 py-3">Topic</th>
                                                                     <th scope="col" class="px-6 py-3">Keywords</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td class="border px-6 py-4">{{ session('title') }}</td>
-                                                                    <td class="border px-6 py-4">{{ session('type') }}</td>
-                                                                    <td class="border px-6 py-4">{{ session('topic_id') }}</td>
-                                                                    <td class="border px-6 py-4">{{ session('keywords') }}</td>
-                                                                </tr>
-
+                                                                <tr id="preview"></tr>
                                                             </tbody>
                                                         </table>
-                                                    </div>
+                                                    </div><br>
 
                                                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                                                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -706,25 +701,46 @@
                                                                 <tr>
                                                                     <th scope="col" class="px-6 py-3">introduction</th>
                                                                         <th scope="col" class="px-6 py-3">objective</th>
-                                                                        <th scope="col" class="px-6 py-3">method</th>
-                                                                        <th scope="col" class="px-6 py-3">result</th>
-                                                                        <th scope="col" class="px-6 py-3">conclusion</th>
-                                                                        <th scope="col" class="px-6 py-3">Dsiclosure</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td class="border px-6 py-4">{!! session('introduction') !!}</td>
-                                                                    <td class="border px-6 py-4">{!! session('objective') !!}</td>
-                                                                    <td class="border px-6 py-4">{!! session('method') !!}</td>
-                                                                    <td class="border px-6 py-4">{!! session('result') !!}</td>
-                                                                    <td class="border px-6 py-4">{!! session('conclusion') !!}</td>
-                                                                    <td class="border px-6 py-4">{{ session('disclosure') }}</td>
-                                                                </tr>
+                                                                <tr id="preview1"></tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <br><br><br>
+                                                    <br><br>
+
+                                                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                                            <thead
+                                                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                                <tr>
+                                                                    <th scope="col" class="px-6 py-3">method</th>
+                                                                    <th scope="col" class="px-6 py-3">result</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr id="preview2"></tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br><br>
+
+                                                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                                            <thead
+                                                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                                <tr>
+                                                                    <th scope="col" class="px-6 py-3">conclusion</th>
+                                                                    <th scope="col" class="px-6 py-3">Disclosure</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr id="preview3"></tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br><br>
 
                                                     <button type="button"
                                                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

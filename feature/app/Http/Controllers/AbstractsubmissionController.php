@@ -79,20 +79,6 @@ class AbstractsubmissionController extends Controller
         $data['tracking_code'] = random_int(100000, 999999);
         $data['personne_id'] = $personne->id;
 
-        $request->session()->put([
-            'title' => $request->input('title'),
-            'type' => $request->input('type'),
-            'topic_id' => $request->input('topic_id'),
-            'keywords' => $request->input('keywords'),
-            'introduction' => $request->input('introduction'),
-            'objective' => $request->input('objective'),
-            'method' => $request->input('method'),
-            'result' => $request->input('result'),
-            'conclusion' => $request->input('conclusion'),
-            'disclosure' => $request->input('disclosure'),
-            'tracking_code' => $request->input('tracking_code')
-        ]);
-
         $abstractsubmission = Abstractsubmission::create($data);
         $abstractsubmission_id = $abstractsubmission->id;
 

@@ -468,10 +468,10 @@ input:focus {
         margin-left: auto;
         margin-right: auto;
     }
-    .trackCode {
+    /* .trackCode {
         margin-top: -12%;
         position: absolute;
-    }
+    } */
     .right {
         float: right;
         width: 48%;

@@ -179,6 +179,9 @@
                                         <p>
                                             @if (empty($abstractsubmission->evaluation->status))
                                                 <font color="blue" size="2">(Processing...)</font>
+                                            @elseif (empty($abstractsubmission->evaluation->status) && $abstractsubmission->modified== true)
+                                                <font color="orange" size="2">(Abstract modified, wait for evaluation...)</font>
+
                                             @elseif ($abstractsubmission->evaluation->status === "Approved")
                                                 <font color="green" size="2">({{ $abstractsubmission->evaluation->status }})</font>
                                             @else
