@@ -6,7 +6,6 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\PersonneController;
-use App\Http\Controllers\PosterController;
 use App\Http\Controllers\PresidentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopicController;
@@ -30,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('welcome', [Controller::class, 'check'])->name('check');
     Route::get('submissionprint/{id}', [Controller::class, 'generatePDF'])->name('printsubmission');
 
+// Routes of only Admin can be accessed
     Route::middleware(['AuthAccess:Admin'])->group(function () {
         Route::resource('topic', TopicController::class);
         Route::resource('administrator', AdminController::class)->only(['store','destroy']);
@@ -46,12 +46,6 @@ Route::middleware('auth')->group(function () {
             Route::delete('/topic/{id}/forceDeleteTopic', 'forceDeleteTopic')->name('forceDeleteTopic');
         });
 
-        Route::controller(PosterController::class)->group(function () {
-            Route::get('postersOnlyTrashed', 'postersOnlyTrashed')->name('postersOnlyTrashed');
-            Route::patch('/poster/{id}/restore', 'posterRestore')->name('posterRestore');
-            Route::delete('/poster/{id}/forceDelete', 'posterForceDelete')->name('posterForceDelete');
-        });
-
         Route::controller(AbstractsubmissionController::class)->group(function () {
             Route::get('abstractsOnlyTrashed', 'abstractsOnlyTrashed')->name('abstractsOnlyTrashed');
             Route::patch('/abstract/{id}/restore', 'abstractRestore')->name('abstractRestore');
@@ -62,31 +56,37 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('abstractsubmission', AbstractsubmissionController::class)->only('update');
 
-    Route::middleware(['AuthAccess:President'])->group(function () {
+// Routes that Admin can access with the president at the same time
+    Route::middleware(['AuthAccess:President,Admin'])->group(function () {
         Route::resource('president', PresidentController::class);
+        Route::get('deleteAbstract/{id}', [PresidentController::class, 'deleteAbstract'])->name('deleteAbstract');
+    });
+
+// Routes that Admin can access with the Personne(User) at the same time
+    Route::middleware(['AuthAccess:Personne,Admin'])->group(function () {
+        Route::resource('abstractsubmission', AbstractsubmissionController::class)->only('show');
+    });
+
+// Routes of only President can be accessed
+    Route::middleware(['AuthAccess:President'])->group(function () {
         Route::resource('evaluation', EvaluationController::class)->only('store');
 
         Route::controller(PresidentController::class)->group(function () {
-            Route::get('getPoster/{id}', 'getPoster')->name('getPoster');
             Route::get('getAbstract/{id}', 'getAbstract')->name('getAbstract');
-            Route::get('deletePoster/{id}', 'deletePoster')->name('deletePoster');
-            Route::get('deleteAbstract/{id}', 'deleteAbstract')->name('deleteAbstract');
         });
 
     });
 
+// Routes of only Personne(User) can be accessed
     Route::middleware(['AuthAccess:Personne', 'verified'])->group(function () {
-        Route::resource('abstractsubmission', AbstractsubmissionController::class)->except('update');
+        Route::resource('abstractsubmission', AbstractsubmissionController::class)->except(['show','update']);
         Route::resource('author', AuthorController::class);
-        Route::resource('posters', PosterController::class)->except(['index','create','edit','postersOnlyTrashed','abstractsOnlyTrashed']);
 
         Route::get('deleteAuthor/{id?}', [AuthorController::class, 'deleteAuthor'])->name('deleteAuthor');
-
         Route::controller(AuthorController::class)->group(function () {
             Route::get('/search-authors', 'searchAuthors')->name('searchAuthors');
             Route::post('addAuthor', 'addAuthor')->name('addAuthor');
             Route::get('/authors/{id}', 'show')->name('authors.show');
-            // Route::delete('deleteAuthor/{id}', 'deleteAuthor')->name('deleteAuthor');
         });
 
         Route::controller(AbstractsubmissionController::class)->group(function () {

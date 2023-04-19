@@ -33,6 +33,21 @@ $(function () {
             jQuery(".error-message").remove();
         }
 
+        // Validate the email input
+        var emailInput = jQuery("#email");
+        var emailValue = emailInput.val();
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailValue)) {
+            emailInput.addClass("error");
+            emailInput.after(
+                "<span class='error-message'>Please enter a valid email address</span>"
+            );
+            return;
+        } else {
+            emailInput.removeClass("error");
+            jQuery(".error-message").remove();
+        }
+
         var formData = {
             id: jQuery("#last_author_id").val(),
             firstname: jQuery("#firstname").val(),

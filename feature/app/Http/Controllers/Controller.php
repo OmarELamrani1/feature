@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Abstractsubmission;
 use App\Models\Evaluation;
-use App\Models\Poster;
 use App\Models\President;
 use App\Models\Topic;
 use Barryvdh\DomPDF\Facade\Pdf;

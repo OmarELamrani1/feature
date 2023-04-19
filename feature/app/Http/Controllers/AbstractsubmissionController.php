@@ -97,13 +97,29 @@ class AbstractsubmissionController extends Controller
         if ($request->has('author_id')) {
             $author = Author::find($request->input('author_id'));
             if ($author) {
-                $author_abstractsubmission = new AuthorAbstractsubmission;
-                $author_abstractsubmission->author_id = $author->id;
-                $author_abstractsubmission->abstractsubmission_id = $abstractsubmission_id;
-                $author_abstractsubmission->save();
-            } elseif (empty($author)) {
-            }
+                $authorAbstractSubmission = AuthorAbstractsubmission::where('abstractsubmission_id', $abstractsubmission_id)
+                    ->where('author_id', $author->id)
+                    ->first();
+                if (!$authorAbstractSubmission) {
+                    $author_abstractsubmission = new AuthorAbstractsubmission;
+                    $author_abstractsubmission->author_id = $author->id;
+                    $author_abstractsubmission->abstractsubmission_id = $abstractsubmission_id;
+                    $author_abstractsubmission->save();
+                }
+            } elseif (empty($author)) {}
         }
+
+
+        // if ($request->has('author_id')) {
+        //     $author = Author::find($request->input('author_id'));
+        //     if ($author) {
+        //         $author_abstractsubmission = new AuthorAbstractsubmission;
+        //         $author_abstractsubmission->author_id = $author->id;
+        //         $author_abstractsubmission->abstractsubmission_id = $abstractsubmission_id;
+        //         $author_abstractsubmission->save();
+        //     } elseif (empty($author)) {
+        //     }
+        // }
 
         // Send email to user for successfully submit
         // Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));

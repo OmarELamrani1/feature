@@ -15,12 +15,25 @@ class AuthAccess
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $role)
+
+
+     public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (Auth::user()->role == $role) {
+        $userRole = Auth::user()->role;
+
+        if (in_array($userRole, $roles)) {
             return $next($request);
-        } else {
-            return abort(404);
         }
+
+        abort(403, 'Unauthorized');
     }
+
+    // public function handle(Request $request, Closure $next, $role)
+    // {
+    //     if (Auth::user()->role == $role) {
+    //         return $next($request);
+    //     } else {
+    //         return abort(404);
+    //     }
+    // }
 }

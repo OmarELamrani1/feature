@@ -24,6 +24,13 @@
                 </div>
 
                 @can('action')
+
+                    <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('president.index')" :active="request()->routeIs('president.index')">
+                            {{ __('Abstracts') }}
+                        </x-nav-link>
+                    </div>
+
                     <div class="shrink-0 flex items-center">
 
                         <x-dropdown align="right" width="48">

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Abstractsubmission;
-use App\Models\Poster;
 use App\Models\President;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,19 +12,10 @@ class PresidentController extends Controller
 
     public function index()
     {
-        return view('president.index');
-    }
+        $abstractsubmissions = Abstractsubmission::paginate();
+        $presidents = President::with('user')->get();
 
-    public function getPoster(Request $request, $id){
-        $poster = Poster::findOrFail($id);
-        return view('evaluation.index', compact(['poster','request']));
-    }
-
-    public function deletePoster($id){
-        $poster = Poster::findOrFail($id);
-        $poster->delete();
-
-        return redirect()->back();
+        return view('president.index', compact(['abstractsubmissions','presidents']));
     }
 
     public function getAbstract(Request $request, $id){

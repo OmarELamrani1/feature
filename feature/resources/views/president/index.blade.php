@@ -70,6 +70,8 @@
 
                                 </td>
 
+                            @can('president')
+
                                 {{-- @if ($abstractsubmission->evaluation && $abstractsubmission->evaluation->status == 'Modify' && $abstractsubmission->updated_at == $abstractsubmission->created_at) --}}
                                 @if ($abstractsubmission->evaluation && $abstractsubmission->evaluation->status == 'Modify' && $abstractsubmission->modified == false)
                                     <td class="border px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -127,6 +129,26 @@
                                         @endif
                                     </td>
                                 @endif
+                            @endcan
+
+                            @can('action')
+                                <td class="border px-6 py-4 whitespace-nowrap text-sm font-medium">
+
+                                    <div class="flex justify-between">
+
+                                        <a href="{{ optional($abstractsubmission)->id ? route('abstractsubmission.show', $abstractsubmission->id) : '#' }}"
+                                            title="View"><i class="fa fa-eye" aria-hidden="true"></i>View</a>
+
+                                        <a href="{{ route('deleteAbstract', $abstractsubmission->id) }}"
+                                            class="text-red-600 hover:text-red-900 flex items-center space-x-2 flex-shrink-0">
+                                            <i class="fas fa-trash"></i>
+                                            <span>Delete</span>
+                                        </a>
+                                    </div>
+
+
+                                </td>
+                            @endcan
 
                             </tr>
                         @empty
