@@ -54,7 +54,7 @@
                                                 Name</label>
                                             <input type="text" name="nom" id="nom"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                                placeholder="Your firstName..." required>
+                                                placeholder="Your Last name..." required>
                                         </div>
 
                                         <div>
@@ -63,7 +63,7 @@
                                                 Name</label>
                                             <input type="text" name="prenom" id="prenom"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                                placeholder="Your lastName..." required>
+                                                placeholder="Your First name..." required>
                                         </div>
 
                                         <div>
@@ -103,8 +103,8 @@
                     <table class="w-full whitespace-no-wrapw-full whitespace-no-wrap">
                         <thead>
                             <tr class="text-center font-bold">
-                                <td class="border px-6 py-4">Nom</td>
-                                <td class="border px-6 py-4">Prenom</td>
+                                <td class="border px-6 py-4">Last name</td>
+                                <td class="border px-6 py-4">First name</td>
                                 <td class="border px-6 py-4">Email</td>
                                 <td class="border px-6 py-4">Action</td>
                             </tr>

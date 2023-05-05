@@ -11,6 +11,7 @@ class Evaluation extends Model
 
     protected $fillable = [
         'status',
+        'comment',
         'abstractsubmission_id',
         'president_id'
     ];

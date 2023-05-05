@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
             $table->enum('status', ['Approved', 'Modify', 'Rejected']);
+            $table->string('comment')->nullable();
             $table->foreignId('abstractsubmission_id')->constrained()->onDelete('CASCADE');
             $table->foreignId('president_id')->constrained();
             $table->timestamps();

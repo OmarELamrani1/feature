@@ -72,9 +72,9 @@
                                                     <td class="border px-6 py-4">{!! $abstractsubmission->result !!}</td>
                                                     <td class="border px-6 py-4">{!! $abstractsubmission->conclusion !!}</td>
                                                 @else
-                                                    <td class="border px-6 py-4">{{ $abstractsubmission->diagnosis }}</td>
-                                                    <td class="border px-6 py-4">{{ $abstractsubmission->treatment }}</td>
-                                                    <td class="border px-6 py-4">{{ $abstractsubmission->discussion }}</td>
+                                                    <td class="border px-6 py-4">{!! $abstractsubmission->diagnosis !!}</td>
+                                                    <td class="border px-6 py-4">{!! $abstractsubmission->treatment !!}</td>
+                                                    <td class="border px-6 py-4">{!! $abstractsubmission->discussion !!}</td>
                                                 @endif
                                             </tr>
 
@@ -83,7 +83,7 @@
                                 </div>
 
                                 <br><br>
-                                <select name="status" class="form-select w-100 p-3"
+                                <select name="status" id="status-select" class="form-select w-100 p-3"
                                     aria-label="Default select example">
                                     <option disabled selected>Evaluation : </option>
                                     <option name="status" value="Approved">Approved</option>
@@ -91,12 +91,15 @@
                                     <option name="status" value="Rejected">Rejected</option>
                                 </select><br>
 
-                                <input type="hidden" name="abstractsubmission_id"
-                                    value="{{ $abstractsubmission->id }}">
+                                <div id="comment-input" style="display: none;">
+                                    <label for="comment">Reason for the modification :</label>
+                                    <input type="text" name="comment" id="comment" placeholder="Reason for the modification . . ." style="width: 60%;" autofocus>
+                                </div> <br>
+
+                                <input type="hidden" name="abstractsubmission_id" value="{{ $abstractsubmission->id }}">
 
                                 <div class="text-center">
-                                    <p class="align_c"><button type="submit" class="btnStyle">Submit
-                                            Evaluation</button></p>
+                                    <p class="align_c"><button type="submit" class="btnStyle">Submit Evaluation</button></p>
                                 </div>
                             </form>
 
@@ -110,4 +113,17 @@
 
         </div>
     </div>
+
+    <script>
+        const selectBox = document.getElementById('status-select');
+        const commentInput = document.getElementById('comment-input');
+        selectBox.addEventListener('change', () => {
+            if (selectBox.value === 'Modify') {
+                commentInput.style.display = 'block';
+            } else {
+                commentInput.style.display = 'none';
+            }
+        });
+    </script>
+
 </x-app-layout>

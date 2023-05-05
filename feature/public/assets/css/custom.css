@@ -1,0 +1,142 @@
+@font-face {
+    font-family: 'Futura PT';
+    src: url('/fonts/FuturaPT-Bold.ttf') format('truetype'),
+        url('/fonts/FuturaPT-Bold.eot'),
+        url('/fonts/FuturaPT-Bold.ttf'),
+        url('/fonts/FuturaPT-Bold.woff'),
+        url('/fonts/FuturaPT-Bold.woff2');
+
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura PT';
+    src: url('/fonts/FuturaPT-Demi.ttf') format('truetype');
+    src: url('/fonts/FuturaPT-Demi.ttf'),
+        url('/fonts/FuturaPT-Demi.woff'),
+        url('/fonts/FuturaPT-Demi.woff2'),
+        url('/fonts/FuturaPT-DemiObl.eot'),
+        url('/fonts/FuturaPT-DemiObl.ttf'),
+        url('/fonts/FuturaPT-DemiObl.woff'),
+        url('/fonts/FuturaPT-DemiObl.woff2'),
+        url('/fonts/FuturaPT-Demi.eot');
+
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Futura PT';
+    src: url('/fonts/FuturaPT-Medium.eot') format('embedded-opentype');
+    src: url('/fonts/FuturaPT-Medium.ttf'),
+        url('/fonts/FuturaPT-Medium.woff'),
+        url('/fonts/FuturaPT-Medium.woff2'),
+        url('/fonts/FuturaPT-MediumObl.eot'),
+        url('/fonts/FuturaPT-MediumObl.ttf'),
+        url('/fonts/FuturaPT-MediumObl.woff'),
+        url('/fonts/FuturaPT-MediumObl.woff2'),
+        url('/fonts/FuturaPTCond-Medium.eot'),
+        url('/fonts/FuturaPTCond-Medium.ttf'),
+        url('/fonts/FuturaPTCond-Medium.woff'),
+        url('/fonts/FuturaPTCond-Medium.woff2'),
+        url('/fonts/FuturaPTCond-MediumObl.eot'),
+        url('/fonts/FuturaPTCond-MediumObl.ttf'),
+        url('/fonts/FuturaPTCond-MediumObl.woff'),
+        url('/fonts/FuturaPTCond-MediumObl.woff2');
+
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura PT';
+    src: url('/fonts/FuturaPT-Heavy.eot'), format('embedded-opentype');
+    src: url('/fonts/FuturaPT-Heavy.ttf'),
+        url('/fonts/FuturaPT-Heavy.woff'),
+        url('/fonts/FuturaPT-Heavy.woff2'),
+        url('/fonts/FuturaPT-HeavyObl.eot'),
+        url('/fonts/FuturaPT-HeavyObl.ttf'),
+        url('/fonts/FuturaPT-HeavyObl.woff'),
+        url('/fonts/FuturaPT-HeavyObl.woff2');
+
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura PT';
+    src: url('/fonts/FuturaPT-Light.eot'), format('embedded-opentype');
+    src: url('/fonts/FuturaPT-Light.ttf'),
+        url('/fonts/FuturaPT-Light.woff'),
+        url('/fonts/FuturaPT-Light.woff2'),
+        url('/fonts/FuturaPT-LightObl.eot'),
+        url('/fonts/FuturaPT-LightObl.ttf'),
+        url('/fonts/FuturaPT-LightObl.woff'),
+        url('/fonts/FuturaPT-LightObl.woff2');
+
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura PT';
+    src: url('/fonts/FuturaPT-Book.ttf') format('truetype');
+    src: url('/fonts/FuturaPT-Book.woff'),
+        url('/fonts/FuturaPT-Book.woff2'),
+        url('/fonts/FuturaPT-BookObl.eot'),
+        url('/fonts/FuturaPT-BookObl.ttf'),
+        url('/fonts/FuturaPT-BookObl.woff'),
+        url('/fonts/FuturaPT-BookObl.woff2'),
+        url('/fonts/FuturaPTCond-Book.eot'),
+        url('/fonts/FuturaPTCond-Book.ttf'),
+        url('/fonts/FuturaPTCond-Book.woff'),
+        url('/fonts/FuturaPTCond-Book.woff2'),
+        url('/fonts/FuturaPTCond-BookObl.eot'),
+        url('/fonts/FuturaPTCond-BookObl.ttf'),
+        url('/fonts/FuturaPTCond-BookObl.woff'),
+        url('/fonts/FuturaPTCond-BookObl.woff2'),
+        url('/fonts/FuturaPT-Book.eot'),
+        url('/fonts/FuturaPT-Book.woff'),
+        url('/fonts/FuturaPT-Book.woff2'),
+        url('/fonts/FuturaPT-BookObl.eot'),
+        url('/fonts/FuturaPT-BookObl.ttf'),
+        url('/fonts/FuturaPT-BookObl.woff'),
+        url('/fonts/FuturaPT-BookObl.woff2');
+
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    font-family: "Futura PT", Arial, sans-serif;
+  }
+
+.card-title, .card-footer{
+    font-family: 'Futura PT', Arial, sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Futura PT', Arial, sans-serif;
+}
+
+h1{
+    font-size: 22px;
+}
+
+label {
+    font-size: 18px;
+    line-height: 36px;
+    color: #212222;
+    margin-top: 8px;
+    font-family: 'Futura PT', Arial, sans-serif;
+    font-weight: 400;
+}
+
+label em{
+    font-size: 15px;
+    color: #666666;
+    margin-top: 8px;
+    font-weight: 400;
+    font-style: normal;
+}

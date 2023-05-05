@@ -1,14 +1,32 @@
-<x-app-layout>
-    @section('title', 'STATUS')
+@extends('layouts.navbar')
+    @section('title', 'Check status')
+
 
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> --}}
+
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
+
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"> --}}
+
+        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script> --}}
+
+    <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
+
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
 
     <!-- summernote -->
     <link href="{{ asset('assets/css/summernote/summernote.min.css') }}" rel="stylesheet" type="text/css">
+
+    @section('content')
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -54,10 +72,13 @@
 
 
                                     <div class="panel-heading">
-                                        <div class="panel-title">Status : {{ $checkStatus->status }}</div><br>
-                                    </div><br>
+                                        <div class="panel-title">Status :  <span style="color: red;">{{ $checkStatus->status }}</span> </div>
+                                        <div class="panel-title">Reason : <b>{{ $checkStatus->comment }}</b> </div>
+                                    </div>
+                                    <br>
+
                                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <table class="table table-bordered">
                                             <thead
                                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                 <tr>
@@ -69,23 +90,17 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="border px-6 py-4">
-                                                        <input type="text" name="title" id="title"
-                                                            maxlength="25"
+                                                        <input type="text" name="title" id="title" class="form-control" maxlength="25"
                                                             oninput="this.value = this.value.toUpperCase()"
                                                             value="{{ $checkStatus->abstractsubmission->title }}">
                                                     </td>
-                                                    {{-- <td class="border px-6 py-4"> --}}
 
                                                     @if ($checkStatus->abstractsubmission->type === 'Research Paper')
                                                         <input type="hidden" name="type" value="Research Paper">
-                                                        {{-- <input type="text" name="type"
-                                                            value="{{ $checkStatus->abstractsubmission->type }}"
-                                                            disabled value="Research Paper"> --}}
                                                     @else
                                                         <input type="hidden" name="type" value="Clinical Case">
                                                     @endif
 
-                                                    {{-- </td> --}}
                                                     <td class="border px-6 py-4">
 
                                                         <select class="form-control" name="topic_id" id="topic_id">
@@ -103,12 +118,18 @@
                                                     </td>
 
                                                     <td class="border px-6 py-4">
-                                                        <div class="inline-flex mb-3">
+
+                                                        <div class="mb-3" style="display: flex;">
+                                                            <input type="text" name="keywords" class="form-control" id="keywords" placeholder="Enter new keywords">
+                                                            <button id="addKeywordBtn" type="button" class="ml-3 btn btn-primary" style="margin-left: 10px;">Add</button>
+                                                        </div>
+
+                                                        {{-- <div class="inline-flex mb-3">
                                                             <input type="text" name="keywords" class="form-control"
                                                                 id="keywords" placeholder="Enter new keywords">
                                                             <button id="addKeywordBtn" type="button"
-                                                                class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
-                                                        </div>
+                                                                class="ml-3 btn btn-primary">Add</button>
+                                                        </div> --}}
                                                         <p>keywords:</p>
                                                         <input id="keywordinput" type="text" name="keywords"
                                                             value="{{ $checkStatus->abstractsubmission->keywords }}">
@@ -119,7 +140,7 @@
                                     </div><br><br>
 
                                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <table class="table table-bordered">
                                             <thead
                                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                 <tr>
@@ -131,8 +152,6 @@
                                                     <td class="border px-6 py-4">
                                                         <textarea name="introduction" id="introduction" class="form-control"
                                                         value="{!! $checkStatus->abstractsubmission->introduction !!}"></textarea>
-                                                        {{-- <input type="text" name="introduction"
-                                                            value="{!! $checkStatus->abstractsubmission->introduction !!}"> --}}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -141,7 +160,7 @@
 
                                 @if ($checkStatus->abstractsubmission->type === 'Research Paper')
                                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <table class="table table-bordered">
                                             <thead
                                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                 <tr>
@@ -160,7 +179,7 @@
                                     </div><br><br>
 
                                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <table class="table table-bordered">
                                             <thead
                                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                 <tr>
@@ -179,7 +198,7 @@
                                     </div><br><br>
 
                                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <table class="table table-bordered">
                                             <thead
                                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                 <tr>
@@ -198,7 +217,7 @@
                                     </div><br><br>
 
                                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <table class="table table-bordered">
                                             <thead
                                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                 <tr>
@@ -218,7 +237,7 @@
 
                                 @else
                                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <table class="table table-bordered">
                                             <thead
                                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                 <tr>
@@ -231,20 +250,20 @@
                                                 <tr>
                                                     <td class="border px-6 py-4">
                                                         <input type="text" name="diagnosis"
-                                                            value="{{ $checkStatus->abstractsubmission->diagnosis }}">
+                                                            value="{!! $checkStatus->abstractsubmission->diagnosis !!}">
                                                     </td>
                                                     <td class="border px-6 py-4">
                                                         <input type="text" name="treatment"
-                                                            value="{{ $checkStatus->abstractsubmission->treatment }}">
+                                                            value="{!! $checkStatus->abstractsubmission->treatment !!}">
                                                     </td>
                                                     <td class="border px-6 py-4">
                                                         <input type="text" name="discussion"
-                                                            value="{{ $checkStatus->abstractsubmission->discussion }}">
+                                                            value="{!! $checkStatus->abstractsubmission->discussion !!}">
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </div><br><br>
+                                    </div>
                                 @endif
 
                                     <div id="affirmation-part" class="content" role="tabpanel"
@@ -255,8 +274,7 @@
                                                 not be
                                                 able to complete your submission without having agreed to
                                                 all
-                                                mandatory items.</p>
-                                            <br><br>
+                                                mandatory items.</p><br>
                                             <p>
                                                 1. I confirm that I have previewed this abstract and that all
                                                 information is correct and in accordance to the abstract submission
@@ -264,12 +282,12 @@
                                                 of this abstract cannot be modified or corrected after final submission
                                                 and I am aware that it will be published exactly as submitted.
                                             </p>
-                                            <br><br>
+                                            <br>
                                             <p>
                                                 2. Submission of the abstract constitutes my consent to publication
                                                 (e.g., Congress website, Congress Notes book, etc.)
                                             </p>
-                                            <br><br>
+                                            <br>
                                             <p>
                                                 3. I warrant and represent that I am the sole owner or have the rights
                                                 of all the information and content ('Content') provided to MEAVC 2023
@@ -277,7 +295,7 @@
                                                 does not infringe any third-party rights including, but not limited to,
                                                 intellectual property rights.
                                             </p>
-                                            <br><br>
+                                            <br>
                                             <p>
                                                 4. I grant the Organizers a royalty-free, perpetual, irrevocable
                                                 nonexclusive license to use, reproduce, publish, translate, distribute,
@@ -288,24 +306,24 @@
                                                 5. The Organizers reserve the right to remove from any publication an
                                                 abstract which does not comply with the above.
                                             </p>
-                                            <br><br>
+                                            <br>
                                             <p>
                                                 6. I herewith confirm that the contact details saved in this system are
                                                 correct, which will be used to notify me about the status of the
                                                 abstract. I am responsible for informing the other authors about the
                                                 status of the abstract.​
                                             </p>
-                                            <br><br>
+                                            <br>
                                             <input class="form-check-input" type="checkbox" id="affirmation"
-                                                name="affirmation" required><br>
-                                            <label class="form-check-label" for="affirmation"><strong>I Agree</strong></label>
+                                                name="affirmation" required> <label class="form-check-label" for="affirmation"><strong> I Agree</strong></label>
                                             <p>* entering mandatory information.</p>
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                        <p class="align_c">
+                                        <button type="submit" class="btn btn-success rounded-5">Update Abstract</button>
+                                        {{-- <p class="align_c">
                                             <button type="submit" class="btnStyle">Update Abstract</button>
-                                        </p>
+                                        </p> --}}
                                     </div>
                                 </form>
                             @endif
@@ -318,6 +336,8 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         const addKeywordBtn = document.getElementById('addKeywordBtn');
@@ -351,4 +371,4 @@
             $('#conclusion').summernote('code', {!! json_encode($checkStatus->abstractsubmission->conclusion) !!});
         });
     </script>
-</x-app-layout>
+    @endsection

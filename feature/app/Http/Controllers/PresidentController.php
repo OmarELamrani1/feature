@@ -18,9 +18,9 @@ class PresidentController extends Controller
         return view('president.index', compact(['abstractsubmissions','presidents']));
     }
 
-    public function getAbstract(Request $request, $id){
-        $abstractsubmission = Abstractsubmission::where('president_id', Auth::user()->presidents->id)->findOrFail($id)->first();
-        return view('evaluation.abstractsubmissionevaluation', compact(['abstractsubmission','request']));
+    public function getAbstract($id){
+        $abstractsubmission = Abstractsubmission::where('president_id', Auth::user()->presidents->id)->findOrFail($id);
+        return view('evaluation.abstractsubmissionevaluation', compact('abstractsubmission'));
     }
 
     public function deleteAbstract($id){

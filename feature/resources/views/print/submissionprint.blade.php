@@ -86,12 +86,12 @@
                         @if ($abstractsubmission->type === 'Clinical Case')
                             <b>Diagnosis</b>
                             <div class="preview-content">
-                                <p>{{ $abstractsubmission->diagnosis }}</p>
+                                <p>{!! $abstractsubmission->diagnosis !!}</p>
                             </div>
                             <br style="clear: both;" />
                             <b>Treatment</b>
                             <div class="preview-content">
-                                <p>{{ $abstractsubmission->treatment }}</p>
+                                <p>{!! $abstractsubmission->treatment !!}</p>
                             </div>
                             <br style="clear: both;" />
                             <b>Discussion</b>

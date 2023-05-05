@@ -330,7 +330,7 @@ round-steps:active {
 	bottom: 15px;
 	right:0;
 	width:100%;
-	position: fixed;
+	/* position: fixed; */
 	overflow: hidden;
 }
 .footer {

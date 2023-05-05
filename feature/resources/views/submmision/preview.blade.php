@@ -9,6 +9,9 @@
         <link rel="stylesheet" href="{{ asset('assets/css/dash.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+        <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+
     </head>
 
 <body>
@@ -201,7 +204,7 @@
             </table>
             <div id="footer">
                 <div class="footer">
-                    <p style="text-align:center;">WSAVA {{ date('Y') }}. All rights reserved.</p>
+                    <p style="text-align:center;">MEAVC {{ date('Y') }}. All rights reserved.</p>
                 </div>
             </div>
 

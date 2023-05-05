@@ -34,7 +34,7 @@ class PosterStored extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'abstractsubmission Stored',
+            subject: 'MEAVC - Abstract Submission Stored',
         );
     }
 

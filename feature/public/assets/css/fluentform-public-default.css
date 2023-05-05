@@ -498,7 +498,7 @@ ul.ff_coupon_responses .ff_success {
 }
 .fluentform .ff_scrolled_text {
     background: #e9ebed;
-    height: 200px;
+    height: 9px;
     overflow: scroll;
     padding: 10px 15px;
 }
@@ -722,7 +722,7 @@ ul.ff_coupon_responses .ff_success {
     background-size: cover;
     cursor: pointer;
     display: block;
-    height: 200px;
+    height: 9px;
     width: 200px;
 }
 .fluentform .ff-el-image-holder {

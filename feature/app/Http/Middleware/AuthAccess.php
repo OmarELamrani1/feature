@@ -24,16 +24,8 @@ class AuthAccess
         if (in_array($userRole, $roles)) {
             return $next($request);
         }
-
+        
         abort(403, 'Unauthorized');
     }
 
-    // public function handle(Request $request, Closure $next, $role)
-    // {
-    //     if (Auth::user()->role == $role) {
-    //         return $next($request);
-    //     } else {
-    //         return abort(404);
-    //     }
-    // }
 }

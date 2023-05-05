@@ -18,6 +18,6 @@
     <p>*To view your submitted abstract, please <a href="{{ route('abstractsubmission.show', $abstractsubmissionSuccess->id) }}">click here.</a></p>
 
     Kind Regards,
-    This email is automatically generated on behalf of  WSAVA 2023.
+    This email is automatically generated on behalf of MEAVC 2023.
     For further information regarding the content of this email please contact abstracts@meavc.com
 </div>

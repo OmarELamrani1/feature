@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\MaxWordsRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AbstractsubmissionRequest extends FormRequest
@@ -29,14 +30,24 @@ class AbstractsubmissionRequest extends FormRequest
                 'type' => 'required','max:25',
                 'topic_id' => 'required|exists:topics,id',
                 'keywords' => 'required',
-                'introduction' => 'required', 'max:300',
-                'objective' => 'nullable', 'max:300',
-                'method' => 'nullable', 'max:300',
-                'result' => 'nullable', 'max:300',
-                'conclusion' => 'nullable', 'max:300',
-                'diagnosis' => 'nullable', 'max:300',
-                'treatment' => 'nullable', 'max:300',
-                'discussion' => 'nullable', 'max:300',
+
+                'introduction' => ['required', new MaxWordsRule(300)],
+                'objective' => ['nullable', new MaxWordsRule(300)],
+                'method' => ['nullable', new MaxWordsRule(300)],
+                'result' => ['nullable', new MaxWordsRule(300)],
+                'conclusion' => ['nullable', new MaxWordsRule(300)],
+                'diagnosis' => ['nullable', new MaxWordsRule(300)],
+                'treatment' => ['nullable', new MaxWordsRule(300)],
+                'discussion' => ['nullable', new MaxWordsRule(300)],
+
+                // 'introduction' => 'required', 'max:300',
+                // 'objective' => 'nullable', 'max:300',
+                // 'method' => 'nullable', 'max:300',
+                // 'result' => 'nullable', 'max:300',
+                // 'conclusion' => 'nullable', 'max:300',
+                // 'diagnosis' => 'nullable', 'max:300',
+                // 'treatment' => 'nullable', 'max:300',
+                // 'discussion' => 'nullable', 'max:300',
                 'affirmation' => 'required',
                 'disclosure' => 'nullable',
                 'president_id' => 'nullable'
