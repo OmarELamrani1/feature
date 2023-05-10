@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\PersonneController;
 use App\Http\Controllers\PresidentController;
 use App\Http\Controllers\ProfileController;
@@ -25,6 +26,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [Controller::class, 'home'])->name('home');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('test',function(){
+        return view('test');
+    });
 
     Route::get('welcome', [Controller::class, 'check'])->name('check');
     Route::get('submissionprint/{id}', [Controller::class, 'generatePDF'])->name('printsubmission');
@@ -70,6 +75,7 @@ Route::middleware('auth')->group(function () {
 // Routes of only President can be accessed
     Route::middleware(['AuthAccess:President'])->group(function () {
         Route::resource('evaluation', EvaluationController::class)->only('store');
+        Route::get('export', [EvaluationController::class, 'exportToWord'])->name('abstractWord');
 
         Route::controller(PresidentController::class)->group(function () {
             Route::get('getAbstract/{id}', 'getAbstract')->name('getAbstract');
@@ -102,5 +108,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 });
-
+Route::post('image-upload', [ImageUploadController::class, 'storeImage'])->name('image.upload');
 require __DIR__.'/auth.php';

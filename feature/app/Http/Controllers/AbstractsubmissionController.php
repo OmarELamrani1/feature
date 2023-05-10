@@ -111,13 +111,13 @@ class AbstractsubmissionController extends Controller
             }
 
             // Send email to user for successfully submit
-            Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
+            // Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
 
-            // Send email to president for evaluation
-            $presidents = User::where('role', 'President')->get();
-            foreach ($presidents as $president) {
-                Mail::to($president->email)->send(new PosterStored($abstractsubmission));
-            }
+            // // Send email to president for evaluation
+            // $presidents = User::where('role', 'President')->get();
+            // foreach ($presidents as $president) {
+            //     Mail::to($president->email)->send(new PosterStored($abstractsubmission));
+            // }
 
             return view('submmision.preview', compact('abstractsubmission'));
 

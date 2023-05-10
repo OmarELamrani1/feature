@@ -266,7 +266,7 @@
                                                                                             <th>Email</th>
                                                                                             <th>Adress</th>
                                                                                             <th>Phone</th>
-                                                                                            <th>Departement</th>
+                                                                                            <th>Department</th>
                                                                                             <th>Institution</th>
                                                                                             <th>City</th>
                                                                                             <th>State</th>
@@ -362,7 +362,7 @@
                                                                                         <div class="mb-3"
                                                                                             style="flex: 1;">
                                                                                             <label for="departement"
-                                                                                                class="col-form-label">Departement</label>
+                                                                                                class="col-form-label">Department</label>
                                                                                             <input type="text"
                                                                                                 name="departement"
                                                                                                 id="departement"
@@ -453,7 +453,7 @@
                                                                             <th scope="col" class="px-6 py-3">Phone
                                                                             </th>
                                                                             <th scope="col" class="px-6 py-3">
-                                                                                departement</th>
+                                                                                department</th>
                                                                             <th scope="col" class="px-6 py-3">
                                                                                 Institution</th>
                                                                             <th scope="col" class="px-6 py-3">City</th>
@@ -555,8 +555,7 @@
                                                             <div class="form-group">
                                                                 <span style="color: red;" id="intro-error"
                                                                     class="error"></span>
-                                                                <textarea style="height: 300px" name="introduction" id="introduction" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your introduction here..."></textarea>
+                                                                    <textarea id="introduction" class="block w-full mt-1 rounded-md" name="introduction"></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -565,8 +564,7 @@
                                                             <div class="form-group">
                                                                 <span style="color: red;" id="diagnosis-error"
                                                                     class="error"></span>
-                                                                <textarea name="diagnosis" id="diagnosis" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your diagnosis here..." style="height: 300px"></textarea>
+                                                                    <textarea id="diagnosis" class="block w-full mt-1 rounded-md" name="diagnosis"></textarea>
                                                             </div>
                                                         </div>
                                                         <button type="button" class="btn btn-primary"
@@ -600,8 +598,7 @@
                                                             <div class="form-group">
                                                                 <span style="color: red;" id="treatment-error"
                                                                     class="error"></span>
-                                                                <textarea name="treatment" id="treatment" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your treatment here..." style="height: 300px"></textarea>
+                                                                    <textarea id="treatment" class="block w-full mt-1 rounded-md" name="treatment"></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -609,8 +606,7 @@
                                                             <div class="form-group">
                                                                 <span style="color: red;" id="discussion-error"
                                                                     class="error"></span>
-                                                                <textarea name="discussion" id="discussion" class="form-control" maxlength="300"
-                                                                    placeholder="Type or paste your discussion here..." style="height: 300px"></textarea>
+                                                                    <textarea id="discussion" class="block w-full mt-1 rounded-md" name="discussion"></textarea>
                                                             </div>
                                                         </div>
                                                         <button type="button" class="btn btn-primary"
@@ -870,7 +866,91 @@
         </div>
     </div>
     </div>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="{{ asset('assets/js/textcounter.min.js') }}"></script>
+    <script src="{{ asset('assets/js/textcounter.js') }}"></script>
+
+
+    <script>
+            ClassicEditor
+                .create(document.querySelector('#discussion'), {
+                    ckfinder: {
+                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                    }
+                })
+                .then(editor => {
+                    // add an event listener to detect when the instance is ready
+                    editor.model.document.on('change:data', () => {
+                        clinicalDiscussion.value = editor.getData();
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+
+            ClassicEditor
+                .create(document.querySelector('#diagnosis'), {
+                    ckfinder: {
+                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                    }
+                })
+                .then(editor => {
+                    // add an event listener to detect when the instance is ready
+                    editor.model.document.on('change:data', () => {
+                        clinicalDiagnosis.value = editor.getData();
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            ClassicEditor
+                .create(document.querySelector('#introduction'), {
+                    ckfinder: {
+                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                    }
+                })
+                .then(editor => {
+                    // add an event listener to detect when the instance is ready
+                    editor.model.document.on('change:data', () => {
+                        clinicalIntroduction.value = editor.getData();
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            ClassicEditor
+                .create(document.querySelector('#treatment'), {
+                    ckfinder: {
+                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                    }
+                })
+                .then(editor => {
+                    // add an event listener to detect when the instance is ready
+                    editor.model.document.on('change:data', () => {
+                        clinicalTreatment.value = editor.getData();
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+    </script>
+
+<script>
+    $('#title').textcounter({
+        type: "word",
+        max: 25,
+        counterText: ""
+    });
+</script>
+
 
     <script src="{{ asset('assets/js/researchclinical.js') }}"></script>
     <script src="{{ asset('assets/js/clinicalValidate.js') }}"></script>

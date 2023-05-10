@@ -35,34 +35,35 @@ function validateTitleTopic() {
     stepper.next();
 }
 
+
 function validateIntroDiagnosis() {
-    // Validate the Introduction input
-    if (clinicalIntroduction.value.trim() === "") {
+    var introductionData = clinicalIntroduction.value.trim();
+    if (introductionData === "") {
         clinicalIntroduction.classList.add("error");
-        document.getElementById("intro-error").textContent = "Introduction is required*";
+        document.getElementById("intro-error").textContent = "introduction is required*";
         return;
     } else {
         clinicalIntroduction.classList.remove("error");
         document.getElementById("intro-error").textContent = "";
     }
 
-    // Validate the Diagnosis input
-    if (clinicalDiagnosis.value.trim() === "") {
+    var objectiveData = clinicalDiagnosis.value.trim();
+    if (objectiveData === "") {
         clinicalDiagnosis.classList.add("error");
-        document.getElementById("diagnosis-error").textContent = "Diagnosis is required*";
+        document.getElementById("diagnosis-error").textContent = "Objective is required*";
         return;
     } else {
         clinicalDiagnosis.classList.remove("error");
         document.getElementById("diagnosis-error").textContent = "";
     }
 
-    // If both inputs are valid, show the next step
+    // // If both inputs are valid, show the next step
     stepper.next();
 }
 
 function validateTreatmentDiscussion() {
-    // Validate the Treatment input
-    if (clinicalTreatment.value.trim() === "") {
+    var treatmentData = clinicalTreatment.value.trim();
+    if (treatmentData === "") {
         clinicalTreatment.classList.add("error");
         document.getElementById("treatment-error").textContent = "Treatment is required*";
         return;
@@ -71,8 +72,8 @@ function validateTreatmentDiscussion() {
         document.getElementById("treatment-error").textContent = "";
     }
 
-    // Validate the Discussion input
-    if (clinicalDiscussion.value.trim() === "") {
+    var discussionData = clinicalDiscussion.value.trim();
+    if (discussionData === "") {
         clinicalDiscussion.classList.add("error");
         document.getElementById("discussion-error").textContent = "Discussion is required*";
         return;
@@ -81,7 +82,7 @@ function validateTreatmentDiscussion() {
         document.getElementById("discussion-error").textContent = "";
     }
 
-    // If both inputs are valid, show the next step
+    // // If both inputs are valid, show the next step
     stepper.next();
 }
 

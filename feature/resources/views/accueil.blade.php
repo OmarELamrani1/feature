@@ -74,7 +74,7 @@
             <div class="AbstractsTop">
                 <ol>
                     <li><i class="fas fa-regular fa-calendar-days fa-2xl"></i>
-                        <h3>1 <sup>st</sup> of June, 2023</h3>
+                        <h3>1 <sup>st</sup> of July, 2023</h3>
                         <p>Abstract Submission Deadline</p>
                     </li>
                     <li><i class="fas fa-solid fa-paper-plane fa-2xl"></i></i>

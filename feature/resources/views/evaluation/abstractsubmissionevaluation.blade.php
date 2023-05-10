@@ -38,51 +38,149 @@
                                                 <td class="border px-6 py-4">{{ $abstractsubmission->topic->name }}</td>
                                                 <td class="border px-6 py-4">{{ $abstractsubmission->keywords }}</td>
                                             </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
 
+                            <br><br>
+
                                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead
-                                            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr>
                                                 <th scope="col" class="px-6 py-3">introduction</th>
-
-                                                @if ($abstractsubmission->type === "Research Paper")
-                                                    <th scope="col" class="px-6 py-3">objective</th>
-                                                    <th scope="col" class="px-6 py-3">method</th>
-                                                    <th scope="col" class="px-6 py-3">result</th>
-                                                    <th scope="col" class="px-6 py-3">conclusion</th>
-                                                @else
-                                                    <th scope="col" class="px-6 py-3">diagnosis</th>
-                                                    <th scope="col" class="px-6 py-3">treatment</th>
-                                                    <th scope="col" class="px-6 py-3">discussion</th>
-                                                @endif
-
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td class="border px-6 py-4">{!! $abstractsubmission->introduction !!}</td>
-                                                @if ($abstractsubmission->type === "Research Paper")
-                                                    <td class="border px-6 py-4">{!! $abstractsubmission->objective !!}</td>
-                                                    <td class="border px-6 py-4">{!! $abstractsubmission->method !!}</td>
-                                                    <td class="border px-6 py-4">{!! $abstractsubmission->result !!}</td>
-                                                    <td class="border px-6 py-4">{!! $abstractsubmission->conclusion !!}</td>
-                                                @else
-                                                    <td class="border px-6 py-4">{!! $abstractsubmission->diagnosis !!}</td>
-                                                    <td class="border px-6 py-4">{!! $abstractsubmission->treatment !!}</td>
-                                                    <td class="border px-6 py-4">{!! $abstractsubmission->discussion !!}</td>
-                                                @endif
                                             </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
 
-                                <br><br>
+                            <br><br>
+
+                            @if ($abstractsubmission->type === "Research Paper")
+                                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">objective</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border px-6 py-4">{!! $abstractsubmission->objective !!}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            <br><br>
+
+                                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">method</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border px-6 py-4">{!! $abstractsubmission->method !!}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            <br><br>
+
+                                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">result</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border px-6 py-4">{!! $abstractsubmission->result !!}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <br><br>
+
+                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">conclusion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border px-6 py-4">{!! $abstractsubmission->conclusion !!}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                <br><br>
+                            @elseif ($abstractsubmission->type === "Clinical Case")
+                                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">diagnosis</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border px-6 py-4">{!! $abstractsubmission->diagnosis !!}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            <br><br>
+
+                                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">treatment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border px-6 py-4">{!! $abstractsubmission->treatment !!}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            <br><br>
+
+                                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">discussion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border px-6 py-4">{!! $abstractsubmission->discussion !!}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <br><br>
+
+                            @endif
+
                                 <select name="status" id="status-select" class="form-select w-100 p-3"
                                     aria-label="Default select example">
                                     <option disabled selected>Evaluation : </option>
@@ -92,6 +190,37 @@
                                 </select><br>
 
                                 <div id="comment-input" style="display: none;">
+                                    <button type="button" id="downloadButton">Download as Word</button><br>
+
+                                    <script>
+                                        document.getElementById('downloadButton').addEventListener('click', function() {
+                                            var abstractsubmission_id = "{{ $abstractsubmission->id }}";
+
+                                            // Send AJAX request to initiate the download
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.open('GET', '{{ route('abstractWord') }}?abstractsubmission_id=' + abstractsubmission_id, true);
+                                            xhr.responseType = 'blob';
+
+                                            xhr.onload = function() {
+                                                if (this.status === 200) {
+                                                    var blob = new Blob([this.response], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+                                                    var link = document.createElement('a');
+                                                    link.href = window.URL.createObjectURL(blob);
+                                                    link.download = 'abstractFile.docx';
+                                                    link.click();
+                                                }
+                                            };
+
+                                            xhr.send();
+                                        });
+                                    </script>
+
+                                    {{-- <form action="{{ route('abstractWord') }}" method="GET">
+                                        <input type="hidden" name="abstractsubmission_id" value="{{ $abstractsubmission->id }}">
+                                        <button type="submit">Download as Word</button>
+                                    </form> --}}
+
+
                                     <label for="comment">Reason for the modification :</label>
                                     <input type="text" name="comment" id="comment" placeholder="Reason for the modification . . ." style="width: 60%;" autofocus>
                                 </div> <br>

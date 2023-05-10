@@ -1,13 +1,13 @@
-$(function() {
-    $('#introduction').summernote(),
-        $('#objective').summernote(),
-        $('#method').summernote(),
-        $('#result').summernote(),
-        $('#conclusion').summernote(),
-        $('#diagnosis').summernote(),
-        $('#treatment').summernote(),
-        $('#discussion').summernote()
-});
+// $(function() {
+//     $('#introduction').summernote(),
+//         $('#objective').summernote(),
+//         $('#method').summernote(),
+//         $('#result').summernote(),
+//         $('#conclusion').summernote(),
+//         $('#diagnosis').summernote(),
+//         $('#treatment').summernote(),
+//         $('#discussion').summernote()
+// });
 
 jQuery(document).ready(function($) {
     // CREATE
@@ -362,9 +362,8 @@ if (previewButton) {
             }
         }
 
-
         var type = document.getElementById('type').value;
-        var introduction = document.getElementById('introduction').value;
+        // var introduction = ClassicEditor.instances.introduction.getData();
         var objective = '';
         var method = '';
         var result = '';
@@ -375,37 +374,102 @@ if (previewButton) {
         disclosure = document.getElementById('disclosure').value;
 
         if (type === 'Research Paper') {
-            objective = document.getElementById('objective').value;
-            method = document.getElementById('method').value;
-            result = document.getElementById('result').value;
-            conclusion = document.getElementById('conclusion').value;
-        } else if (type === 'Clinical Case') {
-            diagnosis = document.getElementById('diagnosis').value;
-            treatment = document.getElementById('treatment').value;
-            discussion = document.getElementById('discussion').value;
-        }
-
-        if (type === 'Research Paper') {
             var preview = document.getElementById('preview');
             preview.innerHTML = '<tr><td class="border px-6 py-4">' + title + '</td> <td class="border px-6 py-4">' + authorNames + '</td> <td class="border px-6 py-4">' + topicName + '</td><td class="border px-6 py-4">' + keywords + '</td></tr>';
 
-            var preview1 = document.getElementById('preview1');
-            preview1.innerHTML = '<tr><td class="border px-6 py-4">' + introduction + '</td> <td class="border px-6 py-4">' + objective + '</td></tr>';
+            ClassicEditor
+            .create(document.querySelector('#introduction'))
+            .then(function (introductionEditor) {
+                ClassicEditor
+                    .create(document.querySelector('#objective'))
+                    .then(function (objectiveEditor) {
+                        ClassicEditor
+                            .create(document.querySelector('#method'))
+                            .then(function (methodEditor) {
+                                ClassicEditor
+                                    .create(document.querySelector('#result'))
+                                    .then(function (resultEditor) {
+                                        ClassicEditor
+                                            .create(document.querySelector('#conclusion'))
+                                            .then(function (conclusionEditor) {
+                                                // Editors are ready, you can now access their data
+                                                var introduction = introductionEditor.getData();
+                                                var objective = objectiveEditor.getData();
+                                                var method = methodEditor.getData();
+                                                var result = resultEditor.getData();
+                                                var conclusion = conclusionEditor.getData();
+                                                var preview1 = document.getElementById('preview1');
+                                                preview1.innerHTML = '<tr><td class="border px-6 py-4">' + introduction + '</td> <td class="border px-6 py-4">' + objective + '</td></tr>';
+                                                var preview2 = document.getElementById('preview2');
+                                                preview2.innerHTML = '<tr><td class="border px-6 py-4">' + method + '</td> <td class="border px-6 py-4">' + result + '</td></tr>';
+                                                var preview3 = document.getElementById('preview3');
+                                                preview3.innerHTML = '<tr><td class="border px-6 py-4">' + conclusion + '</td> <td class="border px-6 py-4">' + disclosure + '</td></tr>';
+                                            })
+                                            .catch(function (error) {
+                                                console.error(error);
+                                            });
+                                    })
+                                    .catch(function (error) {
+                                        console.error(error);
+                                    });
+                            })
+                            .catch(function (error) {
+                                console.error(error);
+                            });
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
 
-            var preview2 = document.getElementById('preview2');
-            preview2.innerHTML = '<tr><td class="border px-6 py-4">' + method + '</td> <td class="border px-6 py-4">' + result + '</td></tr>';
 
-            var preview3 = document.getElementById('preview3');
-            preview3.innerHTML = '<tr><td class="border px-6 py-4">' + conclusion + '</td> <td class="border px-6 py-4">' + disclosure + '</td></tr>';
-        } else {
+
+        } else if (type === 'Clinical Case') {
             var previewClinicalCase = document.getElementById('previewClinicalCase');
             previewClinicalCase.innerHTML = '<tr><td class="border px-6 py-4">' + title + '</td> <td class="border px-6 py-4">' + authorNames + '</td> <td class="border px-6 py-4">' + topicName + '</td><td class="border px-6 py-4">' + keywords + '</td></tr>';
 
-            var previewClinicalCase1 = document.getElementById('previewClinicalCase1');
-            previewClinicalCase1.innerHTML = '<tr><td class="border px-6 py-4">' + introduction + '</td> <td class="border px-6 py-4">' + diagnosis + '</td></tr>';
+            ClassicEditor
+            .create(document.querySelector('#introduction'))
+            .then(function(introductionEditor) {
+                ClassicEditor
+                    .create(document.querySelector('#diagnosis'))
+                    .then(function(diagnosisEditor) {
+                        ClassicEditor
+                            .create(document.querySelector('#treatment'))
+                            .then(function(treatmentEditor) {
+                                ClassicEditor
+                                    .create(document.querySelector('#discussion'))
+                                    .then(function(discussionEditor) {
+                                        // Editors are ready, you can now access their data
+                                        var introduction = introductionEditor.getData();
+                                        var diagnosis = diagnosisEditor.getData();
+                                        var treatment = treatmentEditor.getData();
+                                        var discussion = discussionEditor.getData();
+                                        var previewClinicalCase1 = document.getElementById('previewClinicalCase1');
+                                        previewClinicalCase1.innerHTML = '<tr><td class="border px-6 py-4">' + introduction + '</td> <td class="border px-6 py-4">' + diagnosis + '</td></tr>';
 
-            var previewClinicalCase2 = document.getElementById('previewClinicalCase2');
-            previewClinicalCase2.innerHTML = '<tr><td class="border px-6 py-4">' + treatment + '</td> <td class="border px-6 py-4">' + discussion + '</td><td class="border px-6 py-4">' + disclosure + '</td></tr>';
+                                        var previewClinicalCase2 = document.getElementById('previewClinicalCase2');
+                                        previewClinicalCase2.innerHTML = '<tr> <td class="border px-6 py-4">' + treatment + '</td> <td class="border px-6 py-4">' + discussion + '</td> <td class="border px-6 py-4">' + disclosure + '</td></tr>';
+                                    })
+                                    .catch(function(error) {
+                                        console.error(error);
+                                    });
+                            })
+                            .catch(function(error) {
+                                console.error(error);
+                            });
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                    });
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+
         }
 
     });

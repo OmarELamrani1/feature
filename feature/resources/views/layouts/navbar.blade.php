@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/layout.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dash.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -84,12 +84,6 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="{{ asset('assets/js/summernote/summernote.min.js') }}"></script>
-    <script src="{{ asset('assets/js/summernote/summernote-bs4.min.js') }}"></script>
-    <script src="{{ asset('assets/js/summernote/summernote-bs4.js') }}"></script>
-    <script src="{{ asset('assets/js/summernote/summernote-bs5.js') }}"></script>
-    <script src="{{ asset('assets/js/summernote/summernote-bs5.min.js') }}"></script>
-    <script src="{{ asset('assets/js/summernote/summernote.js') }}"></script>
 
 </body>
 

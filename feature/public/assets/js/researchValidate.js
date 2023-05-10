@@ -36,8 +36,8 @@ function validateTitleTopic() {
 }
 
 function validateIntroObject() {
-    // Validate the introduction input
-    if (introductionInput.value.trim() === "") {
+    var introductionData = introductionInput.value.trim();
+    if (introductionData === "") {
         introductionInput.classList.add("error");
         document.getElementById("introduction-error").textContent = "introduction is required*";
         return;
@@ -46,8 +46,8 @@ function validateIntroObject() {
         document.getElementById("introduction-error").textContent = "";
     }
 
-    // Validate the objective input
-    if (objectiveInput.value.trim() === "") {
+    var objectiveData = objectiveInput.value.trim();
+    if (objectiveData === "") {
         objectiveInput.classList.add("error");
         document.getElementById("objective-error").textContent = "Objective is required*";
         return;
@@ -56,13 +56,14 @@ function validateIntroObject() {
         document.getElementById("objective-error").textContent = "";
     }
 
-    // If both inputs are valid, show the next step
+    // // If both inputs are valid, show the next step
     stepper.next();
 }
 
 function validateMethodResult() {
     // Validate the method input
-    if (methodInput.value.trim() === "") {
+    var methodData = methodInput.value.trim();
+    if (methodData === "") {
         methodInput.classList.add("error");
         document.getElementById("method-error").textContent = "Method is required*";
         return;
@@ -71,8 +72,8 @@ function validateMethodResult() {
         document.getElementById("method-error").textContent = "";
     }
 
-    // Validate the result input
-    if (resultInput.value.trim() === "") {
+    var resultData = resultInput.value.trim();
+    if (resultData === "") {
         resultInput.classList.add("error");
         document.getElementById("result-error").textContent = "Result is required*";
         return;
@@ -81,16 +82,16 @@ function validateMethodResult() {
         document.getElementById("result-error").textContent = "";
     }
 
-    // If both inputs are valid, show the next step
+    // // If both inputs are valid, show the next step
     stepper.next();
 }
 
 function validateConclusion() {
     // Validate the conclusion input
-    if (conclusionInput.value.trim() === "") {
+    var conclusionData = conclusionInput.value.trim();
+    if (conclusionData === "") {
         conclusionInput.classList.add("error");
-        document.getElementById("conclusion-error").textContent =
-            "Conclusion is required*";
+        document.getElementById("conclusion-error").textContent = "Conclusion is required*";
         return;
     } else {
         conclusionInput.classList.remove("error");
