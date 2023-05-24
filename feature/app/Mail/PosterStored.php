@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use App\Models\Abstractsubmission;
-use App\Models\Poster;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -15,15 +14,19 @@ class PosterStored extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $abstractsubmission;
     /**
      * Create a new message instance.
      *
      * @return void
      */
+
+    public $abstractsubmission;
+    public $presidentIndexUrl;
+
     public function __construct(Abstractsubmission $abstractsubmission)
     {
         $this->abstractsubmission = $abstractsubmission;
+        $this->presidentIndexUrl = url('/welcome');
     }
 
     /**
@@ -46,7 +49,7 @@ class PosterStored extends Mailable
     public function content()
     {
         return new Content(
-            view: 'emails.poster',
+            markdown: 'emails.posterStored',
         );
     }
 

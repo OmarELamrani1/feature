@@ -26,11 +26,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [Controller::class, 'home'])->name('home');
 
 Route::middleware('auth')->group(function () {
-
-    Route::get('test',function(){
-        return view('test');
-    });
-
+    
     Route::get('welcome', [Controller::class, 'check'])->name('check');
     Route::get('submissionprint/{id}', [Controller::class, 'generatePDF'])->name('printsubmission');
 

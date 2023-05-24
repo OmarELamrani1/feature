@@ -3,28 +3,8 @@
 
 
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> --}}
-
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
-
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"> --}}
-
-        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script> --}}
-
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
-
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
-
-    <!-- summernote -->
-    <link href="{{ asset('assets/css/summernote/summernote.min.css') }}" rel="stylesheet" type="text/css">
 
     @section('content')
 
@@ -66,14 +46,24 @@
                             @if ($checkStatus->status == 'Modify')
                                 <form
                                     action="{{ route('abstractsubmission.update', $checkStatus->abstractsubmission->id) }}"
-                                    method="post">
+                                    method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
 
-
                                     <div class="panel-heading">
                                         <div class="panel-title">Status :  <span style="color: red;">{{ $checkStatus->status }}</span> </div>
-                                        <div class="panel-title">Reason : <b>{{ $checkStatus->comment }}</b> </div>
+                                        <div class="panel-title">Reason : <b>{{ $checkStatus->comment }}</b> </div><br><br>
+                                        @php
+                                            $extension = pathinfo($checkStatus->file, PATHINFO_EXTENSION);
+                                        @endphp
+
+                                        @if (in_array($extension, ['doc', 'docx', 'pdf']))
+                                            <div class="flex text-center">
+                                                <a href="{{ Storage::url($checkStatus->file) }}" target="_blank" rel="noopener noreferrer">
+                                                    <button type="button" class="btn btn-info">Show {{ strtoupper($extension) }}</button>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                     <br>
 
@@ -150,8 +140,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="border px-6 py-4">
-                                                        <textarea name="introduction" id="introduction" class="form-control"
-                                                        value="{!! $checkStatus->abstractsubmission->introduction !!}"></textarea>
+                                                        <textarea id="introduction" class="intro block w-full mt-1 rounded-md" name="introduction" rows="3">{!! $checkStatus->abstractsubmission->introduction !!}</textarea>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -170,8 +159,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="border px-6 py-4">
-                                                        <textarea name="objective" id="objective" class="form-control"
-                                                        value="{!! $checkStatus->abstractsubmission->objective !!}"></textarea>
+                                                        <textarea id="objective" class="intro block w-full mt-1 rounded-md" name="objective" rows="3">{!! $checkStatus->abstractsubmission->objective !!}</textarea>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -189,8 +177,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="border px-6 py-4">
-                                                        <textarea name="method" id="method" class="form-control"
-                                                        value="{!! $checkStatus->abstractsubmission->method !!}"></textarea>
+                                                        <textarea id="method" class="intro block w-full mt-1 rounded-md" name="method" rows="3">{!! $checkStatus->abstractsubmission->method !!}</textarea>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -208,8 +195,8 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="border px-6 py-4">
-                                                        <textarea name="result" id="result" class="form-control"
-                                                        value="{!! $checkStatus->abstractsubmission->result !!}"></textarea>
+
+                                                        <textarea id="result" class="intro block w-full mt-1 rounded-md" name="result" rows="3">{!! $checkStatus->abstractsubmission->result !!}</textarea>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -227,8 +214,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="border px-6 py-4">
-                                                        <textarea name="conclusion" id="conclusion" class="form-control"
-                                                        value="{!! $checkStatus->abstractsubmission->conclusion !!}"></textarea>
+                                                        <textarea id="conclusion" class="intro block w-full mt-1 rounded-md" name="conclusion" rows="3">{!! $checkStatus->abstractsubmission->conclusion !!}</textarea>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -338,6 +324,149 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
+    <script>
+
+        const introductionInput = document.getElementById("introduction");
+        const objectiveInput = document.getElementById("objective");
+        const methodInput = document.getElementById("method");
+        const resultInput = document.getElementById("result");
+        const conclusionInput = document.getElementById("conclusion");
+        const clinicalDiagnosis = document.getElementById("diagnosis");
+        const clinicalTreatment = document.getElementById("treatment");
+        const clinicalDiscussion = document.getElementById("discussion");
+
+
+        ClassicEditor
+            .create(document.querySelector('#method'), {
+                ckfinder: {
+                    uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                }
+            })
+            .then(editor => {
+                // add an event listener to detect when the instance is ready
+                editor.model.document.on('change:data', () => {
+                    methodInput.value = editor.getData();
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#objective'), {
+                ckfinder: {
+                    uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                }
+            })
+            .then(editor => {
+                // add an event listener to detect when the instance is ready
+                editor.model.document.on('change:data', () => {
+                    objectiveInput.value = editor.getData();
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+
+        ClassicEditor
+            .create(document.querySelector('#result'), {
+                ckfinder: {
+                    uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                }
+            })
+            .then(editor => {
+                editor.model.document.on('change:data', () => {
+                    resultInput.value = editor.getData();
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#introduction'), {
+                ckfinder: {
+                    uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                }
+            })
+            .then(editor => {
+                // add an event listener to detect when the instance is ready
+                editor.model.document.on('change:data', () => {
+                    introductionInput.value = editor.getData();
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#conclusion'), {
+                ckfinder: {
+                    uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                }
+            })
+            .then(editor => {
+                // add an event listener to detect when the instance is ready
+                editor.model.document.on('change:data', () => {
+                    conclusionInput.value = editor.getData();
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+            ClassicEditor
+                .create(document.querySelector('#discussion'), {
+                    ckfinder: {
+                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                    }
+                })
+                .then(editor => {
+                    // add an event listener to detect when the instance is ready
+                    editor.model.document.on('change:data', () => {
+                        clinicalDiscussion.value = editor.getData();
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+
+            ClassicEditor
+                .create(document.querySelector('#diagnosis'), {
+                    ckfinder: {
+                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                    }
+                })
+                .then(editor => {
+                    // add an event listener to detect when the instance is ready
+                    editor.model.document.on('change:data', () => {
+                        clinicalDiagnosis.value = editor.getData();
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            ClassicEditor
+                .create(document.querySelector('#treatment'), {
+                    ckfinder: {
+                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                    }
+                })
+                .then(editor => {
+                    // add an event listener to detect when the instance is ready
+                    editor.model.document.on('change:data', () => {
+                        clinicalTreatment.value = editor.getData();
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+    </script>
 
     <script>
         const addKeywordBtn = document.getElementById('addKeywordBtn');
@@ -352,23 +481,6 @@
                 keywordList.value = newKeywords;
                 keywordInput.value = '';
             }
-        });
-
-        $(function () {
-            $('#introduction').summernote(),
-            $('#introduction').summernote('code', {!! json_encode($checkStatus->abstractsubmission->introduction) !!});
-
-            $('#objective').summernote(),
-            $('#objective').summernote('code', {!! json_encode($checkStatus->abstractsubmission->objective) !!});
-
-            $('#method').summernote(),
-            $('#method').summernote('code', {!! json_encode($checkStatus->abstractsubmission->method) !!});
-
-            $('#result').summernote(),
-            $('#result').summernote('code', {!! json_encode($checkStatus->abstractsubmission->result) !!});
-
-            $('#conclusion').summernote(),
-            $('#conclusion').summernote('code', {!! json_encode($checkStatus->abstractsubmission->conclusion) !!});
         });
     </script>
     @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Abstractsubmission;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -9,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class PosterSuccess extends Mailable
+class AbstractSubmissionNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,11 +20,11 @@ class PosterSuccess extends Mailable
      * @return void
      */
 
-    public $abstractsubmissionSuccess;
+    public $abstractsubmission;
 
-    public function __construct($abstractsubmissionSuccess)
+    public function __construct(Abstractsubmission $abstractsubmission)
     {
-        $this->abstractsubmissionSuccess = $abstractsubmissionSuccess;
+        $this->abstractsubmission = $abstractsubmission;
     }
 
     /**
@@ -34,7 +35,7 @@ class PosterSuccess extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'MEAVC - Confirmation of Abstract Submission',
+            subject: 'Abstract Submission Notification',
         );
     }
 
@@ -46,7 +47,7 @@ class PosterSuccess extends Mailable
     public function content()
     {
         return new Content(
-            markdown: 'emails.posterSuccess',
+            markdown: 'emails.abstract_submission_notification',
         );
     }
 

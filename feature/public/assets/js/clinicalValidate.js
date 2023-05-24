@@ -40,7 +40,7 @@ function validateIntroDiagnosis() {
     var introductionData = clinicalIntroduction.value.trim();
     if (introductionData === "") {
         clinicalIntroduction.classList.add("error");
-        document.getElementById("intro-error").textContent = "introduction is required*";
+        document.getElementById("intro-error").textContent = "Clinical History & Presentation is required*";
         return;
     } else {
         clinicalIntroduction.classList.remove("error");
@@ -50,7 +50,7 @@ function validateIntroDiagnosis() {
     var objectiveData = clinicalDiagnosis.value.trim();
     if (objectiveData === "") {
         clinicalDiagnosis.classList.add("error");
-        document.getElementById("diagnosis-error").textContent = "Objective is required*";
+        document.getElementById("diagnosis-error").textContent = "Physical Examination & Diagnostic Workup is required*";
         return;
     } else {
         clinicalDiagnosis.classList.remove("error");
@@ -113,3 +113,155 @@ clinicalKeywords.addEventListener("input", function() {
         clinicNext2.disabled = false;
     }
 });
+
+ClassicEditor
+    .create(document.querySelector('#discussion'), {
+        ckfinder: {
+            uploadUrl: imageUploadUrl,
+        }
+    })
+    .then(editor => {
+        // add an event listener to detect when the instance is ready
+        editor.model.document.on('change:data', () => {
+            clinicalDiscussion.value = editor.getData();
+        });
+
+        const wordCountMessageDiscussion = document.querySelector('#wordCountMessageDiscussion');
+        const wordLimit = 300;
+
+        // Add an event listener to detect when the instance is ready
+        editor.model.document.on('change:data', () => {
+            const content = editor.getData();
+            const wordCount = countWords(content);
+
+
+            if (wordCount > wordLimit) {
+                wordCountMessageDiscussion.textContent = "You have exceeded the word limit.";
+                const truncatedContent = truncateWords(content, wordLimit);
+                editor.setData(truncatedContent);
+            } else {
+                wordCountMessageDiscussion.textContent = "Words: " + wordCount;
+            }
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+
+ClassicEditor
+    .create(document.querySelector('#diagnosis'), {
+        ckfinder: {
+            uploadUrl: imageUploadUrl,
+        }
+    })
+    .then(editor => {
+        // add an event listener to detect when the instance is ready
+        editor.model.document.on('change:data', () => {
+            clinicalDiagnosis.value = editor.getData();
+        });
+
+        const wordCountMessageDiagnosis = document.querySelector('#wordCountMessageDiagnosis');
+        const wordLimit = 300;
+
+        // Add an event listener to detect when the instance is ready
+        editor.model.document.on('change:data', () => {
+            const content = editor.getData();
+            const wordCount = countWords(content);
+
+
+            if (wordCount > wordLimit) {
+                wordCountMessageDiagnosis.textContent = "You have exceeded the word limit.";
+                const truncatedContent = truncateWords(content, wordLimit);
+                editor.setData(truncatedContent);
+            } else {
+                wordCountMessageDiagnosis.textContent = "Words: " + wordCount;
+            }
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+
+ClassicEditor
+    .create(document.querySelector('#introduction'), {
+        ckfinder: {
+            uploadUrl: imageUploadUrl,
+        }
+    })
+    .then(editor => {
+
+        // add an event listener to detect when the instance is ready
+        editor.model.document.on('change:data', () => {
+            clinicalIntroduction.value = editor.getData();
+        });
+
+        const wordCountMessage = document.querySelector('#wordCountMessage');
+        const wordLimit = 300;
+
+        // Add an event listener to detect when the instance is ready
+        editor.model.document.on('change:data', () => {
+            const content = editor.getData();
+            const wordCount = countWords(content);
+
+
+            if (wordCount > wordLimit) {
+                wordCountMessage.textContent = "You have exceeded the word limit.";
+                const truncatedContent = truncateWords(content, wordLimit);
+                editor.setData(truncatedContent);
+            } else {
+                wordCountMessage.textContent = "Words: " + wordCount;
+            }
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+ClassicEditor
+    .create(document.querySelector('#treatment'), {
+        ckfinder: {
+            uploadUrl: imageUploadUrl,
+        }
+    })
+    .then(editor => {
+        // add an event listener to detect when the instance is ready
+        editor.model.document.on('change:data', () => {
+            clinicalTreatment.value = editor.getData();
+        });
+
+        const wordCountMessageTreatment = document.querySelector('#wordCountMessageTreatment');
+        const wordLimit = 300;
+
+        // Add an event listener to detect when the instance is ready
+        editor.model.document.on('change:data', () => {
+            const content = editor.getData();
+            const wordCount = countWords(content);
+
+
+            if (wordCount > wordLimit) {
+                wordCountMessageTreatment.textContent = "You have exceeded the word limit.";
+                const truncatedContent = truncateWords(content, wordLimit);
+                editor.setData(truncatedContent);
+            } else {
+                wordCountMessageTreatment.textContent = "Words: " + wordCount;
+            }
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+    function countWords(content) {
+        const text = content.replace(/<[^>]+>/g, '').trim();
+        const words = text.split(/\s+/);
+        const filteredWords = words.filter(word => word !== '');
+        return filteredWords.length;
+    }
+
+    function truncateWords(content, limit) {
+        const words = content.split(/\s+/);
+        const truncatedWords = words.slice(0, limit);
+        return truncatedWords.join(' ');
+    }

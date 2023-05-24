@@ -26,7 +26,7 @@ class AbstractsubmissionRequest extends FormRequest
     {
         if (auth()->user()->role == "Personne") {
             return [
-                'title' => 'required', 'max:25',
+                'title' => 'required', new MaxWordsRule(25),
                 'type' => 'required','max:25',
                 'topic_id' => 'required|exists:topics,id',
                 'keywords' => 'required',

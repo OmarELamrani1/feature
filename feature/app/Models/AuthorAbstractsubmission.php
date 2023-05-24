@@ -11,7 +11,7 @@ class AuthorAbstractsubmission extends Model
     protected $fillable = ['abstractsubmission_id','author_id'];
 
     public function Abstractsubmissions(){
-        return $this->belongsTo(Abstractsubmission::class, 'author_id');
+        return $this->belongsTo(Abstractsubmission::class, 'abstractsubmission_id');
     }
 
     public function authors(){

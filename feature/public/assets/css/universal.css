@@ -177,3 +177,402 @@ textarea {
     display: none;
 }
 
+
+
+
+
+
+
+
+
+/* begin of woox */
+
+/*---------Font Smoothing---------*/
+.log {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /*-----------Labels----------------*/
+  .log div.product form.cart .variations label,
+  .log form label {
+    font-size: 12px;
+    color: #666666;
+    margin-top: 8px;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @media (max-width: 640px) {
+    .log .oxy-woo-element div.product .log-tabs ul.tabs,
+    .log div.product .oxy-woo-element .log-tabs ul.tabs {
+      flex-direction: column;
+      padding: 0;
+      margin-bottom: 5px;
+    }
+    .log .oxy-woo-element div.product .log-tabs ul.tabs li,
+    .log div.product .oxy-woo-element .log-tabs ul.tabs li {
+      margin: 5px 0;
+    }
+    .log .oxy-woo-element div.product .log-tabs ul.tabs::before,
+    .log div.product .oxy-woo-element .log-tabs ul.tabs::before {
+      border-bottom: none;
+    }
+    .log .oxy-woo-element div.product .log-tabs ul.tabs li.active,
+    .log
+      div.product
+      .oxy-woo-element
+      .log-tabs
+      ul.tabs
+      li.active {
+      border-bottom-color: #d3ced2;
+    }
+  }
+
+  /* tabs panel content (single product, any tab content) */
+
+  .log .oxy-woo-element table.shop_attributes th,
+  .log .oxy-woo-element table.shop_attributes td {
+    border-top: 1px solid #d3ced2;
+    padding: 8px;
+  }
+
+  /* single product - add to cart */
+
+  .log .oxy-product-cart-button,
+  .log .oxy-woo-element div.product form.cart {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .log .oxy-woo-element div.product .single_add_to_cart_button,
+  .log .single_add_to_cart_button {
+    align-self: stretch;
+    flex-grow: 1;
+    border-radius: 0;
+  }
+
+  .log .oxy-woo-element div.product form.cart,
+  .log .oxy-product-cart-button form.cart,
+  .log div.product form.cart {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .log .oxy-woo-element div.product form.variations_form.cart,
+  .log .oxy-product-cart-button form.variations_form.cart {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .log .oxy-woo-element div.product form.cart td.value,
+  .log .oxy-product-cart-button td.value {
+    padding: 0;
+  }
+
+  .log .oxy-woo-element div.product .log-variation-add-to-cart,
+  .log .log-variation-add-to-cart {
+    display: flex;
+    width: 100%;
+  }
+
+  /* Primary Buttons */
+  .log .widget_shopping_cart .buttons a.checkout.wc-forward,
+  .log button[type=submit],
+  .log button[name=log-form-login__submit],
+  .log button[name=save_account_details],
+  .log button[name=save_address],
+  .log .oxy-woo-element div.product form.cart button.button.alt,
+  .log .oxy-product-cart-button button.button.alt,
+  .log div.product form.cart .button {
+    background-color: #00a888;
+    color: #ffffff;
+    border-radius: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 16px 24px;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid #00a888;
+    border-radius: 4px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+  }
+  .log button[type=submit]:hover,
+  .log button[name=log-form-login__submit]:hover,
+  .log button[name=save_account_details]:hover,
+  .log button[name=save_address]:hover,
+  .log .oxy-woo-element div.product form.cart button.button.alt:hover,
+  .log .oxy-product-cart-button button.button.alt:hover,
+  .log div.product form.cart .button:hover {
+    background-color: #2cbd82;
+    border: 1px solid #2cbd82;
+  }
+
+  .log .oxy-woo-element div.product form.cart button.button.alt.disabled,
+  .log button.button.alt.disabled {
+    background: #cccccc !important;
+    border: 1px solid #cccccc !important;
+    opacity: 1;
+  }
+
+  .log .quantity .qty {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    min-width: 56px;
+    padding: 8px 9px;
+    margin-right: 12px;
+    background: url(https://www.meavc.com/wp-content/plugins/oxygen-log/elements/assets/chevron-down.svg),
+      url(https://www.meavc.com/wp-content/plugins/oxygen-log/elements/assets/chevron-up.svg), #ffffff;
+    background-size: 6px, 6px;
+    background-repeat: no-repeat, no-repeat;
+    background-position: right 0.8em bottom calc(50% - 5px), right 0.8em top calc(50% - 5px);
+    height: 100%;
+  }
+
+  .log table.variations tr {
+    border-top: none;
+  }
+
+  .log .oxy-woo-element div.product form.cart .variations,
+  .log div.product .oxy-product-cart-button form.cart .variations {
+    margin-bottom: 0;
+  }
+
+  .log .oxy-woo-element div.product form.cart table.variations tr,
+  .log table.variations tr {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .log
+    .oxy-woo-element
+    div.product
+    form.cart
+    table.variations
+    tr
+    td
+    label,
+  .log .oxy-product-cart-button table.variations tr td label {
+    font-size: 12px;
+    margin-right: 12px;
+  }
+
+  .log .oxy-woo-element div.product form.cart table.variations tr td a,
+  .log .oxy-product-cart-button table.variations tr td a {
+    font-size: 12px;
+  }
+
+  .log .oxy-woo-element div.product form.cart a.reset_variations:before,
+  .log .oxy-product-cart-button table.variations tr td a:before {
+    content: "Ã— ";
+  }
+
+  .log .oxy-woo-element div.product form.cart .variations,
+  .log .oxy-product-cart-button div.product form.cart .variations {
+    margin-bottom: 0;
+  }
+
+  .log .log-ordering select,
+  .log .oxy-woo-element div.product form.cart .variations select,
+  .log div.product .oxy-product-cart-button form.cart .variations select,
+  .log div.product form.cart .variations select,
+  .log form.cart .variations select {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    line-height: 1.2;
+    cursor: pointer;
+    width: 100%;
+    position: relative;
+    background: url(https://www.meavc.com/wp-content/plugins/oxygen-log/elements/assets/chevron-down.svg), #ffffff;
+    background-size: 6px;
+    padding-right: 24px;
+    background-repeat: no-repeat;
+    background-position: right 0.8em center;
+  }
+
+  .log input[type="number"]::-webkit-inner-spin-button,
+  .log input[type="number"]::-webkit-outer-spin-button {
+    margin-right: -9px;
+    opacity: 0.01;
+    width: 24px;
+    height:48px;
+    cursor: pointer;
+  }
+
+  /* single product - rating below title / rating element */
+
+  .log .oxy-woo-element div.product .log-product-rating,
+  .log .oxy-product-rating .log-product-rating,
+  .log div.product .oxy-product-rating .log-product-rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .log
+    .oxy-woo-element
+    div.product
+    .log-product-rating
+    .star-rating::before,
+  .log .oxy-product-rating .star-rating::before {
+    position: relative;
+    color: #d3d3d3;
+  }
+
+  .log
+    .oxy-woo-element
+    div.product
+    .log-product-rating
+    .star-rating,
+  .log .oxy-product-rating .log-product-rating .star-rating {
+    width: auto;
+    letter-spacing: 2px;
+    margin: 0 0 0 0;
+  }
+
+  .log
+    .oxy-woo-element
+    div.product
+    .log-product-rating
+    a.log-review-link,
+  .log .oxy-product-rating a.log-review-link {
+    font-size: 12px;
+  }
+  .log
+    .oxy-woo-element
+    div.product
+    .log-product-rating
+    .star-rating
+    span,
+  .log .oxy-product-rating .log .star-rating span {
+    color: #65bec2;
+  }
+
+  /* Transitions */
+  .log .flex-control-thumbs li,
+  .log .log-widget-layered-nav-list .log-widget-layered-nav-list__item,
+  .select2-search--dropdown .select2-search__field,
+  .log
+    label.log-form__label.log-form__label-for-checkbox
+    span::before,
+  .log ul.tabs li,
+  .log .log-product-gallery__trigger:after,
+  .log .log-product-gallery__trigger:before,
+  .log img:not(.zoomImg):not(.pswp__img),
+  .log textarea,
+  .log .checkbox,
+  .log .select2-selection,
+  .log input,
+  .log button,
+  .log select,
+  .log a {
+    transition: all ease 0.2s;
+  }
+  /* End of Transitions */
+
+  /* Input Styles */
+  .log-cart table.cart td.actions .coupon .input-text,
+  .select2-container--default .select2-search--dropdown .select2-search__field,
+  .log textarea,
+  .select2-dropdown,
+  .log .select2-selection,
+  .log input[type="search"],
+  .log input[type="text"],
+  .log input[type="number"],
+  .log input[type="tel"],
+  .log input[type="email"],
+  .log input[type="password"],
+  .log select {
+    height: auto;
+    font-size: 14px;
+    border: 1px solid #d3ced2;
+    background: #ffffff;
+    color: #000000;
+    outline: none;
+    font-family: inherit;
+    padding: 8px 12px;
+    border-radius: 4px;
+    resize: none;
+  }
+  /* Focus State */
+  .log-cart table.cart td.actions .coupon .input-text:focus,
+  .select2-container--default .select2-search--dropdown .select2-search__field:focus,
+  .log form .form-row textarea:focus,
+  .log textarea:focus,
+  .select2-dropdown:focus,
+  .log .select2-selection:focus,
+  .log input[type="search"]:focus,
+  .log input[type="text"]:focus,
+  .log input[type="number"]:focus,
+  .log input[type="tel"]:focus,
+  .log input[type="email"]:focus,
+  .log input[type="password"]:focus,
+  .log select:focus {
+    border: 1px solid #65bec2;
+    box-shadow: 0 0 5px #65bec2;
+  }
+  /* End of Inputs */
+
+  /* Custom Checkbox */
+  .log-form-login input[type="checkbox"],
+  .oxy-woo-checkout input[type="checkbox"] {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    opacity: 0.01;
+    display: none !important;
+  }
+  .log-form-login
+    label.log-form__label.log-form__label-for-checkbox.log-form-login__rememberme,
+  .oxy-woo-checkout
+    label.log-form__label.log-form__label-for-checkbox {
+    position: relative;
+    cursor: pointer;
+    padding-left: 16px;
+    margin-top: 0;
+  }
+  .log-form-login
+    label.log-form__label.log-form__label-for-checkbox.log-form-login__rememberme span,
+  .oxy-woo-checkout
+    label.log-form__label.log-form__label-for-checkbox span{
+      margin-left: 18px;
+  }
+  .log-form-login
+    label.log-form__label.log-form__label-for-checkbox.log-form-login__rememberme
+    span::before,
+  .oxy-woo-checkout
+    label.log-form__label.log-form__label-for-checkbox
+    span::before {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #d3ced2;
+    background-color: #ffffff;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-size: 50%;
+    border-radius: 4px;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  /*--------------------Tables and Forms Style-------------------------*/
+  .log,
+  .log form.login,
+  .log form.register {
+    border: 1px solid #d3ced2;
+    border-top: 3px solid #00a888;
+    border-radius: 0;
+    background: #ffffff;
+    padding: 20px;
+    border-collapse: collapse;
+    box-shadow: var(--box-shadow) 0 10px 20px;
+  }

@@ -12,9 +12,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
-<!-- summernote -->
-<link href="{{ asset('assets/css/summernote/summernote.min.css') }}" rel="stylesheet" type="text/css">
-
 <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="{{ asset('assets/css/bs-stepper.min.css') }}">
 
@@ -80,10 +77,11 @@
                                                             aria-controls="introdiagnosis-part"
                                                             id="introdiagnosis-part-trigger">
                                                             <span class="bs-stepper-circle">4</span>
-                                                            <span class="bs-stepper-label">Introduction & Diagnosis</span>
+                                                            <span class="bs-stepper-label">Clinical History & Presentation</span>
+                                                            <span class="bs-stepper-label">Physical Examination & Diagnostic Workup</span>
                                                         </button>
-                                                    </div>
-                                                </div><br>
+                                                    </div><br>
+                                                </div><br><br>
 
                                                 <div class="bs-stepper-header" role="tablist">
                                                     <div class="step" data-target="#treatmentDiscussion-part">
@@ -138,12 +136,10 @@
                                                             the topic.</span><br><br>
 
                                                         <div class="form-group">
-                                                            <label for="title">Title * <em class="emText">limited to 25
-                                                                    words in UPPER CASE</em></label><br>
+                                                            <label for="title">Title * <em class="emText">limited to 25 words in UPPER CASE</em></label><br>
                                                             <span style="color: red;" id="title-error"
                                                                 class="error"></span>
-                                                            <textarea class="form-control" name="title" id="title" maxlength="25"
-                                                                oninput="this.value = this.value.toUpperCase()"></textarea>
+                                                            <textarea class="form-control" name="title" id="title" oninput="this.value = this.value.toUpperCase()"></textarea>
                                                         </div>
 
                                                         <div class="form-group">
@@ -366,7 +362,7 @@
                                                                                             <input type="text"
                                                                                                 name="departement"
                                                                                                 id="departement"
-                                                                                                placeholder="Departement"
+                                                                                                placeholder="Department"
                                                                                                 class="form-control">
                                                                                         </div>
                                                                                     </div>
@@ -549,22 +545,30 @@
 
                                                     <div id="introdiagnosis-part" class="content" role="tabpanel"
                                                         aria-labelledby="introdiagnosis-part-trigger">
+
+                                                        <a href="#" class="show-hidden-menu">click to view an example to add a caption for an image !</a><br>
+
+                                                        <div class="hidden-menu" style="display: none; border: 1px solid black; text-align:center; margin-top: 15px; margin-left:auto; margin-right:auto; width:50%;">
+                                                            <img src="{{ asset('assets/images/cap1.png') }}" alt="EXAMPLE">
+                                                        </div><br>
+
+                                                        <span><em class="emText">limited to 300 words:</em></span>
                                                         <div class="form-group">
-                                                            <label for="introduction"><strong>Introduction</strong> <em
-                                                                    class="emText">limited to 300 words:</em></label>
+                                                            <label for="introduction"><strong>Clinical History & Presentation</strong></label>
                                                             <div class="form-group">
                                                                 <span style="color: red;" id="intro-error"
                                                                     class="error"></span>
                                                                     <textarea id="introduction" class="block w-full mt-1 rounded-md" name="introduction"></textarea>
+                                                                    <span id="wordCountMessage"></span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="diagnosis"><strong>Diagnosis</strong> <em
-                                                                    class="emText">limited to 300 words:</em></label>
+                                                            <label for="diagnosis"><strong>Physical Examination & Diagnostic Workup</strong></label>
                                                             <div class="form-group">
                                                                 <span style="color: red;" id="diagnosis-error"
                                                                     class="error"></span>
                                                                     <textarea id="diagnosis" class="block w-full mt-1 rounded-md" name="diagnosis"></textarea>
+                                                                    <span id="wordCountMessageDiagnosis"></span>
                                                             </div>
                                                         </div>
                                                         <button type="button" class="btn btn-primary"
@@ -593,12 +597,21 @@
 
                                                     <div id="treatmentDiscussion-part" class="content" role="tabpanel"
                                                         aria-labelledby="treatmentDiscussion-part-trigger">
+
+                                                        <a href="#" class="show-hidden-menu">click to view an example to add a caption for an image !</a><br>
+
+                                                        <div class="hidden-menu" style="display: none; border: 1px solid black; text-align:center; margin-top: 15px; margin-left:auto; margin-right:auto; width:50%;">
+                                                            <img src="{{ asset('assets/images/cap1.png') }}" alt="EXAMPLE">
+                                                        </div><br>
+
+                                                        <span><em class="emText">limited to 300 words:</em></span>
                                                         <div class="form-group">
                                                             <label for="treatment"><strong>Treatment</strong></label>
                                                             <div class="form-group">
                                                                 <span style="color: red;" id="treatment-error"
                                                                     class="error"></span>
                                                                     <textarea id="treatment" class="block w-full mt-1 rounded-md" name="treatment"></textarea>
+                                                                    <span id="wordCountMessageTreatment"></span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -607,6 +620,7 @@
                                                                 <span style="color: red;" id="discussion-error"
                                                                     class="error"></span>
                                                                     <textarea id="discussion" class="block w-full mt-1 rounded-md" name="discussion"></textarea>
+                                                                    <span id="wordCountMessageDiscussion"></span>
                                                             </div>
                                                         </div>
                                                         <button type="button" class="btn btn-primary"
@@ -802,10 +816,8 @@
                                                                 <thead
                                                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                                     <tr>
-                                                                        <th scope="col" class="px-6 py-3">Introduction
-                                                                        </th>
-                                                                        <th scope="col" class="px-6 py-3">Diagnosis
-                                                                        </th>
+                                                                        <th scope="col" class="px-6 py-3">Clinical History & Presentation</th>
+                                                                        <th scope="col" class="px-6 py-3">Physical Examination & Diagnostic Workup</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -845,8 +857,7 @@
                                                                     d="M5 8a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5.5A.5.5 0 0 1 5 8z" />
                                                             </svg> Previous</button>
 
-                                                        <input type="hidden" name="author_id" id="author-id"
-                                                            value="">
+                                                        <input type="hidden" name="author_id" id="author-id" value="">
                                                         <div class="text-center">
                                                             <button type="submit" class="btn btn-success rounded-5">Submit Abstract</button>
                                                         </div>
@@ -859,7 +870,6 @@
                                 <!-- /.card -->
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -867,87 +877,20 @@
     </div>
     </div>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
-    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="{{ asset('assets/js/textcounter.min.js') }}"></script>
-    <script src="{{ asset('assets/js/textcounter.js') }}"></script>
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 
     <script>
-            ClassicEditor
-                .create(document.querySelector('#discussion'), {
-                    ckfinder: {
-                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
-                    }
-                })
-                .then(editor => {
-                    // add an event listener to detect when the instance is ready
-                    editor.model.document.on('change:data', () => {
-                        clinicalDiscussion.value = editor.getData();
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-
-            ClassicEditor
-                .create(document.querySelector('#diagnosis'), {
-                    ckfinder: {
-                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
-                    }
-                })
-                .then(editor => {
-                    // add an event listener to detect when the instance is ready
-                    editor.model.document.on('change:data', () => {
-                        clinicalDiagnosis.value = editor.getData();
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-            ClassicEditor
-                .create(document.querySelector('#introduction'), {
-                    ckfinder: {
-                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
-                    }
-                })
-                .then(editor => {
-                    // add an event listener to detect when the instance is ready
-                    editor.model.document.on('change:data', () => {
-                        clinicalIntroduction.value = editor.getData();
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-            ClassicEditor
-                .create(document.querySelector('#treatment'), {
-                    ckfinder: {
-                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
-                    }
-                })
-                .then(editor => {
-                    // add an event listener to detect when the instance is ready
-                    editor.model.document.on('change:data', () => {
-                        clinicalTreatment.value = editor.getData();
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+        var imageUploadUrl = "{{ route('image.upload') }}?_token={{ csrf_token() }}";
     </script>
 
 <script>
     $('#title').textcounter({
-        type: "word",
-        max: 25,
-        counterText: ""
+        type         : "word",        // "character" or "word"
+        min          : 0,             // minimum number of characters/words
+        max          : 25,            // maximum number of characters/words, -1 for unlimited, 'auto' to use maxlength attribute
+        counterText  : "Words: %d",   // counter text
     });
 </script>
 
@@ -962,6 +905,11 @@
         })
     </script>
 
-
-
+<script>
+    $(document).ready(function() {
+        $('.show-hidden-menu').click(function() {
+            $('.hidden-menu').slideToggle("slow");
+        });
+    });
+</script>
 @endsection

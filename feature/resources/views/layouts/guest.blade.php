@@ -15,6 +15,10 @@
         @case('register')
             <title>MEAVC - Register</title>
         @break
+
+        @case('forgot-password')
+            <title>MEAVC - Forgot password</title>
+        @break
     @endswitch
 
     <!-- Fonts -->

@@ -12,6 +12,12 @@
 
         <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 
+        <style>
+            .preview-content img {
+                max-width: 200px;
+                max-height: 200px;
+            }
+        </style>
     </head>
 
 <body>
@@ -70,6 +76,19 @@
                             <tr>
                                 <td>Topic : {{ $abstractsubmission->topic->name }}</td>
                             </tr>
+
+                            <tr>
+                                <td>Authors:
+                                    @if ($abstractsubmission->authorAbstractsubmission->isNotEmpty())
+                                        @foreach ($abstractsubmission->authorAbstractsubmission as $authorAbstractsubmission)
+                                            {{ $authorAbstractsubmission->authors->firstname }} {{ $authorAbstractsubmission->authors->lastname }},
+                                        @endforeach
+                                    @else
+                                        There are no authors for this abstract.
+                                    @endif
+                                </td>
+                            </tr>
+                            
                         </table>
                     </td>
                 </tr>
@@ -79,14 +98,14 @@
                 </tr>
                 <tr>
                     <td class="preview-content-box">
-                        <b>Introduction</b>
+                        <b>Clinical History & Presentation</b>
                         <div class="preview-content">
                             <p>{!! $abstractsubmission->introduction !!}</p>
                         </div>
                         <br style="clear: both;" />
 
                         @if ($abstractsubmission->type === 'Clinical Case')
-                            <b>Diagnosis</b>
+                            <b>Physical Examination & Diagnostic Workup</b>
                             <div class="preview-content">
                                 <p>{!! $abstractsubmission->diagnosis !!}</p>
                             </div>

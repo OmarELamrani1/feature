@@ -15,9 +15,6 @@
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
 </script>
 
-<!-- summernote -->
-{{-- <link href="{{ asset('assets/css/summernote/summernote.min.css') }}" rel="stylesheet" type="text/css"> --}}
-
 <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="{{ asset('assets/css/bs-stepper.min.css') }}">
 
@@ -218,13 +215,6 @@
                                                                     presenter.</p>
                                                                 <p>- 5 presentations maximum per presenter.</p><br>
 
-
-
-
-
-
-
-
                                                                 <button type="button" class="btn btn-primary"
                                                                     data-bs-toggle="modal" data-bs-target="#addAuthor"
                                                                     data-bs-whatever="@getbootstrap">Add Author <i
@@ -395,7 +385,7 @@
                                                                                                 <input type="text"
                                                                                                     name="departement"
                                                                                                     id="departement"
-                                                                                                    placeholder="Departement"
+                                                                                                    placeholder="Department"
                                                                                                     class="form-control">
                                                                                             </div>
                                                                                         </div>
@@ -585,89 +575,30 @@
 
                                                         <div id="introobjective-part" class="content" role="tabpanel"
                                                             aria-labelledby="introobjective-part-trigger">
-                                                            <div class="form-group">
-                                                                <label for="introduction"><strong>Introduction</strong> <em
-                                                                        class="emText">limited to 300 words:</em></label>
 
+                                                            <a href="#" class="show-hidden-menu">click to view an example to add a caption for an image !</a><br>
+
+                                                            <div class="hidden-menu" style="display: none; border: 1px solid black; text-align:center; margin-top: 15px; margin-left:auto; margin-right:auto; width:50%;">
+                                                                <img src="{{ asset('assets/images/cap1.png') }}" alt="EXAMPLE">
+                                                            </div><br>
+
+                                                            <span><em class="emText">limited to 300 words:</em></span>
+                                                            <div class="form-group">
+                                                                <label for="introduction"><strong>Introduction</strong></label>
                                                                 <span style="color: red;" id="introduction-error"
                                                                     class="error"></span>
 
                                                                 <textarea id="introduction" class="intro block w-full mt-1 rounded-md" name="introduction" rows="3"></textarea>
+                                                                <span id="wordCountMessageIntroduction"></span>
                                                             </div>
 
-
-                                                            <style>
-                                                                .demo-update {
-                                                                    border: 1px solid var(--ck-color-base-border);
-                                                                    border-radius: var(--ck-border-radius);
-                                                                    box-shadow: 2px 2px 0px hsla( 0, 0%, 0%, 0.1 );
-                                                                    margin: 1.5em 0;
-                                                                    padding: 1em;
-                                                                }
-
-                                                                .demo-update h3 {
-                                                                    font-size: 18px;
-                                                                    font-weight: bold;
-                                                                    margin: 0 0 .5em;
-                                                                    padding: 0;
-                                                                }
-
-                                                                .demo-update .ck.ck-editor__editable_inline {
-                                                                    border: 1px solid hsla( 0, 0%, 0%, 0.15 );
-                                                                    transition: background .5s ease-out;
-                                                                    min-height: 6em;
-                                                                    margin-bottom: 1em;
-                                                                }
-
-                                                                .demo-update__controls {
-                                                                    display: flex;
-                                                                    flex-direction: row;
-                                                                    align-items: center;
-                                                                }
-
-                                                                .demo-update__chart {
-                                                                    margin-right: 1em;
-                                                                }
-
-                                                                .demo-update__chart__circle {
-                                                                    transform: rotate(-90deg);
-                                                                    transform-origin: center;
-                                                                }
-
-                                                                .demo-update__chart__characters {
-                                                                    font-size: 13px;
-                                                                    font-weight: bold;
-                                                                }
-
-                                                                .demo-update__words {
-                                                                    flex-grow: 1;
-                                                                    opacity: .5;
-                                                                }
-
-                                                                .demo-update__limit-close .demo-update__chart__circle {
-                                                                    stroke: hsl( 30, 100%, 52% );
-                                                                }
-
-                                                                .demo-update__limit-exceeded .ck.ck-editor__editable_inline {
-                                                                    background: hsl( 0, 100%, 97% );
-                                                                }
-
-                                                                .demo-update__limit-exceeded .demo-update__chart__circle {
-                                                                    stroke: hsl( 0, 100%, 52% );
-                                                                }
-
-                                                                .demo-update__limit-exceeded .demo-update__chart__characters {
-                                                                    fill: hsl( 0, 100%, 52% );
-                                                                }
-                                                            </style>
                                                             <div class="form-group">
-                                                                <label for="objective"><strong>Objectives</strong> <em
-                                                                        class="emText">limited to 300 words:</em></label>
+                                                                <label for="objective"><strong>Objectives</strong></label>
                                                                 <div class="form-group">
                                                                     <span style="color: red;" id="objective-error"
                                                                         class="error"></span>
                                                                     <textarea id="objective" class="block w-full mt-1 rounded-md" name="objective" rows="3"></textarea>
-
+                                                                    <span id="wordCountMessageObjective"></span>
                                                                 </div>
                                                             </div>
 
@@ -697,22 +628,30 @@
 
                                                         <div id="methodresult-part" class="content" role="tabpanel"
                                                             aria-labelledby="methodresult-part-trigger">
+
+                                                            <a href="#" class="show-hidden-menu">click to view an example to add a caption for an image !</a><br>
+
+                                                            <div class="hidden-menu" style="display: none; border: 1px solid black; text-align:center; margin-top: 15px; margin-left:auto; margin-right:auto; width:50%;">
+                                                                <img src="{{ asset('assets/images/cap1.png') }}" alt="EXAMPLE">
+                                                            </div><br>
+
+                                                            <span><em class="emText">limited to 300 words:</em></span>
                                                             <div class="form-group">
-                                                                <label for="method"><strong>Method</strong> <em
-                                                                        class="emText">limited to 300 words:</em></label>
+                                                                <label for="method"><strong>Method</strong></label>
                                                                 <div class="form-group">
                                                                     <span style="color: red;" id="method-error"
                                                                         class="error"></span>
                                                                     <textarea id="method" class="block w-full mt-1 rounded-md" name="method" rows="3"></textarea>
+                                                                    <span id="wordCountMessageMethod"></span>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="result"><strong>Result</strong> <em
-                                                                        class="emText">limited to 300 words:</em></label>
+                                                                <label for="result"><strong>Result</strong></label>
                                                                 <div class="form-group">
                                                                     <span style="color: red;" id="result-error"
                                                                         class="error"></span>
                                                                     <textarea id="result" class="block w-full mt-1 rounded-md" name="result" rows="3"></textarea>
+                                                                    <span id="wordCountMessageResult"></span>
                                                                 </div>
                                                             </div>
 
@@ -742,13 +681,21 @@
 
                                                         <div id="conclusion-part" class="content" role="tabpanel"
                                                             aria-labelledby="conclusion-part-trigger">
+
+                                                            <a href="#" class="show-hidden-menu">click to view an example to add a caption for an image !</a><br>
+
+                                                            <div class="hidden-menu" style="display: none; border: 1px solid black; text-align:center; margin-top: 15px; margin-left:auto; margin-right:auto; width:50%;">
+                                                                <img src="{{ asset('assets/images/cap1.png') }}" alt="EXAMPLE">
+                                                            </div><br>
+
+                                                            <span><em class="emText">limited to 300 words:</em></span>
                                                             <div class="form-group">
-                                                                <label for="conclusion"><strong>Conclusion</strong> <em
-                                                                        class="emText">limited to 300 words:</em></label>
+                                                                <label for="conclusion"><strong>Conclusion</strong></label>
                                                                 <div class="form-group">
                                                                     <span style="color: red;" id="conclusion-error"
                                                                         class="error"></span>
                                                                         <textarea id="conclusion" class="block w-full mt-1 rounded-md" name="conclusion" rows="3"></textarea>
+                                                                        <span id="wordCountMessageConclusion"></span>
                                                                 </div>
                                                             </div>
 
@@ -1059,123 +1006,21 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="{{ asset('assets/js/textcounter.min.js') }}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-    {{-- <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script> --}}
-
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/balloon/ckeditor.js"></script> --}}
-
-
 
     <script>
-            ClassicEditor
-                .create(document.querySelector('#method'), {
-                    ckfinder: {
-                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
-                    }
-                })
-                .then(editor => {
-                    // add an event listener to detect when the instance is ready
-                    editor.model.document.on('change:data', () => {
-                        methodInput.value = editor.getData();
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-            ClassicEditor
-                .create(document.querySelector('#objective'), {
-                    ckfinder: {
-                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
-                    }
-                })
-                .then(editor => {
-                    // add an event listener to detect when the instance is ready
-                    editor.model.document.on('change:data', () => {
-                        objectiveInput.value = editor.getData();
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-
-            ClassicEditor
-                .create(document.querySelector('#result'), {
-                    ckfinder: {
-                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
-                    }
-                })
-                .then(editor => {
-                    // add an event listener to detect when the instance is ready
-                    editor.model.document.on('change:data', () => {
-                        resultInput.value = editor.getData();
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-            ClassicEditor
-                .create(document.querySelector('#introduction'), {
-                    ckfinder: {
-                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
-                    }
-                })
-                .then(editor => {
-                    // add an event listener to detect when the instance is ready
-                    editor.model.document.on('change:data', () => {
-                        introductionInput.value = editor.getData();
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-            ClassicEditor
-                .create(document.querySelector('#conclusion'), {
-                    ckfinder: {
-                        uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
-                    }
-                })
-                .then(editor => {
-                    // add an event listener to detect when the instance is ready
-                    editor.model.document.on('change:data', () => {
-                        conclusionInput.value = editor.getData();
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+        var imageUploadUrl = "{{ route('image.upload') }}?_token={{ csrf_token() }}";
     </script>
 
-<script src="{{ asset('assets/js/textcounter.min.js') }}"></script>
-
-
-<script>
-    $('#title').textcounter({
-        type                     : "word",                  // "character" or "word"
-        min                      : 0,                       // minimum number of characters/words
-        max                      : 25,                       // maximum number of characters/words, -1 for unlimited, 'auto' to use maxlength attribute
-        countContainerElement    : "div",                   // HTML element to wrap the text count in
-        countContainerClass      : "text-count-wrapper",    // class applied to the countContainerElement
-        inputErrorClass          : "error",                 // error class appended to the input element if error occurs
-        counterErrorClass        : "error",                 // error class appended to the countContainerElement if error occurs
-        counterText              : "Total Count: %d",       // counter text
-        errorTextElement         : "div",                   // error text element
-        minimumErrorText         : "Minimum not met",       // error message for minimum not met,
-        maximumErrorText         : "Maximum exceeded",      // error message for maximum range exceeded,
-        displayErrorText         : true,                    // display error text messages for minimum/maximum values
-        stopInputAtMaximum       : true,
-    });
-
-    // $('#title').textcounter({
-    //     type: "word",
-    //     max: 25,
-    //     counterText: ""
-    // });
-</script>
+    <script>
+        $('#title').textcounter({
+                type         : "word",        // "character" or "word"
+                min          : 0,             // minimum number of characters/words
+                max          : 25,            // maximum number of characters/words, -1 for unlimited, 'auto' to use maxlength attribute
+                counterText  : "Words: %d",   // counter text
+            });
+    </script>
     <script src="{{ asset('assets/js/researchclinical.js') }}"></script>
     <script src="{{ asset('assets/js/researchValidate.js') }}"></script>
 
@@ -1186,6 +1031,11 @@
         })
     </script>
 
-
-
+<script>
+    $(document).ready(function() {
+        $('.show-hidden-menu').click(function() {
+            $('.hidden-menu').slideToggle("slow");
+        });
+    });
+</script>
 @endsection

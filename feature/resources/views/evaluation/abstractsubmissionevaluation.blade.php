@@ -14,11 +14,22 @@
                     <!-- article -->
                     <article>
                         <div class="content">
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <h1><span class="trackCode">TRACKING CODE : {{ $abstractsubmission->tracking_code }}</span>
                             </h1>
                             <p>&nbsp;</p>
 
-                            <form action="{{ route('evaluation.store') }}" method="post">
+                            <form action="{{ route('evaluation.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -48,12 +59,16 @@
                                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr>
-                                                <th scope="col" class="px-6 py-3">introduction</th>
+                                                @if ($abstractsubmission->type === "Research Paper")
+                                                    <th scope="col" class="px-6 py-3">introduction</th>
+                                                @elseif ($abstractsubmission->type === "Clinical Case")
+                                                    <th scope="col" class="px-6 py-3">Clinical History & Presentation</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="border px-6 py-4">{!! $abstractsubmission->introduction !!}</td>
+                                                <td class="evaluate border px-6 py-4">{!! $abstractsubmission->introduction !!}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -71,7 +86,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="border px-6 py-4">{!! $abstractsubmission->objective !!}</td>
+                                                <td class="evaluate border px-6 py-4">{!! $abstractsubmission->objective !!}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -88,7 +103,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="border px-6 py-4">{!! $abstractsubmission->method !!}</td>
+                                                <td class="evaluate border px-6 py-4">{!! $abstractsubmission->method !!}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -105,7 +120,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="border px-6 py-4">{!! $abstractsubmission->result !!}</td>
+                                                <td class="evaluate border px-6 py-4">{!! $abstractsubmission->result !!}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -121,7 +136,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="border px-6 py-4">{!! $abstractsubmission->conclusion !!}</td>
+                                    <td class="evaluate border px-6 py-4">{!! $abstractsubmission->conclusion !!}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -133,12 +148,12 @@
                                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr>
-                                                <th scope="col" class="px-6 py-3">diagnosis</th>
+                                                <th scope="col" class="px-6 py-3">Physical Examination & Diagnostic Workup</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="border px-6 py-4">{!! $abstractsubmission->diagnosis !!}</td>
+                                                <td class="evaluate border px-6 py-4">{!! $abstractsubmission->diagnosis !!}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -155,7 +170,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="border px-6 py-4">{!! $abstractsubmission->treatment !!}</td>
+                                                <td class="evaluate border px-6 py-4">{!! $abstractsubmission->treatment !!}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -190,39 +205,11 @@
                                 </select><br>
 
                                 <div id="comment-input" style="display: none;">
-                                    <button type="button" id="downloadButton">Download as Word</button><br>
+                                    <label for="comment">Reason for the modification<span style="color:red;">*</span> :</label>
+                                    <input type="text" name="comment" id="comment" placeholder="Reason for the modification . . ." style="width: 60%;" autofocus> <br><br>
 
-                                    <script>
-                                        document.getElementById('downloadButton').addEventListener('click', function() {
-                                            var abstractsubmission_id = "{{ $abstractsubmission->id }}";
-
-                                            // Send AJAX request to initiate the download
-                                            var xhr = new XMLHttpRequest();
-                                            xhr.open('GET', '{{ route('abstractWord') }}?abstractsubmission_id=' + abstractsubmission_id, true);
-                                            xhr.responseType = 'blob';
-
-                                            xhr.onload = function() {
-                                                if (this.status === 200) {
-                                                    var blob = new Blob([this.response], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-                                                    var link = document.createElement('a');
-                                                    link.href = window.URL.createObjectURL(blob);
-                                                    link.download = 'abstractFile.docx';
-                                                    link.click();
-                                                }
-                                            };
-
-                                            xhr.send();
-                                        });
-                                    </script>
-
-                                    {{-- <form action="{{ route('abstractWord') }}" method="GET">
-                                        <input type="hidden" name="abstractsubmission_id" value="{{ $abstractsubmission->id }}">
-                                        <button type="submit">Download as Word</button>
-                                    </form> --}}
-
-
-                                    <label for="comment">Reason for the modification :</label>
-                                    <input type="text" name="comment" id="comment" placeholder="Reason for the modification . . ." style="width: 60%;" autofocus>
+                                    <label for="file">Add doc - docx - pdf :</label>
+                                    <input type="file" name="file" id="file">
                                 </div> <br>
 
                                 <input type="hidden" name="abstractsubmission_id" value="{{ $abstractsubmission->id }}">

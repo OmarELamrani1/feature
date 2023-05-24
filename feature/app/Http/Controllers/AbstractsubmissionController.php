@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AbstractsubmissionRequest;
+use App\Mail\AbstractSubmissionNotification;
 use App\Mail\PosterStored;
 use App\Mail\PosterSuccess;
 use App\Models\Abstractsubmission;
 use App\Models\Author;
 use App\Models\AuthorAbstractsubmission;
+use App\Models\President;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -69,32 +71,18 @@ class AbstractsubmissionController extends Controller
         //
     }
 
-    public function store(AbstractsubmissionRequest $request)
-    {
+// bhad lcode kulshi khdam ila from scratch:
+    public function store(AbstractsubmissionRequest $request){
         try {
             $personne = auth()->user()->personnes()->first();
             $affirmation = $request->has('affirmation') ? 1 : 0;
-
             $data = $request->validated();
             $data['affirmation'] = $affirmation;
             $data['tracking_code'] = random_int(100000, 999999);
             $data['personne_id'] = $personne->id;
-
             $abstractsubmission = Abstractsubmission::create($data);
             $abstractsubmission_id = $abstractsubmission->id;
 
-            $author = Author::where('personne_id', $personne->id)->first();
-
-            // Create AuthorAbstractSubmission with added author from scratch
-            if ($author) {
-                $author_abstractsubmission = new AuthorAbstractsubmission;
-                $author_abstractsubmission->author_id = $author->id;
-                $author_abstractsubmission->abstractsubmission_id = $abstractsubmission_id;
-                $author_abstractsubmission->save();
-            } elseif (empty($author)) {
-            }
-
-            // Create AuthorAbstractSubmission with choosen author in search
             if ($request->has('author_id')) {
                 $author = Author::find($request->input('author_id'));
                 if ($author) {
@@ -107,28 +95,77 @@ class AbstractsubmissionController extends Controller
                         $author_abstractsubmission->abstractsubmission_id = $abstractsubmission_id;
                         $author_abstractsubmission->save();
                     }
-                } elseif (empty($author)) {}
+                }
             }
 
-            // Send email to user for successfully submit
-            // Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
-
-            // // Send email to president for evaluation
-            // $presidents = User::where('role', 'President')->get();
-            // foreach ($presidents as $president) {
-            //     Mail::to($president->email)->send(new PosterStored($abstractsubmission));
-            // }
-
             return view('submmision.preview', compact('abstractsubmission'));
-
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], 400);
         }
     }
 
+
+// hada mli makandir walo kayakhod author lwl + mli kanzid author jdid kayakhod lwl + f search kayakhod dyal search + lwla
+    // public function store(AbstractsubmissionRequest $request)
+    // {
+    //     try {
+    //         $personne = auth()->user()->personnes()->first();
+    //         $affirmation = $request->has('affirmation') ? 1 : 0;
+
+    //         $data = $request->validated();
+    //         $data['affirmation'] = $affirmation;
+    //         $data['tracking_code'] = random_int(100000, 999999);
+    //         $data['personne_id'] = $personne->id;
+
+    //         $abstractsubmission = Abstractsubmission::create($data);
+    //         $abstractsubmission_id = $abstractsubmission->id;
+
+    //         $author = Author::where('personne_id', $personne->id)->first();
+
+    //         // Create AuthorAbstractSubmission with added author from scratch
+    //         if ($author) {
+    //             $author_abstractsubmission = new AuthorAbstractsubmission;
+    //             $author_abstractsubmission->author_id = $author->id;
+    //             $author_abstractsubmission->abstractsubmission_id = $abstractsubmission_id;
+    //             $author_abstractsubmission->save();
+    //         } elseif (empty($author)) {
+    //         }
+
+    //         // Create AuthorAbstractSubmission with choosen author in search
+    //         if ($request->has('author_id')) {
+    //             $author = Author::find($request->input('author_id'));
+    //             if ($author) {
+    //                 $authorAbstractSubmission = AuthorAbstractsubmission::where('abstractsubmission_id', $abstractsubmission_id)
+    //                     ->where('author_id', $author->id)
+    //                     ->first();
+    //                 if (!$authorAbstractSubmission) {
+    //                     $author_abstractsubmission = new AuthorAbstractsubmission;
+    //                     $author_abstractsubmission->author_id = $author->id;
+    //                     $author_abstractsubmission->abstractsubmission_id = $abstractsubmission_id;
+    //                     $author_abstractsubmission->save();
+    //                 }
+    //             } elseif (empty($author)) {}
+    //         }
+
+    //         // Send email to user for successfully submit
+    //         // Mail::to(Auth::user()->email)->send(new PosterSuccess($abstractsubmission));
+
+    //         // // Send email to president for evaluation
+    //         // $presidents = User::where('role', 'President')->get();
+    //         // foreach ($presidents as $president) {
+    //         //     Mail::to($president->email)->send(new PosterStored($abstractsubmission));
+    //         // }
+
+    //         return view('submmision.preview', compact('abstractsubmission'));
+
+    //     } catch (\Throwable $th) {
+    //         return response()->json(['message' => $th->getMessage()], 400);
+    //     }
+    // }
+
     public function show(Abstractsubmission $abstractsubmission)
     {
-        $abstractsubmission = Abstractsubmission::findOrFail($abstractsubmission->id);
+        $abstractsubmission = Abstractsubmission::with('authorAbstractsubmission')->findOrFail($abstractsubmission->id);
         return view('submmision.preview', compact('abstractsubmission'));
     }
 
@@ -151,7 +188,17 @@ class AbstractsubmissionController extends Controller
         }
 
         else {
+
             $abstractsubmission->update($request->all());
+
+            $presidentId = $request->input('president_id');
+            $president = President::find($presidentId);
+
+            if ($president) {
+                $user = $president->user;
+                Mail::to($user->email)->send(new AbstractSubmissionNotification($abstractsubmission->fresh()));
+            }
+
             return redirect()->back();
         }
 

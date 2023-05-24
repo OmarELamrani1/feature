@@ -28,6 +28,13 @@
         list-style: none;
     }
 
+    .preview-content img {
+        max-width: 200px;
+        max-height: 200px;
+        display: block;
+        margin: 0 auto;
+    }
+
     .label {
         background: #54BFD3;
         color: #fff;
@@ -47,6 +54,25 @@
 </style>
 
 <body>
+    @php
+        function renderImageOrContent($field, $content) {
+            $pattern = '/<img.*?src="(.*?)".*?>/i';
+            preg_match($pattern, $content, $match);
+
+            if (!empty($match[1])) {
+                $imageUrl = $match[1];
+                $imagePath = str_replace(url('/'), public_path('/'), $imageUrl);
+                if (file_exists($imagePath)) {
+                    $extension = pathinfo($imagePath, PATHINFO_EXTENSION);
+                    $data = file_get_contents($imagePath);
+                    $base64 = 'data:image/' . $extension . ';base64,' . base64_encode($data);
+                    return '<img src="' . $base64 . '" alt="' . $field . '">';
+                }
+            }
+            return '<p>' . $content . '</p>';
+        }
+    @endphp
+
     <div id="master">
 
         <div id="content" class="user-content">
@@ -77,46 +103,47 @@
 
                 <tr>
                     <td class="preview-content-box">
-                        <b>Introduction</b>
+                        <b>Clinical History & Presentation</b>
                         <div class="preview-content">
-                            <p>{!! $abstractsubmission->introduction !!}</p>
+                            {!! renderImageOrContent('Introduction', $abstractsubmission->introduction) !!}
                         </div>
                         <br style="clear: both;" />
 
                         @if ($abstractsubmission->type === 'Clinical Case')
-                            <b>Diagnosis</b>
+                            <b>Physical Examination & Diagnostic Workup</b>
                             <div class="preview-content">
-                                <p>{!! $abstractsubmission->diagnosis !!}</p>
+                                {!! renderImageOrContent('diagnosis', $abstractsubmission->diagnosis) !!}
                             </div>
                             <br style="clear: both;" />
                             <b>Treatment</b>
                             <div class="preview-content">
-                                <p>{!! $abstractsubmission->treatment !!}</p>
+                                {!! renderImageOrContent('treatment', $abstractsubmission->treatment) !!}
                             </div>
                             <br style="clear: both;" />
                             <b>Discussion</b>
                             <div class="preview-content">
-                                <p>{!! $abstractsubmission->discussion !!}</p>
+                                {!! renderImageOrContent('discussion', $abstractsubmission->discussion) !!}
                             </div>
                         @else
                             <b>Objectives</b>
+
                             <div class="preview-content">
-                                <p>{!! $abstractsubmission->objective !!}</p>
+                                {!! renderImageOrContent('Objective', $abstractsubmission->objective) !!}
                             </div>
                             <br style="clear: both;" />
                             <b>Methods</b>
                             <div class="preview-content">
-                                <p>{!! $abstractsubmission->method !!}</p>
+                                {!! renderImageOrContent('method', $abstractsubmission->method) !!}
                             </div>
                             <br style="clear: both;" />
                             <b>Results</b>
                             <div class="preview-content">
-                                <p>{!! $abstractsubmission->result !!}</p>
+                                {!! renderImageOrContent('result', $abstractsubmission->result) !!}
                             </div>
                             <br style="clear: both;" />
                             <b>Conclusions</b>
                             <div class="preview-content">
-                                <p>{!! $abstractsubmission->conclusion !!}</p>
+                                {!! renderImageOrContent('conclusion', $abstractsubmission->conclusion) !!}
                             </div>
                         @endif
                         <br style="clear: both;" />
@@ -133,7 +160,6 @@
                     <td>
                         <span id="affirmations-details">Affirmations</span>
                         <div class="preview-affirmations">
-                            <!-- $Id$ -->
                             <table cellspacing="10">
 
                                 <tr>

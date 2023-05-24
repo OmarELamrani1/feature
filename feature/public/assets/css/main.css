@@ -1006,3 +1006,16 @@ input:focus {
         width: 30%;
     }
 }
+
+#previewClinicalCase1 img, #previewClinicalCase2 img, #preview1 img, #preview2 img, #preview3 img{
+    max-width: 200px;
+    max-height: 200px;
+    display: block;
+    margin: 0 auto;
+}
+
+.evaluate{
+    display: block;
+    margin: 30px;
+    padding: 15px;
+}
